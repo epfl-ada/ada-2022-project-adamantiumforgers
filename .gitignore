@@ -1,2 +1,3 @@
 #ignore all files in the directory "data"
 data/
+.ipynb_checkpoints*
