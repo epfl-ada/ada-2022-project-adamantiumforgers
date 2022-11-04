@@ -1,4 +1,5 @@
 # La liste
 
-[ ] faire ça
-[x] faire ci
+- [ ] faire ça
+
+- [x] faire ci
