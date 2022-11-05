@@ -6,15 +6,12 @@
         - [ ] faire le clustering
 - [ ] Faire liste des gens qui ont commnenté sur les chaines de news dans un csv : Stéphane
 - [ ] Quels sont les liens entre les catégories ? (entre tout et tout) : Michel
-
-        - [ ] Explorer les données
-        - [ ] Faire un dessin des données à utiliser
-        - [ ] Explorer les relations avec partis droite / gauche pour faire des stats
-        - [ ] (Si le temps) Généraliser à toutes relations
-        - [ ] (Si le temps) Faire des graphs
+  - [ ] Explorer les données
+  - [ ] Faire un dessin des données à utiliser
+  - [ ] Explorer les relations avec partis droite / gauche pour faire des stats
+  - [ ] (Si le temps) Généraliser à toutes relations
+  - [ ] (Si le temps) Faire des graphs
 - [ ] Essayer de labelliser les chaines à partir de stags, titres de vidéos...
 - [ ] Regarder le film The Social Dilemma
 - [ ] Continuer d'exploiter el dataset en plus : Loïc
-- [ ] 
-- [ ] 
 
