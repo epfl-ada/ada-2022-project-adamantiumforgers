@@ -1,9 +1,10 @@
 # La liste
 
 - [ ] Faire le clustering de graph : Camille (chaque point = une chaine, une ligne = count de l'intersection des auteurs commentant les deux) 
-        - [ ] regarder ce que le clustering prend en entrée
-        - [ ] faire le graphe
-        - [ ] faire le clustering
+  - [X] regarder ce que le clustering prend en entrée
+  - [X] faire le graphe
+  - [ ] faire le clustering
+  - [ ] runner les iterations sur un nrows plus importants
 - [ ] Faire liste des gens qui ont commnenté sur les chaines de news dans un csv : Stéphane
 - [ ] Quels sont les liens entre les catégories ? (entre tout et tout) : Michel
   - [x] Explorer les données
