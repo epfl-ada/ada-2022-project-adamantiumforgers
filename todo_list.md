@@ -6,8 +6,8 @@
         - [ ] faire le clustering
 - [ ] Faire liste des gens qui ont commnenté sur les chaines de news dans un csv : Stéphane
 - [ ] Quels sont les liens entre les catégories ? (entre tout et tout) : Michel
-  - [ ] Explorer les données
-  - [ ] Faire un dessin des données à utiliser
+  - [x] Explorer les données
+  - [x] Trouver les données à utiliser
   - [ ] Explorer les relations avec partis droite / gauche pour faire des stats
   - [ ] (Si le temps) Généraliser à toutes relations
   - [ ] (Si le temps) Faire des graphs
