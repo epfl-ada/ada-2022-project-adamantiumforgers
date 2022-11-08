@@ -1,58 +1,53 @@
-,name,orr,agr,disagr
-0,ABC News,Lean Left,39282,19610
-1,AlterNet,Left,15182,3432
-2,Associated Press,Lean Left,31851,24871
-3,Associated Press Fact Check,Lean Left,6043,6932
-4,Axios,Center,7570,8400
-5,BBC News,Center,32335,27745
-6,Bloomberg,Lean Left,17390,22451
-7,Breitbart News,Right,42381,11750
-8,BuzzFeed News,Left,27250,9655
-9,CBS News,Lean Left,20588,13167
-10,The Christian Science Monitor,Center,16729,20348
-11,CNN,Left,58878,50719
-12,CNN,Left,37112,8242
-13,Daily Beast,Left,21661,6603
-14,Daily Mail,Right,13552,7321
-15,Democracy Now!,Left,14541,3390
-16,Forbes,Center,15215,9838
-17,Fox News,Right,49463,51604
-18,Fox News,Right,31935,7339
-19,HuffPost,Left,37524,22685
-20,Insider,Lean Left,4404,6669
-21,Mother Jones,Left,16688,2537
-22,MSNBC,Left,23798,6048
-23,National Review,Right,21333,8780
-24,NBC News,Lean Left,14135,13454
-25,New York Post,Lean Right,17018,8883
-26,The New York Times,Lean Left,32428,42197
-27,The New York Times,Left,17341,4875
-28,NewsNation,Center,430,514
-29,Newsweek,Center,4599,8247
-30,NPR,Lean Left,33981,33516
-31,NPR,Lean Left,9428,11140
-32,Politico,Lean Left,25134,32010
-33,Reasontv,Lean Right,10189,6286
-34,Reuters,Center,21147,12438
-35,Slate,Left,10656,3814
-36,American Spectator,Right,12565,4437
-37,The Atlantic,Left,16209,9070
-38,The Blaze,Right,109247,85429
-39,Daily Caller,Right,10872,4340
-40,The Daily Wire,Right,12771,4414
-41,The Economist,Lean Left,6784,11458
-42,Epoch News,Lean Right,13377,7136
-43,The Federalist,Right,10179,3121
-44,The Guardian,Lean Left,15990,9949
-45,The Hill,Center,18259,24926
-46,The Intercept,Left,6251,1920
-47,The New Yorker,Left,10668,2619
-48,Time,Lean Left,10249,8656
-49,USA TODAY,Lean Left,19824,22066
-50,Vox,Left,32374,15478
-51,Wall Street Journal,Center,24863,27066
-52,Wall Street Journal,Lean Right,12258,8170
-53,Washington Examiner,Lean Right,14350,6906
-54,Washington Free Beac...,Right,934,686
-55,Washington Post,Lean Left,38492,27109
-56,Washington Times,Lean Right,29102,13944
+,name,orrientation,confidence,comu_agree,comu_disagree
+0,ABC News,Lean Left,High,39305,19628
+1,AlterNet,Left,Medium,15189,3432
+2,Associated Press,Lean Left,Medium,31888,24899
+3,Associated Press Fact Check,Lean Left,Medium,6063,6946
+4,Axios,Center,Medium,7582,8416
+5,BBC News,Center,Medium,32350,27774
+6,Bloomberg,Lean Left,Medium,17399,22461
+7,Breitbart News,Right,High,42400,11748
+8,BuzzFeed News,Left,Medium,27263,9657
+9,CBS News,Lean Left,Medium,20600,13168
+10,The Christian Science Monitor,Center,High,16737,20354
+11,CNN,Left,High,58949,50741
+13,Daily Beast,Left,High,21672,6607
+14,Daily Mail,Right,Low or Initial,13560,7328
+15,Democracy Now!,Left,Low or Initial,14548,3390
+16,Forbes,Center,Low or Initial,15228,9846
+17,Fox News,Right,High,49533,51627
+19,HuffPost,Left,High,37541,22687
+20,Insider,Lean Left,Medium,4415,6678
+21,Mother Jones,Left,Low or Initial,16695,2537
+22,MSNBC,Left,Medium,23819,6051
+23,National Review,Right,Medium,21349,8784
+24,NBC News,Lean Left,Medium,14162,13464
+25,New York Post,Lean Right,High,17041,8887
+26,The New York Times,Lean Left,High,32462,42232
+28,NewsNation,Center,Low or Initial,443,525
+29,Newsweek,Center,Medium,4609,8275
+30,NPR,Lean Left,Medium,33993,33534
+32,Politico,Lean Left,Medium,25149,32031
+33,Reasontv,Lean Right,Medium,10193,6289
+34,Reuters,Center,Medium,21179,12461
+35,Slate,Left,Low or Initial,10667,3816
+36,American Spectator,Right,Medium,12566,4437
+37,The Atlantic,Left,Low or Initial,16229,9077
+38,The Blaze,Right,Low or Initial,109332,85465
+39,Daily Caller,Right,Medium,10874,4341
+40,The Daily Wire,Right,Medium,12784,4417
+41,The Economist,Lean Left,Medium,6792,11474
+42,Epoch News,Lean Right,Medium,13401,7150
+43,The Federalist,Right,Low or Initial,10179,3123
+44,The Guardian,Lean Left,Medium,16011,9971
+45,The Hill,Center,Medium,18282,24947
+46,The Intercept,Left,Low or Initial,6263,1926
+47,The New Yorker,Left,Low or Initial,10677,2623
+48,Time,Lean Left,Low or Initial,10257,8661
+49,USA TODAY,Lean Left,High,19832,22079
+50,Vox,Left,High,32398,15481
+51,Wall Street Journal,Center,High,24891,27087
+53,Washington Examiner,Lean Right,High,14367,6919
+54,Washington Free Beac...,Right,Medium,937,686
+55,Washington Post,Lean Left,High,38520,27148
+56,Washington Times,Lean Right,Medium,29107,13948

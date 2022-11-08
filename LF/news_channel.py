@@ -71,6 +71,8 @@ merged_inner = merged_inner.drop_duplicates()
 
 with pd.option_context('display.max_rows', None,):
     merged_inner
+
+merged_inner.loc[merged_inner['name_cc'].duplicated(False)]
 #%%
 ## using the method contains
 
@@ -92,7 +94,6 @@ with pd.option_context('display.max_rows', None,):
 
 sns.histplot(merged_inner['category_cc'])
 plt.xticks(rotation=90);
-
 
 
 # %%
