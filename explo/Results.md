@@ -4,7 +4,7 @@
 
 code : `number_channel_categories.py`
 
-18 :
+There are 18 categories :
 
 - Empty
 - Autos & Vehicles
