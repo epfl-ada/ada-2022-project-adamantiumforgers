@@ -64,25 +64,26 @@ medias.to_csv("data/medias.csv",sep=";",index=False)
 
 # %% 5
 
-## Create a table display_id -> channel_num of News and Politics
+## Create a table display_id -> channel_num
 
-%timeit
 
-# Should we use channels or media ? Change the file here
-use = 'channels'
+# Should we use channels or medias ? Change the file here
+use = 'medias'
 
 if use =='medias':
-    df_channels = pd.read_csv("data/medias.csv", sep=";")
-    PATH_RESULT = "data/display_id_to_medias.csv"
+    PATH_DATA = "data/medias.csv"
+    PATH_RESULT = "data/display_id_to_medias_temp.csv" #_temp to avoid overwriting the long one we already created
 else:
-    df_channels = pd.read_csv("data/channels.csv", sep=";")
-    PATH_RESULT = "data/display_id_to_channels.csv"
+    PATH_DATA = "data/channels.csv"
+    PATH_RESULT = "data/display_id_to_channels_temp.csv" #_temp to avoid overwriting the long one we already created
+
+df_channels = pd.read_csv(PATH_DATA, sep=";")
 
 display_id_to_channels = pd.DataFrame(columns=['display_id','channel_id','channel_num'])
 display_id_to_channels.to_csv("data/display_id_to_channels.csv",sep=";",header=True, index=False)
 
 #for chunk in pd.read_json(PATH_METADATA, lines=True, compression="infer", chunksize=100000):
-for chunk in pd.read_json(PATH_METADATA, lines=True, compression="infer", chunksize=10000, nrows=1000000):
+for chunk in pd.read_json(PATH_METADATA, lines=True, compression="infer", chunksize=10000):
     chunk = chunk[chunk.categories == 'News & Politics']
     df_temp = chunk[['display_id','channel_id']]
     df_temp = df_temp.merge(df_channels, on='channel_id',how='inner') # Here, are deleted videos with category News&Politics in a channel whose category is not News&Politics
@@ -99,24 +100,23 @@ for chunk in pd.read_json(PATH_METADATA, lines=True, compression="infer", chunks
 
 # Create a table author -> channel_num
 
-%timeit
-
-# Should we use channels or media ? Change the file here
+# Should we use channels or medias ? Change the file here
 use = 'channels'
 
 if use =='medias':
     display_id_to_channels = pd.read_csv("data/display_id_to_medias.csv",sep=";",usecols=['display_id','channel_num'])
-    PATH_RESULT = "data/authors_to_medias.csv"
+    PATH_RESULT = "data/authors_to_medias_temp.csv" #_temp to avoid overwriting the long one we already created
+
 else:
     display_id_to_channels = pd.read_csv("data/display_id_to_channels.csv",sep=";",usecols=['display_id','channel_num'])
-    PATH_RESULT = "data/authors_to_channels.csv"
+    PATH_RESULT = "data/authors_to_channels_temp.csv"#_temp to avoid overwriting the long one we already created
 
 display_id_to_channels.columns=['video_id','channel_num']
 
 author_to_channel = pd.DataFrame(columns=['author','channel_num'])
 author_to_channel.to_csv(PATH_RESULT,sep=";",header=True, index=False)
 
-for chunk in pd.read_csv(PATH_COMMENTS,sep='\t',usecols = ['author','video_id'],chunksize=100000, nrows=10000000):
+for chunk in pd.read_csv(PATH_COMMENTS,sep='\t',usecols = ['author','video_id'],chunksize=1000000, nrows=10000000):
     df_temp = chunk.merge(display_id_to_channels, on='video_id')
     df_temp=df_temp[['author','channel_num']]
     # Regroup for this chunk all comments from same authors to same channels (reduces size in memory)
@@ -136,9 +136,7 @@ for chunk in pd.read_csv(PATH_COMMENTS,sep='\t',usecols = ['author','video_id'],
 
 # Create the relational graph - Based on merged between two copies of author_to_channels/medias
 
-%timeit
-
-# Should we use channels or media ? Change the file here
+# Should we use channels, medias or test ? Change the file here
 use = 'channels'
 
 if use =='channels':
@@ -169,11 +167,14 @@ for chunk in pd.read_csv(PATH_DATA,sep=';',chunksize=100000, nrows=1000):
 
 edges = pd.read_csv("data/graph.csv",sep=";")
 
-G = nx.from_pandas_edgelist(edges, source='source', target='target', edge_attr='weight')
+# Created an undirected graph from the edges list
+G = nx.from_pandas_edgelist(edges, source='source', target='target', edge_attr='weight', create_using=nx.Graph())
+
+# Remove self pointing edges
 G.remove_edges_from(nx.selfloop_edges(G))
 
 edges = nx.to_pandas_edgelist(G)
-edges.to_csv("data/graph.csv",sep=";")
+edges.to_csv("data/graph.csv",sep=";",index=False)
 
 display(edges)
 
