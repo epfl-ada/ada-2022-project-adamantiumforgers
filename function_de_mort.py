@@ -33,22 +33,25 @@ df_metadata = pd.read_json(PATH_METADATA, compression='infer', lines=True, nrows
 df_metadata.head()
 
 # %%
-df_author_video = pd.read_csv(PATH_AUTHOR_TO_CHANNEL, compression="infer", sep="\t", nrows=10000)
+df_author_video = pd.read_csv(PATH_AUTHOR_TO_CHANNEL, compression="infer", sep=";", nrows=10000)
 df_author_video.head()
 
 # %%
 author_video = pd.DataFrame(columns=['author','channel_id'])
 author_video.to_csv("data/author_to_channel_id.csv",sep=";",header=True, index=False)
-channel_num = pd.read_csv(DIR + "channels.csv")
-print(channel_num.index)
+channel_num = pd.read_csv(DIR + "channels.csv", sep=';')
+print(channel_num['channel_num'])
 print(df_author_video.index)
-print(df_author_video.columns)
+print(df_author_video['channel_num'])
 
 # %%
-print
-for chunk in pd.read_csv(PATH_AUTHOR_TO_CHANNEL, compression="infer", sep="\t", chunksize=10000):
-    to_save = chunk.groupby(channel_num, on='channel_num')
-    to_save.to_csv(DIR + 'author_to_channel_id.csv', mode='a')
+for chunk in pd.read_csv(PATH_AUTHOR_TO_CHANNEL, compression="infer", sep=";", chunksize=10000):
+    to_save = chunk.merge(channel_num, on='channel_num')
+    
+    print(to_save.head())
+    to_save[['author','channel_id']].to_csv(DIR + 'author_to_channel_id.csv', mode='a', header=False, sep=';', index=False)
 
-
+# %%
+df_result = pd.read_csv(DIR + 'author_to_channel_id.csv',sep=';')
+df_result.head()
 # %%

@@ -17,3 +17,5 @@
 - [ ] Sur Gephi, comment savoir quel point correspond à quel point ? Stéphane
 - [ ] Comprendre les algos de GePhi
 - [ ] Essayer de voir si uniquement avec les 40 chaines ça raccourcit le temps de processing : Camille
+- [ ] (Michel) Trouver une manière de clusteriser les channels de News
+  - [ ] Cleaner les datas 
