@@ -3,9 +3,6 @@
 - [ ] Quels sont les liens entre les catégories ? (entre tout et tout) : Michel
   - [x] Explorer les données
   - [x] Trouver les données à utiliser
-  - [ ] Explorer les relations avec partis droite / gauche pour faire des stats
-  - [ ] (Si le temps) Généraliser à toutes relations
-  - [ ] (Si le temps) Faire des graphs
 - [ ] Essayer de labelliser les chaines à partir de stags, titres de vidéos...
 - [ ] Regarder le film The Social Dilemma
 - [ ] Question à l'assistant pour jeudi : Tout le monde
@@ -18,4 +15,5 @@
 - [ ] Comprendre les algos de GePhi
 - [ ] Essayer de voir si uniquement avec les 40 chaines ça raccourcit le temps de processing : Camille
 - [ ] (Michel) Trouver une manière de clusteriser les channels de News
-  - [ ] Cleaner les datas 
+  - [x] Cleaner les datas
+  - [ ] Clusteriser les channels restants
