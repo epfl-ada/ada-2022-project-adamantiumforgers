@@ -20,22 +20,22 @@ soup = BeautifulSoup(html, "html.parser")
 #chromrdriver =os.path.join(A,B)
 #os.environ["webdriver.chrome.driver"] = chromrdriver
 driver = webdriver.Chrome(executable_path=r'C:/Users/fisch/Desktop/chromedriver/chromedriver.exe')
-#driver.get("https://www.allsides.com/media-bias/ratings?field_featured_bias_rating_value=All&field_news_source_type_tid[1]=1&field_news_source_type_tid[2]=2&field_news_source_type_tid[3]=3&field_news_source_type_tid[4]=4")
-driver.get(url)
+driver.get("https://www.allsides.com/media-bias/ratings?field_featured_bias_rating_value=All&field_news_source_type_tid[1]=1&field_news_source_type_tid[2]=2&field_news_source_type_tid[3]=3&field_news_source_type_tid[4]=4")
+#driver.get(url)
 
-ScrollNumber = 2
+ScrollNumber = 28
 for i in range(1,ScrollNumber):
     driver.execute_script("window.scrollTo(1,1000000)")
     time.sleep(5)
 
     
-file = open('DS_ft.html', 'w')
+file = open('DS.html', 'w')
 file.write(driver.page_source)
 file.close()
 
 driver.close()
 
-test= open('DS_ft.html', 'r')
+test= open('DS.html', 'r')
 soup = BeautifulSoup(test, "html.parser")
 test.close
 
@@ -89,15 +89,16 @@ del com_disagr_num[1::2]
 
 
 # %%
-df_media=pd.DataFrame
-df_media=pd.read_csv('media_ft_man_mod copy.csv')
-df_media=df_media.drop(columns=['Unnamed: 0','confidence','orrientation','comu_agree','comu_disagree'])
+df_media=pd.DataFrame(name,columns =['name'])
+#df_media=pd.read_csv('media_ft_man_mod copy.csv')
+#df_media=df_media.drop(columns=['Unnamed: 0','confidence','orrientation','comu_agree','comu_disagree'])
+#df_media['name']=name
 df_media['orrientation']=orr
 df_media['confidence']=test
 df_media['comu_agree']=com_agr_num
 df_media['comu_disagree']=com_disagr_num
-df_media=df_media.drop_duplicates(['name'])
-df_media.to_csv('media_ft_man_mod_2.csv')
+#df_media=df_media.drop_duplicates(['name'])
+df_media.to_csv('media_ft_man_mod_all.csv')
 
 
 
