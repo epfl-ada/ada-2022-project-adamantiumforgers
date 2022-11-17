@@ -23,7 +23,8 @@ soup = BeautifulSoup(html, "html.parser")
 driver = webdriver.Chrome(executable_path=r'C:/Users/fisch/Desktop/chromedriver/chromedriver.exe')
 driver.get(url)
 
-ScrollNumber = 2
+ScrollNumber = 2  #2 if featured medias, 28 if all medias
+
 for i in range(1,ScrollNumber):
     driver.execute_script("window.scrollTo(1,1000000)")
     time.sleep(5)
@@ -46,12 +47,12 @@ soup_com_agr =soup.find_all("span",{"class": "agree"})
 soup_com_disagr =soup.find_all("span",{"class": "disagree"})
 #%%
 import re
-test=[]
-href=[]
-name=[]
-orr=[]
-com_agr_num=[]
-com_disagr_num=[]
+test    =[]
+href    =[]
+name    =[]
+orr     =[]
+com_agr_num     =[]
+com_disagr_num  =[]
 
 for mydiv in soup_mydivs:
     var=mydiv.get_text()
@@ -89,7 +90,7 @@ del com_disagr_num[1::2]
 
 # %%
 df_media=pd.DataFrame()
-df_media=pd.read_csv('media_ft_yt_names.csv')
+df_media=pd.read_csv('media_ft_yt_names.csv',index_col=0)
 df_media['orrientation']=orr
 df_media['confidence']=test
 df_media['comu_agree']=com_agr_num

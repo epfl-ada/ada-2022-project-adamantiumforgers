@@ -1,53 +1,53 @@
-,Unnamed: 0,name,orrientation,confidence,comu_agree,comu_disagree
-0,0,ABC News,Lean Left,High,39419,19664
-1,1,AlterNet,Left,Medium,15215,3443
-2,2,Associated Press,Lean Left,Medium,32086,25020
-3,3,Associated Press Fact Check,Lean Left,Medium,6113,7014
-4,4,Axios,Center,Medium,7608,8458
-5,5,BBC News,Center,Medium,32427,27837
-6,6,Bloomberg,Lean Left,Medium,17421,22494
-7,7,Breitbart News,Right,High,42456,11761
-8,8,BuzzFeed News,Left,Medium,27300,9671
-9,9,CBS News,Lean Left,Medium,20637,13189
-10,10,The Christian Science Monitor,Center,High,16758,20386
-11,11,CNN,Left,High,59164,50834
-13,13,Daily Beast,Left,High,21704,6619
-14,14,Daily Mail,Right,Low or Initial,13601,7343
-15,15,Democracy Now!,Left,Low or Initial,14576,3398
-16,16,Forbes,Center,Low or Initial,15262,9875
-17,17,Fox News,Right,High,49803,51719
-19,19,HuffPost,Left,High,37586,22697
-20,20,Insider,Lean Left,Medium,4456,6722
-21,21,Mother Jones,Left,na,16725,2544
-22,22,MSNBC,Left,Medium,23880,6067
-23,23,National Review,Right,Medium,21420,8827
-24,24,NBC News,Lean Left,Medium,14248,13514
-25,25,New York Post,Lean Right,High,17122,8929
-26,26,The New York Times,Lean Left,High,32580,42324
-28,28,NewsNation,Center,Low or Initial,470,563
-29,29,Newsweek,Center,Medium,4648,8355
-30,30,NPR,Lean Left,Medium,34058,33590
-32,32,Politico,Lean Left,Medium,25198,32077
-33,33,Reasontv,Lean Right,Medium,10207,6306
-34,34,Reuters,Center,Medium,21273,12519
-35,35,Slate,Left,Low or Initial,10688,3829
-36,36,American Spectator,Right,Medium,12577,4449
-37,37,The Atlantic,Left,Low or Initial,16271,9094
-38,38,The Blaze,Right,Low or Initial,109632,85614
-39,39,Daily Caller,Right,Medium,10887,4353
-40,40,The Daily Wire,Right,Medium,12832,4434
-41,41,The Economist,Lean Left,Medium,6809,11511
-42,42,Epoch News,Lean Right,Medium,13464,7205
-43,43,The Federalist,Right,Low or Initial,10198,3135
-44,44,The Guardian,Lean Left,Medium,16088,10003
-45,45,The Hill,Center,Medium,18328,25018
-46,46,The Intercept,Left,Low or Initial,6274,1938
-47,47,The New Yorker,Left,Low or Initial,10698,2630
-48,48,Time,Lean Left,Low or Initial,10274,8677
-49,49,USA TODAY,Lean Left,High,19849,22111
-50,50,Vox,Left,High,32465,15487
-51,51,Wall Street Journal,Center,High,24969,27145
-53,53,Washington Examiner,Lean Right,High,14412,6960
-54,54,Washington Free Beac...,Right,Medium,943,692
-55,55,Washington Post,Lean Left,High,38588,27222
-56,56,Washington Times,Lean Right,Medium,29125,13962
+,name,orrientation,confidence,comu_agree,comu_disagree
+0,ABC News,Lean Left,High,39419,19665
+1,AlterNet,Left,Medium,15215,3444
+2,Associated Press,Lean Left,Medium,32087,25023
+3,Associated Press Fact Check,Lean Left,Medium,6114,7015
+4,Axios,Center,Medium,7608,8460
+5,BBC News,Center,Medium,32428,27838
+6,Bloomberg,Lean Left,Medium,17422,22494
+7,Breitbart News,Right,High,42457,11761
+8,BuzzFeed News,Left,Medium,27300,9671
+9,CBS News,Lean Left,Medium,20637,13189
+10,The Christian Science Monitor,Center,High,16758,20386
+11,CNN,Left,High,59165,50835
+13,Daily Beast,Left,High,21704,6619
+14,Daily Mail,Right,Low or Initial,13602,7343
+15,Democracy Now!,Left,Low or Initial,14576,3398
+16,Forbes,Center,Low or Initial,15262,9875
+17,Fox News,Right,High,49805,51719
+19,HuffPost,Left,High,37586,22697
+20,Insider,Lean Left,Medium,4456,6722
+21,Mother Jones,Left,na,16726,2544
+22,MSNBC,Left,Medium,23880,6067
+23,National Review,Right,Medium,21421,8828
+24,NBC News,Lean Left,Medium,14248,13514
+25,New York Post,Lean Right,High,17122,8930
+26,The New York Times,Lean Left,High,32579,42325
+28,NewsNation,Center,Low or Initial,470,563
+29,Newsweek,Center,Medium,4648,8356
+30,NPR,Lean Left,Medium,34058,33590
+32,Politico,Lean Left,Medium,25198,32077
+33,Reasontv,Lean Right,Medium,10207,6307
+34,Reuters,Center,Medium,21275,12519
+35,Slate,Left,Low or Initial,10688,3829
+36,American Spectator,Right,Medium,12577,4449
+37,The Atlantic,Left,Low or Initial,16271,9094
+38,The Blaze,Right,Low or Initial,109635,85614
+39,Daily Caller,Right,Medium,10887,4353
+40,The Daily Wire,Right,Medium,12832,4435
+41,The Economist,Lean Left,Medium,6809,11511
+42,Epoch News,Lean Right,Medium,13465,7205
+43,The Federalist,Right,Low or Initial,10198,3135
+44,The Guardian,Lean Left,Medium,16088,10004
+45,The Hill,Center,Medium,18330,25019
+46,The Intercept,Left,Low or Initial,6274,1938
+47,The New Yorker,Left,Low or Initial,10698,2630
+48,Time,Lean Left,Low or Initial,10274,8678
+49,USA TODAY,Lean Left,High,19850,22111
+50,Vox,Left,High,32466,15487
+51,Wall Street Journal,Center,High,24969,27146
+53,Washington Examiner,Lean Right,High,14412,6961
+54,Washington Free Beac...,Right,Medium,943,692
+55,Washington Post,Lean Left,High,38590,27222
+56,Washington Times,Lean Right,Medium,29125,13963

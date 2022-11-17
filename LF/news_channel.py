@@ -52,18 +52,18 @@ df_comments.head(5)
 df_channels_md=pd.DataFrame()
 df_media=pd.DataFrame()
 
-df_media=pd.read_csv('media_ft_man_mod.csv')
+df_media=pd.read_csv('media_all_raw.csv',index_col=0)
 
 df_channels['name_cc']=df_channels['name_cc'].str.casefold()
 df_media['name']=df_media['name'].str.casefold()
 
 df_channels_md=df_channels[(df_channels['name_cc'].isin(df_media['name']))]
-df_channels_md=df_channels_md[df_channels_md['subscribers_cc']>1e4]
+df_channels_md=df_channels_md[df_channels_md['subscribers_cc']>1e7]
 df_channels_md=df_channels_md.reset_index(drop=True)
 
 
 merged_inner = pd.merge(left=df_channels, right=df_media, left_on='name_cc', right_on='name')
-merged_inner = merged_inner.drop(['Unnamed: 0','name'], axis=1)
+merged_inner = merged_inner.drop(['name'], axis=1)
 merged_inner = merged_inner.sort_values(by=['name_cc'])
 merged_inner = merged_inner.reset_index(drop=True)
 merged_inner = merged_inner.drop_duplicates()
@@ -72,7 +72,9 @@ merged_inner = merged_inner.drop_duplicates()
 with pd.option_context('display.max_rows', None,):
     merged_inner
 
-merged_inner.loc[merged_inner['name_cc'].duplicated(False)]
+#merged_inner.loc[merged_inner['name_cc'].duplicated(False)]
+
+merged_inner.to_csv('channels_yt_all.csv')
 #%%
 ## using the method contains
 
