@@ -29,6 +29,11 @@ In order to classify the different orientations of the youtube users we decided 
 *US media bias classification* 
 
 The goal of this data story would be to analyse the differents ineraction between the communites on youtube. Does they share a commun interest?
+## Aditional dataset
+
+[AllSides][4] is an American company that assesses the political bias of prominent media outlets, and presents different versions of similar news stories from sources of the political right, left, and center, in a mission to show readers news outside their filter bubble. Focusing on online publications, it has rated over 800 sources on a five-point scale: Left, Leans left, Center, Leans right, and Right. Each source is ranked by unpaid volunteer editors, overseen by two staff members holding political biases different from each other. These crowd-sourced reviews are augmented by editorial reviews performed by staff members. Reassessments may be made based on like button results from community feedback. AllSides uses these rankings to produce [media bias][3] charts listing popular sources.
+
+
 
 ## Methodology
 The diffenrent community would be created using the file "youtube_comments". Every user who commented on one of the diffenrent news souces would be assign to a plotical orrientation.
@@ -38,3 +43,4 @@ Then a graph linking channels with the nummber of user commenting the two channe
 [1]: https://www.nber.org/papers/w26669
 [2]: https://theconversation.com/mapping-brazils-political-polarization-online-96434
 [3]: https://www.allsides.com/media-bias
+[4]: https://www.allsides.com
