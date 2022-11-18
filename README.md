@@ -56,29 +56,30 @@ The website has been scraped and 2 data sets have been created:
 - the number of vote of the community that disagree with the media bias
 
 
-
+### Data collected from Allsides:
 |        |**name**|**orrientation**|**confidence**|**commu_agree**|**commu_disagree**|
 |--------|------------------------|------------|----------|---------|------------|
 | **0**  | ABC News               | Lean Left  | High     | 39305   | 19628      |
 | **...**| ...                    | ...        | ...      | ...     | ...        |
 
 
-Once the dataset cleaned and merged with the youtube channels, 37 on 59 channels were found in the youniverse dataset.
+Once the dataset cleaned and merged with the youtube channels, 37 on 59 channels were found in the youniverse dataset. Those csv files, *channels_yt_all.csv* and *channels_yt_ft.csv*, can be found [here](allsides_scraping/csv)
 
+### Merged data with the Youniverse dataset:
 ||**category_cc**|**join_date**|**channel**|**name_cc**|**subscribers_cc**|**videos_cc**|**subscriber_rank_sb**|**weights**|**orrientation**|**confidence**|**comu_agree**|**comu_disagree**|
 |--|---|---|----|-----|----|----|----|----|----|----|------|---|
 |**0**|News&Politics|2006-08-07|UCBi2mrWuNuyYy4gbM6fU18Q|abcnews|6640000|48869|978.0|2.087|LeanLeft|High|39419|19665|
 |**...**|...|...|...|...|...|...|...|...|...|...|...|...|27222|
 
-To get a first idea of t data, the visualisation of the two new datasets can be found in the file: *news_channel.ipynb*
+To get a first idea of t data, the visualisation of the two new datasets can be found in the file: *news_channel.ipynb* under allsides_scraping
 
 ### For the bigger dataset:
 
-<img src="./LF/hist_all.png" alt="media_bias" class="center"/>
+<img src="./allsides_scraping/hist_all.png" alt="media_bias" class="center"/>
 
 ### For the featured medias:
 
-<img src="./LF/hist_ft.png" alt="media_bias" class="center"/>
+<img src="./allsides_scraping/hist_ft.png" alt="media_bias" class="center"/>
 
 
 
