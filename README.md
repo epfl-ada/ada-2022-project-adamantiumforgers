@@ -14,15 +14,15 @@ Project based on the YouNiverse dataset provided by the EPFL dlab ([Github](http
 
 
 ## Abstract
-In 2017, with the arrival in power of Donald Trump as president of the United States, the American political world then quickly split between the pro and anti Trump. This polarization is also reflected online: according to a [study][2] on Facebook lead by to brazilan reseacher, the polarization one year after the the 2017 election can be pictures as follows
+In 2017, with the arrival in power of Donald Trump as president of the United States, the American political world then quickly split between the pro and anti-Trump. This polarization is also reflected online: according to a [study][2] on Facebook lead by to Brazilian researcher, the polarization one year after the 2017 election can be pictures as follows :
 
 <img src="./pictures/fb_us_pol.png" alt="fb_us_pol" width="700"/>
 
 *One year after the bitterly divisive election of Donald Trump as U.S. president, American Facebook users on the political right shared virtually no interests with those on the political left. Pablo Ortellado and Marcio Moretto Ribeiro, CC BY*
 
-However this trend of a more polarized society goes back even further. According to a [study][1] lead by Jesse M. Shapiro, Brown University, this polarization began in the late 1990s and early 2000s and has been only increasing since, promoted by the detrimental properties of the US voting system that incentivize people to become radical.
+However, this trend towards a more polarized society goes back even further. According to a [study][1] lead by Jesse M. Shapiro, Brown University, this polarization began in the late 1990s and early 2000s and has been only increasing since, promoted by the detrimental properties of the US voting system that incentivize people to become radical.
 
-Does the same effect can be measure on youtube communities? The goal of this data story would be to analyse the differents ineraction between the communites on youtube. Does they share a common interest?
+Does the same effect can be measure on YouTube communities? The goal of this data story would be to analyze the profiles of political communities on YouTube. How are they connected ? Who are their members ?
 
 
 ## Research Questions
@@ -30,7 +30,7 @@ In this project, we will try to answer the following questions, as many as possi
 1. Can we identify communities inside the already classified  main US News&Politics channels ? Is there a clear left-right polarization and isolated communities on each side?
 2. Can we identify natural communities in the whole dataset, independently of the political orientation?
 3. What is the distribution of users polarization? Is it Gaussian? How many very extreme users do we see? For this purpose, we could assign a p-score (polarization or political score) to users : -1 for left, -0.5 for lean left, 0 for center, 0.5 for lean right, 1 for right.
-4. Study a few particular «neutral» channels (ex : NASA, MIT, KhanAcademy, ...) or marginal channels (Flat Earth Society) and analyze their audience, thanks to the classified news channels. What percentage of their audience do they share with each political orientation?
+4. Study a few particular «neutral» channels (ex : NASA, KhanAcademy, Gaming channels, Comedy Channels ...) or marginal channels (Flat Earth Society) and analyze their audience, thanks to the classified news channels. What percentage of their audience do they share with each political orientation?
 5. Study various vents by filtering by tags, descriptions or video titles that contains key words, for example "US Election", "Impeachment", "Hunter Biden", "Capitol". Are these events more covered by one political side?
 
 
