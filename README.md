@@ -16,11 +16,12 @@ In 2017, with the arrival in power of Donald Trump as president of the United St
 
 
 <img src="./pictures/fb_us_pol.png" alt="fb_us_pol" width="700"/>
+
 *Complete disconnexion of political landscape. Pablo Ortellado and Marcio Moretto Ribeiro, CC BY*
 
 
 ## Research Questions
-In this project, we will try to answer the following questions, as many as possible by order of priority, in accordance to the time available before the milestone 3:
+We will try to answer the following questions, in accordance to the time available before the milestone 3:
 1. Can we identify communities inside the main US News&Politics channels ? Is there a clear left-right polarization and isolated communities on each side?
 2. Can we identify natural communities in the whole dataset, independently of the political orientation?
 3. What is the distribution of users polarization? Is it Gaussian? How many very extreme users do we see? For this purpose, we will assign a p-score (polarization or political score) to users.
@@ -33,6 +34,7 @@ In this project, we will try to answer the following questions, as many as possi
 In order to classify the different political orientations of the youtube users, we decided to use the media bias classification given by [Allsides][3]. AllSides is an American company that assesses the political bias of prominent media outlets, categorized in five political orientation categories: Left, Lean Left, Center, Lean Right, Right. More info [here][5].
 
 <img src="./pictures/media_bias_allsides.png" alt="media_bias" width="400"/>
+
 *US media bias classification* 
 
 The website has been scraped and 2 data sets have been created:
@@ -71,12 +73,16 @@ The code used to exctract the AllSides dataset is in the [allsides_scraping.py](
 The code used to treat raw data and create the original graph can be found in [graph_creation.ipynb](graph_construction.ipynb).
 Then, [clustering.ipynb](clustering.ipynb) is used to identify communities in the graph.
 
-Generated csv files (in csv_output file) :
+Generated csv files (in `csv_output` folder) :
 - channels.csv : relates channel_id to channel_num (all channels in News&Politics)
 - medias.csv : relates channel_id, channel name and channel_num, for AllSides medias
 - display_id_to_channels.csv : connects, for all News&Politics channels, display_id to channels_num
 - authors_to_channels.csv : for all News&Politics channels, 1 line : this author has comented (at least once) this channel (identified by channel_num)
 - graph.csv : all graph edges, connecting two channels that have been commented by the same authors. Weight : number of authors who commented both channels
+- graph_medias.csv: ++++++++++
+- graph_channels.csv: ++++++++++
+- louvain_filtered_graph.csv: +++++++++
+
 
 ### Data handling
 Since this dataset is huge (~111GB compressed), it is very important to have a proper methodology to store, access, preprocess and filter it efficiently. All the data is stored locally, with the largest files on an external hard drive. The largest files are read by chunks to produce the graph. However, once the graph is done, the amount of data is much smaller (~30KB) and can be handled very easily.
