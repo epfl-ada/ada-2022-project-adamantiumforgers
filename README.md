@@ -102,11 +102,11 @@ Explain in detail what we filtered
 Give mathematical details of the methods used (and libraries)
 
 
-### Step 1: 
+### Step 1: Create a sample of data to work on
 
 ### Step 2: Clustering
 
-We wanted to see if we were able to detect channel communities within our dataset. To do this we generated an undirected weigthed graph using user comments i.e if a user wrote a comment on a video of channel 1 and a comment on a video on channel 2, we create an edge of weight 1 between channel 1 and channel 2.
+We wanted to see if we were able to detect channel communities within our dataset. To do this we generated an undirected weigthed graph using user comments with the following methodology : If a user wrote a comment on a video of channel 1 and a comment on a video on channel 2, we create an edge of weight 1 between channel 1 and channel 2.
 
 To rapidly visualize how well it works we used `Gephi`, an open source graph visualisation platform. We discovered the louvain algorithm on gephi and realised it detected communities quite well.
 
