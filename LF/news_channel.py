@@ -3,8 +3,8 @@
 File name: news_channel.py
 Author: Loïc Fischer
 Date created: 05/11/2022
-Date last modified: 05/11/2022
-Python Version: 3.8
+Date last modified: 18/11/2022
+Python Version: 3.9.13
 '''
 
 #%%
@@ -42,24 +42,34 @@ df_video_meta = df_video_meta.dropna()
 df_comments = pd.read_csv(os.path.join(PATH,DATA_COMMENT),sep=SEPARATOR,nrows=1e6)
 df_comments = df_comments.dropna()
 
+# Display of the imported datasets
 df_video_meta.head()
 df_channels.head(5)
 df_comments.head(5)
 
-
+## Note: only partial data have been imported for a faster processing time.
 
 #%%
+# Merging the dataset from Allside and the one from Youniverse
+
+dataset="all" # Choose the dataset : "ft" or "all"
+
 df_channels_md=pd.DataFrame()
 df_media=pd.DataFrame()
 
-df_media=pd.read_csv('media_all_raw.csv',index_col=0)
+if dataset=="all":
+    df_media=pd.read_csv('media_all_raw.csv',index_col=0)
+elif dataset=="ft":
+    df_media=pd.read_csv('media_ft_raw.csv',index_col=0)
+else:
+    print("You need to choose a dataset")
 
 df_channels['name_cc']=df_channels['name_cc'].str.casefold()
 df_media['name']=df_media['name'].str.casefold()
 
-df_channels_md=df_channels[(df_channels['name_cc'].isin(df_media['name']))]
-df_channels_md=df_channels_md[df_channels_md['subscribers_cc']>1e7]
-df_channels_md=df_channels_md.reset_index(drop=True)
+#df_channels_md=df_channels[(df_channels['name_cc'].isin(df_media['name']))]
+#df_channels_md=df_channels_md[df_channels_md['subscribers_cc']>1e6]
+#df_channels_md=df_channels_md.reset_index(drop=True)
 
 
 merged_inner = pd.merge(left=df_channels, right=df_media, left_on='name_cc', right_on='name')
@@ -73,8 +83,12 @@ with pd.option_context('display.max_rows', None,):
     merged_inner
 
 #merged_inner.loc[merged_inner['name_cc'].duplicated(False)]
-
-merged_inner.to_csv('channels_yt_all.csv')
+if dataset=="all":
+    merged_inner.to_csv('channels_yt_all_test.csv')
+elif dataset=="ft":
+    merged_inner.to_csv('channels_yt_ft_test.csv')
+else:
+    print("You need to choose a dataset")
 #%%
 ## using the method contains
 
@@ -89,22 +103,27 @@ merged_inner.to_csv('channels_yt_all.csv')
 #   df_media.loc[ind1, 'name_cc'] = ', '.join(list(df_channels_news[df_channels_news['name_cc'].str.contains(df_media['name'][ind1])]['name_cc']))
 #with pd.option_context('display.max_rows', None,):
 #    df_media[df_media['name_cc'].str.len() > 0]
-
 #%%
 
 
+fig, axs = plt.subplots(1,4, figsize=(20,5));
 
-sns.histplot(merged_inner['category_cc'])
-plt.xticks(rotation=90);
+sns.histplot(data=merged_inner, x='category_cc', ax=axs[0]).tick_params('x', labelrotation=90)
+sns.histplot(data=merged_inner, x='category_cc', ax=axs[0]).title.set_text("Categories of {} medias channels".format(dataset))
+
+sns.histplot(data=merged_inner, x='subscribers_cc', ax=axs[1]);
+sns.histplot(data=merged_inner, x='subscribers_cc', ax=axs[1]).title.set_text("Number of subscribers of {} medias channels".format(dataset));
+
+sns.histplot(data=merged_inner, x='orrientation', ax=axs[2]).tick_params('x', labelrotation=90);
+sns.histplot(data=merged_inner, x='orrientation', ax=axs[2]).title.set_text("Orientation of {} medias channels".format(dataset))
+
+sns.histplot(data=merged_inner, x='confidence', ax=axs[3]).tick_params('x', labelrotation=90);
+sns.histplot(data=merged_inner, x='confidence', ax=axs[3]).title.set_text("Confidence on the orrientaton of {} medias channels".format(dataset))
 
 
-# %%
-sns.histplot(merged_inner['subscribers_cc'],binwidth=1e5)
-plt.xticks(rotation=90);
-# %%
-sns.histplot(merged_inner['orr'],binwidth=1e5)
-plt.xticks(rotation=90);
-# %%
+plt.tight_layout();
+plt.savefig('hist_{}.png'.format(dataset));
+
 
 # %%
 def test_channel_name(testword,news=True):
@@ -118,5 +137,6 @@ def test_channel_name(testword,news=True):
 def test_channel_id(testword):
     with pd.option_context('display.max_rows',None,'display.max_columns', None,'display.max_colwidth',4000):
         return df_channels[(df_channels['channel'].str.contains(testword.casefold()))]
+
 
 # %%

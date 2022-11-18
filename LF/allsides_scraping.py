@@ -1,4 +1,12 @@
 #%%
+'''
+File name: allsides_scraping.py
+Author: Loïc Fischer
+Date created: 05/11/2022
+Date last modified: 18/11/2022
+Python Version: 3.9.13
+'''
+#%%
 import os
 import time
 import pandas as pd
@@ -16,20 +24,17 @@ page = urlopen(url)
 html = page.read().decode("utf-8")
 soup = BeautifulSoup(html, "html.parser")
 #%%
-#A="C:/Users/fisch/Desktop"
-#B='chromedriver'
-#chromrdriver =os.path.join(A,B)
-#os.environ["webdriver.chrome.driver"] = chromrdriver
-driver = webdriver.Chrome(executable_path=r'C:/Users/fisch/Desktop/chromedriver/chromedriver.exe')
-driver.get(url)
 
-ScrollNumber = 2  #2 if featured medias, 28 if all medias
+# Use of a locally install driver to scrolldow the website since information are not all downloaded at the opening of the page.
+driver = webdriver.Chrome(executable_path=r'C:/Users/fisch/Desktop/chromedriver/chromedriver.exe') 
+driver.get(url)
+ScrollNumber = 2  #Number of scroll 2 if featured medias, 28 if all medias
 
 for i in range(1,ScrollNumber):
     driver.execute_script("window.scrollTo(1,1000000)")
     time.sleep(5)
 
-    
+# Writting of an html file
 file = open('DS_ft.html', 'w')
 file.write(driver.page_source)
 file.close()
@@ -46,6 +51,8 @@ soup_pol_or = soup.find_all("td", {"class": "views-field views-field-field-bias-
 soup_com_agr =soup.find_all("span",{"class": "agree"})
 soup_com_disagr =soup.find_all("span",{"class": "disagree"})
 #%%
+# Collection of data inside the html file
+
 import re
 test    =[]
 href    =[]
@@ -86,18 +93,13 @@ for com_disagr in soup_com_disagr:
     com_disagr_num.append(truc1)
 del com_disagr_num[1::2]
 
-
-
 # %%
+# Creation of a csv file
 df_media=pd.DataFrame()
-df_media=pd.read_csv('media_ft_yt_names.csv',index_col=0)
+df_media=pd.read_csv('media_ft_yt_names.csv',index_col=0) #Import of "clean" youtube name 
 df_media['orrientation']=orr
 df_media['confidence']=test
-df_media['comu_agree']=com_agr_num
-df_media['comu_disagree']=com_disagr_num
+df_media['commu_agree']=com_agr_num
+df_media['commu_disagree']=com_disagr_num
 df_media=df_media.drop_duplicates(['name'])
 df_media.to_csv('media_ft_yt_clean.csv')
-
-
-
-# %%

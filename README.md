@@ -40,9 +40,43 @@ In order to classify the different political orientations of the youtube users, 
 > [AllSides][4] is an American company that assesses the political bias of prominent media outlets, and presents different versions of similar news stories from sources of the political right, left, and center, in a mission to show readers news outside their filter bubble. Focusing on online publications, it has rated over 800 sources on a five-point scale: Left, Leans left, Center, Leans right, and Right. Each source is ranked by unpaid volunteer editors, overseen by two staff members holding political biases different from each other. These crowd-sourced reviews are augmented by editorial reviews performed by staff members. Reassessments may be made based on like button results from community feedback. AllSides uses these rankings to produce [media bias][3] charts listing popular sources.
 
 <img src="./pictures/media_bias_allsides.png" alt="media_bias" width="300" class="center"/>
+
 *US media bias classification* 
 
-SHOW THAT THE WORK IS ALREADY DONE. GO TECHNICAL (how did we get it, list of files and describe what each of them do, present the final .csv file: what is inside it, what's the size?)
+The web site has been scraped and 2 data sets have been created:
+- A dataset with only the featured media (59 medias)
+- A dataset with all the media identified on the website (1279 medias)
+
+5 kind of datea have beeen extracted from the website:
+- the name of the media
+- the media bias given by [Allsides][3]
+- the confidence of [Allsides][3] on the media bias
+- the number of vote of the community that agree with the media bias
+- the number of vote of the community that disagree with the media bias
+
+
+
+|        | **name**                    | **orrientation**    | **confidence**    | **commu_agree** | **commu_disagree** |
+|---------|------------------------|------------|----------|---------|------------|
+| **0**   | ABC News               | Lean Left  | High     | 39305   | 19628      |
+| **1**   | AlterNet               | Left       | Medium   | 15189   | 3432       |
+| **2**   | Associated Press       | Lean Left  | Medium   | 31888   | 24899      |
+| **...** | ...                    | ...        | ...      | ...     | ...        |
+| **56**  | Washington Free Beacon | Right      | Medium   | 937     | 686        |
+| **57**  | Washington Post        | Lean Left  | High     | 38520   | 27148      |
+| **58**  | Washington Times       | Lean Right | Medium   | 29107   | 13948      |
+
+Once the dataset cleaned and merged with the youtube channels, 37 on 59 channels were found in the youniverse dataset.
+
+|         | **category_cc** | **join_date** | **channel**              | **name_cc**             | **subscribers_cc** | **videos_cc** | **subscriber_rank_sb** | **weights**        | **orrientation** | **confidence** | **comu_agree** | **comu_disagree** |
+|---------|-----------------|---------------|--------------------------|-------------------------|--------------------|---------------|------------------------|--------------------|------------------|----------------|----------------|-------------------|
+| **0**   | News & Politics | 2006-08-07    | UCBi2mrWuNuyYy4gbM6fU18Q | abc news                | 6640000            | 48869         | 978.0                  | 2.087              | Lean Left        | High           | 39419          | 19665             |
+| **1**   | News & Politics | 2006-09-18    | UC52X5wxOL_s5yw0dQk7NtgA | associated press        | 1040000            | 129072        | 14780.0                | 2.7865             | Lean Left        | Medium         | 32087          | 25023             |
+| **...** | ...             | ...           | ...                      | ...                     | ...                | ...           | ...                    | ...                | ...              | ...            | ...            | ...               |
+| **35**  | News & Politics | 2012-01-16    | UCdn-M_vxWEK07X3t19ximDQ | washington free beac... | 54400              | 10375         | 268770.0               | 6.7010000000000005 | Right            | Medium         | 943            | 692               |
+| **36**  | News & Politics | 2006-06-30    | UCHd62-u_v4DvJ8TCFtpi4GA | washington post         | 767000             | 13619         | 18005.0                | 2.9025             | Lean Left        | High           | 38590          | 27222             |
+
+
 
 
 ## Methodology
