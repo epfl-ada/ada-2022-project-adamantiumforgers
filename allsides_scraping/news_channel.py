@@ -58,9 +58,9 @@ df_channels_md=pd.DataFrame()
 df_media=pd.DataFrame()
 
 if dataset=="all":
-    df_media=pd.read_csv('media_all_raw.csv',index_col=0)
+    df_media=pd.read_csv('csv/media_all_raw.csv',index_col=0)
 elif dataset=="ft":
-    df_media=pd.read_csv('media_ft_raw.csv',index_col=0)
+    df_media=pd.read_csv('csv/media_ft_raw.csv',index_col=0)
 else:
     print("You need to choose a dataset")
 
@@ -84,9 +84,9 @@ with pd.option_context('display.max_rows', None,):
 
 #merged_inner.loc[merged_inner['name_cc'].duplicated(False)]
 if dataset=="all":
-    merged_inner.to_csv('channels_yt_all_test.csv')
+    merged_inner.to_csv('csv/channels_yt_all_test.csv')
 elif dataset=="ft":
-    merged_inner.to_csv('channels_yt_ft_test.csv')
+    merged_inner.to_csv('csv/channels_yt_ft_test.csv')
 else:
     print("You need to choose a dataset")
 #%%
@@ -122,7 +122,7 @@ sns.histplot(data=merged_inner, x='confidence', ax=axs[3]).title.set_text("Confi
 
 
 plt.tight_layout();
-plt.savefig('hist_{}.png'.format(dataset));
+plt.savefig('figures/hist_{}.png'.format(dataset));
 
 
 # %%
