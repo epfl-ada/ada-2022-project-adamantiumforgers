@@ -35,13 +35,13 @@ for i in range(1,ScrollNumber):
     time.sleep(5)
 
 # Writting of an html file
-file = open('DS_ft.html', 'w')
+file = open('html/DS_ft.html', 'w')
 file.write(driver.page_source)
 file.close()
 
 driver.close()
 
-test= open('DS_ft.html', 'r')
+test= open('html/DS_ft.html', 'r')
 soup = BeautifulSoup(test, "html.parser")
 test.close
 
@@ -96,10 +96,10 @@ del com_disagr_num[1::2]
 # %%
 # Creation of a csv file
 df_media=pd.DataFrame()
-df_media=pd.read_csv('media_ft_yt_names.csv',index_col=0) #Import of "clean" youtube name 
+df_media=pd.read_csv('csv/media_ft_yt_names.csv',index_col=0) #Import of "clean" youtube names 
 df_media['orrientation']=orr
 df_media['confidence']=test
 df_media['commu_agree']=com_agr_num
 df_media['commu_disagree']=com_disagr_num
 df_media=df_media.drop_duplicates(['name'])
-df_media.to_csv('media_ft_yt_clean.csv')
+df_media.to_csv('csv/media_ft_yt_clean.csv')
