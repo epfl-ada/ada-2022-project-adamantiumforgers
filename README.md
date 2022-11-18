@@ -30,7 +30,7 @@ In this project, we will try to answer the following questions, as many as possi
 1. Can we identify communities inside the already classified  main US News&Politics channels ? Is there a clear left-right polarization and isolated communities on each side?
 2. Can we identify natural communities in the whole dataset, independently of the political orientation?
 3. What is the distribution of users polarization? Is it Gaussian? How many very extreme users do we see? For this purpose, we could assign a p-score (polarization or political score) to users : -1 for left, -0.5 for lean left, 0 for center, 0.5 for lean right, 1 for right.
-4. Study a few particular «neutral» channels (ex : NASA, MIT, KhanAcademy, ...) or marginal channels (Flat Earth Society) and analyze their audience, thanks to the classified news channels. What percentage of their audience do they share with each political orientation?
+4. Study a few particular «neutral» channels (ex : NASA, KhanAcademy, Gaming channels, Comedy Channels ...) or marginal channels (Flat Earth Society) and analyze their audience, thanks to the classified news channels. What percentage of their audience do they share with each political orientation?
 5. Study various vents by filtering by tags, descriptions or video titles that contains key words, for example "US Election", "Impeachment", "Hunter Biden", "Capitol". Are these events more covered by one political side?
 
 
