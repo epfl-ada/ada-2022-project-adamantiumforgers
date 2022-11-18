@@ -114,16 +114,10 @@ To rapidly visualize how well it works we used `Gephi`, an open source graph vis
 There were a lot of news channel that were pakistani or indian. When we ran the louvain algorithm with python using the `networkx` package, we quickly identified all the channels that were unnecessary. We then obtained a list of channels that were only in the USA and in the correct language.
 
 We ran the louvain algorithm again on our new filtered graph and obtained promising results. We indeed discovered discovered left and right-oriented communities 
+
 ### Visualization
 
-INSERT HERE OUR FIRST GRAPHS
-
-The diffenrent community would be created using the file "youtube_comments". Every user who commented on one of the diffenrent news souces would be assign to a plotical orrientation.
-
-
-
-Then a graph linking channels with the nummber of user commenting the two channels as a link would be created. Finally the goal would be to cluster the different channels an alanyse if 
-
+<img src="./pictures/Graph.png" alt="media_bias" class="center"/>
 
 
 
