@@ -27,11 +27,11 @@ Does the same effect can be measure on YouTube communities? The goal of this dat
 
 ## Research Questions
 In this project, we will try to answer the following questions, as many as possible by order of priority, in accordance to the time available before the milestone 3:
-1. Can we identify communities inside the already classified  main US News&Politics channels ? Is there a clear left-right polarization and isolated communities on each side?
+1. Can we identify communities inside the main US News&Politics channels ? Is there a clear left-right polarization and isolated communities on each side?
 2. Can we identify natural communities in the whole dataset, independently of the political orientation?
 3. What is the distribution of users polarization? Is it Gaussian? How many very extreme users do we see? For this purpose, we could assign a p-score (polarization or political score) to users : -1 for left, -0.5 for lean left, 0 for center, 0.5 for lean right, 1 for right.
-4. Study a few particular «neutral» channels (ex : NASA, KhanAcademy, Gaming channels, Comedy Channels ...) or marginal channels (Flat Earth Society) and analyze their audience, thanks to the classified news channels. What percentage of their audience do they share with each political orientation?
-5. Study various vents by filtering by tags, descriptions or video titles that contains key words, for example "US Election", "Impeachment", "Hunter Biden", "Capitol". Are these events more covered by one political side?
+4. Based on the communities identified, can we describe political orientation of audience of non-News&Politics channels ? Study a few particular «neutral» channels (ex : NASA, KhanAcademy, Gaming channels, Comedy Channels ...) or marginal channels (Flat Earth Society) and analyze their audience and their links with news channels. What percentage of their audience do they share with each political orientation?
+5. How are main political events treated by channels in different communities ? Study various vents by filtering by tags, descriptions or video titles that contains key words, for example "US Election", "Impeachment", "Hunter Biden", "Capitol".
 
 
 ## Additional dataset 
@@ -84,10 +84,15 @@ To get a first idea of t data, the visualisation of the two new datasets can be 
 
 
 ## Methods
-ADD LIST OF OUR USEFUL FILES
+
+The code used to treat raw data and create the original graph can be found in graph_creation.ipynb.
+The code used to exctract the AllSides dataset is in allsides_scraping file.
+Then, clustering.ipynb is used to identify communities in the graph.
+
+Generated csv files (in csv_output file) :
 - channels.csv : relates channel_id to channel_num (all channels in News&Politics)
 - medias.csv : relates channel_id, channel name and channel_num, for AllTimes medias
-- display_id to channels.csv : connects, for all News&Politics channels, display_id to channels_num
+- display_id_to_channels.csv : connects, for all News&Politics channels, display_id to channels_num
 - authors_to_channels.csv : for all News&Politics channels, 1 line : this author has comented (at least once) this channel (identified by channel_num)
 - graph.csv : all graph edges, connecting two channels that have been commented by the same authors. Weight : number of authors who commented both channels
 - graph_test.csv : short version of graph.csv, to perform tests with Gephi
@@ -124,16 +129,16 @@ We ran the louvain algorithm again on our new filtered graph and obtained promis
 ## Proposed timeline
 - 18 November: Milestone P2 due
 - 25 November: Apply everything we tested yet (Louvain algorithm, graph visualisation) to the whole/larger subset of comments
-- 02 November: Homework 2 due. No project work
-- 09 December: Creation of the website to have an idea (even if empty for the moment), Answer questions
-- 16 December: ???
+- 02 December: Homework 2 due. No project work
+- 09 December: Creation of the website to have an idea (even if empty for the moment), look into words occurences analysis of video titles and tags, give political score to authors
+- 16 December: Answer research questions
 - 23 December: Milestone P3 due. Focus on writing up the report or the data story, preparing the final presentation, formating for the website and the data story, 
 
 
 ## Team organization
 
 - Loïc:
-- Camille: 
+- Camille: Answer research question 5
 - Michel : 
 - Stéphane: 
 
