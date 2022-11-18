@@ -104,7 +104,7 @@ We wanted to see if we were able to detect channel communities within our datase
 - Loïc: Find the center of interest of the various communities found in the graph.
 - Camille: Analyse words occurences in video tags and titles, create the website for final presentation of results
 - Michel : Implement properly the clustering algorithms, colorize the graph as function of the communities, Insert the main channel labels directly on the graph.
-- Stéphane: Create the graph on a larger number of comments (possibly the whole dataset). Implement the score for research question 3.
+- Stéphane: Create the graph on a larger number of comments (possibly the whole dataset). Implement the p-score to analyze the distribution of users.
 
 [1]: https://www.nber.org/papers/w26669
 [2]: https://theconversation.com/mapping-brazils-political-polarization-online-96434
