@@ -1,4 +1,4 @@
-# Does Youtube reflects the overall polarization in the US?
+# Does Youtube reflects the overall political polarization in the US?
 Study of the links between Youtube channel communities thanks to the comments left by users
 
 By the Adamantium Forgers
