@@ -1,0 +1,38 @@
+,category_cc,join_date,channel,name_cc,subscribers_cc,videos_cc,subscriber_rank_sb,weights,orrientation,confidence,comu_agree,comu_disagree
+0,News & Politics,2006-08-07,UCBi2mrWuNuyYy4gbM6fU18Q,abc news,6640000,48869,978.0,2.087,Lean Left,High,39419,19665
+1,News & Politics,2006-09-18,UC52X5wxOL_s5yw0dQk7NtgA,associated press,1040000,129072,14780.0,2.7865,Lean Left,Medium,32087,25023
+2,News & Politics,2006-04-08,UC16niRr50-MSBwiO3YDb3RA,bbc news,5190000,10459,1531.0,2.087,Center,Medium,32428,27838
+3,News & Politics,2006-03-09,UCUMZ7gohGI9HcU9VNsr2FJQ,bloomberg,1800000,47804,6697.0,2.4925,Lean Left,Medium,17422,22494
+4,News & Politics,2015-02-24,UCmgnsaQIK1IR808Ebde-ssA,breitbart news,137000,2210,117307.0,4.541,Right,High,42457,11761
+5,News & Politics,2010-03-05,UCf4FYTsGFFcdc68AUPIU3RA,buzzfeed news,807000,298,21628.0,2.9535,Left,Medium,27300,9671
+6,News & Politics,2006-09-27,UC8p1vwvWtl6T73JiExfWs1g,cbs news,1870000,71889,5857.0,2.4595,Lean Left,Medium,20637,13189
+7,News & Politics,2005-10-02,UCupvZG-5ko_eiXAupbDfxWw,cnn,7500000,146299,720.0,2.087,Left,High,59165,50835
+8,News & Politics,2009-05-16,UCP4BdwPKyYnfRLjSNfGAPRA,daily caller,135000,1050,119520.0,4.1365,Right,Medium,10887,4353
+9,Entertainment,2012-08-20,UCw3fku0sH3qA3c3pZeJwdAw,daily mail,551455,42213,29515.0,3.0185,Right,Low or Initial,13602,7343
+10,News & Politics,2006-07-12,UCzuqE7-t13O4NIDYJfakrhw,democracy now!,581000,10694,28718.0,2.975,Left,Low or Initial,14576,3398
+11,News & Politics,2006-05-23,UCmh7afBz-uWwOSSNTqUBAhg,forbes,732000,5489,22109.0,2.946,Center,Low or Initial,15262,9875
+12,News & Politics,2006-09-19,UCXIJgqnII2ZOINSWNOGFThA,fox news,3520000,60195,2716.0,2.219,Right,High,49805,51719
+13,News & Politics,2007-12-17,UCZfsrIV68Oegr5bJgAMLBDA,huffpost,572000,2408,30648.0,3.091,Left,High,37586,22697
+14,Entertainment,2015-09-25,UCHJuQZuzapBh-CuhRYxIZrg,insider,4890000,6822,1613.0,2.087,Lean Left,Medium,4456,6722
+15,News & Politics,2009-01-14,UCbWB33FQvFiV0Pq9Calkgzw,mother jones,28700,469,440378.0,6.584499999999999,Left,na,16726,2544
+16,News & Politics,2011-12-01,UCaXkIU1QidjPwiAYu6GcHjg,msnbc,1910000,23393,5600.0,2.444,Left,Medium,23880,6067
+17,News & Politics,2006-07-19,UCeY0bbntWzzVIaj2z3QigXg,nbc news,1470000,19165,7967.0,2.5755,Lean Left,Medium,14248,13514
+18,People & Blogs,2006-03-02,UCrvhNP_lWuPIP6QZzJmM-bw,new york post,313000,5768,55187.0,3.498,Lean Right,High,17122,8930
+19,News & Politics,2008-08-22,UC2a35q7eyzkfoIusBzdH4Hw,newsweek,19800,2789,547100.0,9.6455,Center,Medium,4648,8356
+20,News & Politics,2006-04-22,UCJnS2EsPfv46u1JR8cnD0NA,npr,208000,530,77520.0,3.474,Lean Left,Medium,34058,33590
+21,News & Politics,2007-10-13,UC0uVZd8N7FfIZnPu0y7o95A,reasontv,453000,2718,37175.0,3.276,Lean Right,Medium,10207,6307
+22,News & Politics,2007-02-12,UCYC4ijpFZY_CtdElWFyy-Gg,slate,190000,3108,86900.0,4.3405,Left,Low or Initial,10688,3829
+23,News & Politics,2006-01-25,UCK0z0_5uL7mb9IjntOKi5XQ,the atlantic,377000,738,44494.0,3.35,Left,Low or Initial,16271,9094
+24,Music,2017-02-06,UCscDWYhNER2NvEVKfL0aYwA,the blaze,136111,19,117810.0,4.5145,Right,Low or Initial,109635,85614
+25,News & Politics,2015-08-20,UCaeO5vkdj5xOQHp4UmIN6dw,the daily wire,1680000,4653,7949.0,2.57,Right,Medium,12832,4435
+26,News & Politics,2009-03-23,UC0p5jTq6Xx_DosDFxVXnWaQ,the economist,999000,1812,13820.0,2.8075,Lean Left,Medium,6809,11511
+27,News & Politics,2006-02-15,UCHpw8xwDNhU9gdohEcJu4aA,the guardian,1010000,6610,14430.0,2.847,Lean Left,Medium,16088,10004
+28,News & Politics,2016-03-16,UCv002AUCZaPNwiADqwchijg,the intercept,118903,143,122376.0,4.247,Left,Low or Initial,6274,1938
+29,News & Politics,2006-10-13,UCqnbDFdCpuN8CMEg0VuEBqA,the new york times,2150000,9619,5225.0,2.397,Lean Left,High,32579,42325
+30,News & Politics,2007-02-09,UCsD-Qms-AkXDrsU962OicLw,the new yorker,371000,1189,44213.0,3.367,Left,Low or Initial,10698,2630
+31,News & Politics,2006-09-19,UC8Su5vZCXWRag13H53zWVwA,time,690000,9886,23486.0,2.9895,Lean Left,Low or Initial,10274,8678
+32,News & Politics,2006-03-20,UCP6HGa63sBC7-KHtkme-p-g,usa today,1100000,24033,12019.0,2.688,Lean Left,High,19850,22111
+33,News & Politics,2014-03-04,UCLXo7UDZvByw2ixzpQCufnA,vox,6570000,1048,924.0,2.087,Left,High,32466,15487
+34,News & Politics,2007-06-18,UCK7tptUDHh-RYDsdxO1-5QQ,wall street journal,1630000,25937,7264.0,2.5315,Center,High,24969,27146
+35,News & Politics,2012-01-16,UCdn-M_vxWEK07X3t19ximDQ,washington free beac...,54400,10375,268770.0,6.7010000000000005,Right,Medium,943,692
+36,News & Politics,2006-06-30,UCHd62-u_v4DvJ8TCFtpi4GA,washington post,767000,13619,18005.0,2.9025,Lean Left,High,38590,27222
