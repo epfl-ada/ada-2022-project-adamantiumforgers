@@ -31,7 +31,7 @@ In this project, we will try to answer the following questions, as many as possi
 2. Can we identify natural communities in the whole dataset, independently of the political orientation?
 3. What is the distribution of users polarization? Is it Gaussian? How many very extreme users do we see? For this purpose, we could assign a p-score (polarization or political score) to users : -1 for left, -0.5 for lean left, 0 for center, 0.5 for lean right, 1 for right.
 4. Study a few particular «neutral» channels (ex : NASA, MIT, KhanAcademy, ...) or marginal channels (Flat Earth Society) and analyze their audience, thanks to the classified news channels. What percentage of their audience do they share with each political orientation?
-5. Study various events by filtering by tags, descriptions or video titles that contains key words, for example "US Election", "Impeachment", "Hunter Biden", "Capitol". Are these events more covered by one political side?
+5. Study various vents by filtering by tags, descriptions or video titles that contains key words, for example "US Election", "Impeachment", "Hunter Biden", "Capitol". Are these events more covered by one political side?
 
 
 ## Additional dataset 
@@ -76,6 +76,10 @@ Once the dataset cleaned and merged with the youtube channels, 37 on 59 channels
 | **35**  | News & Politics | 2012-01-16    | UCdn-M_vxWEK07X3t19ximDQ | washington free beac... | 54400              | 10375         | 268770.0               | 6.7010000000000005 | Right            | Medium         | 943            | 692               |
 | **36**  | News & Politics | 2006-06-30    | UCHd62-u_v4DvJ8TCFtpi4GA | washington post         | 767000             | 13619         | 18005.0                | 2.9025             | Lean Left        | High           | 38590          | 27222             |
 
+
+<img src="./LF/hist_all.png" alt="media_bias" class="center"/>
+
+<img src="./LF/hist_ft.png" alt="media_bias" class="center"/>
 
 
 
