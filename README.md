@@ -25,7 +25,7 @@ We will try to answer the following questions, in accordance to the time availab
 2. Can we identify natural communities in the whole dataset, independently of the political orientation?
 3. What is the distribution of users polarization? Is it Gaussian? How many very extreme users do we see? For this purpose, we will assign a p-score (polarization or political score) to users.
 4. Based on the communities identified, can we describe political orientation of audience of non-News&Politics channels ? Study a few particular «neutral» channels (ex : Education, Gaming, Comedy Channels ...) or marginal channels (Flat Earth Society) and analyze their audience and their links with news channels.
-5. How are main political events treated by channels in different communities ? Study various vents by filtering by tags, descriptions or video titles that contains key words, for example "US Election", "Impeachment", "Hunter Biden", "Capitol".
+5. How are main political events treated by channels in different communities ? Study various events by filtering by tags, descriptions or video titles that contains key words, for example "US Election", "Impeachment", "Hunter Biden", "Capitol".
 
 
 ## Additional dataset 
