@@ -78,7 +78,7 @@ Generated csv files (in `csv_output` folder) :
 - authors_to_channels.csv : for all News&Politics channels, 1 line : this author has comented (at least once) this channel (identified by channel_num)
 - graph_medias.csv: all graph edges, connecting two channels of AllTimes medias that have been commented by the same authors. Weight : number of authors who commented both channels
 - graph_channels.csv: all graph edges, connecting two channels of News&Politics that have been commented by the same authors. Weight : number of authors who commented both channels
-- louvain_filtered_graph.csv: +++++++++
+- louvain_filtered_graph.csv: same as graph_channels, but with non-english channels filtered out. 
 
 
 ### Data handling
