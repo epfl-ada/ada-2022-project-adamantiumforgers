@@ -73,11 +73,10 @@ Then, [clustering.ipynb](clustering.ipynb) is used to identify communities in th
 
 Generated csv files (in csv_output file) :
 - channels.csv : relates channel_id to channel_num (all channels in News&Politics)
-- medias.csv : relates channel_id, channel name and channel_num, for AllTimes medias
+- medias.csv : relates channel_id, channel name and channel_num, for AllSides medias
 - display_id_to_channels.csv : connects, for all News&Politics channels, display_id to channels_num
 - authors_to_channels.csv : for all News&Politics channels, 1 line : this author has comented (at least once) this channel (identified by channel_num)
 - graph.csv : all graph edges, connecting two channels that have been commented by the same authors. Weight : number of authors who commented both channels
-- graph_test.csv : short version of graph.csv, to perform tests with Gephi
 
 ### Data handling
 Since this dataset is huge (~111GB compressed), it is very important to have a proper methodology to store, access, preprocess and filter it efficiently. All the data is stored locally, with the largest files on an external hard drive. The largest files are read by chunks to produce the graph. However, once the graph is done, the amount of data is much smaller (~30KB) and can be handled very easily.
@@ -95,16 +94,16 @@ We wanted to see if we were able to detect channel communities within our datase
 - 25 November: Apply everything we tested yet (Louvain algorithm, graph visualisation) to the whole/larger subset of comments
 - 02 December: Homework 2 due. No project work
 - 09 December: Creation of the website to have an idea (even if empty for the moment), look into words occurences analysis of video titles and tags, give political score to authors
-- 16 December: Answer research questions
+- 16 December: Answer research questions, create insightful graphs and other helpful data visualizations.
 - 23 December: Milestone P3 due. Focus on writing up the report or the data story, preparing the final presentation, formating for the website and the data story, 
 
 
 ## Team organization
 
-- Loïc:
+- Loïc: Find the center of interest of the various communities found in the graph.
 - Camille: Answer research question 5
-- Michel : 
-- Stéphane: 
+- Michel : Implement properly the clustering algorithms, colorize the graph as function of the communities, Insert the main channel labels directly on the graph.
+- Stéphane: Create the graph on a larger number of comments (possibly the whole dataset). Implement research question 3.
 
 [1]: https://www.nber.org/papers/w26669
 [2]: https://theconversation.com/mapping-brazils-political-polarization-online-96434
