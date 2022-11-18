@@ -1,3 +1,11 @@
+'''
+File name: graph_creation.ipynb
+Author: Camille Bernelin
+Date created: 10/11/2022
+Date last modified: 18/11/2022
+Python Version: 3.9.13
+'''
+
 # %% 1
 
 import numpy as np
