@@ -1,7 +1,5 @@
-# Does Youtube reflects the overall polarization in the US?
-**Study of the links between Youtube channel communities thanks to the comments left by users**
-Project based on the YouNiverse dataset provided by the EPFL dlab ([Github](https://github.com/epfl-dlab/YouNiverse) and [Dataset](https://zenodo.org/record/4650046#.Y3bCAzOZNpg))
-
+# Does Youtube reflects the overall political polarization in the US?
+Study of the links between Youtube channel communities thanks to the comments left by users
 
 By the Adamantium Forgers:
 
