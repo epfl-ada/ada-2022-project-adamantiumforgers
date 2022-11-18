@@ -63,7 +63,7 @@ The website has been scraped and 2 data sets have been created:
 | **...**| ...                    | ...        | ...      | ...     | ...        |
 
 
-Once the dataset cleaned and merged with the youtube channels, 37 on 59 channels were found in the youniverse dataset. Those csv files, *channels_yt_all.csv* and *channels_yt_ft.csv*, can be found [here](allsides_scraping/csv)
+Once the dataset cleaned and merged with the youtube channels, 37 on 59 channels were found in the youniverse dataset. Those csv files, [*channels_yt_all.csv*](./allsides_scraping/csv/channels_yt_all.csv) and [*channels_yt_ft.csv*](./allsides_scraping/csv/channels_yt_ft.csv), can be found [here](./allsides_scraping/csv).
 
 ### Merged data with the Youniverse dataset:
 ||**category_cc**|**join_date**|**channel**|**name_cc**|**subscribers_cc**|**videos_cc**|**subscriber_rank_sb**|**weights**|**orrientation**|**confidence**|**comu_agree**|**comu_disagree**|
@@ -75,11 +75,11 @@ To get a first idea of t data, the visualisation of the two new datasets can be 
 
 ### For the bigger dataset:
 
-<img src="./allsides_scraping/hist_all.png" alt="media_bias" class="center"/>
+<img src="./allsides_scraping/figures/hist_all.png" alt="media_bias" class="center"/>
 
 ### For the featured medias:
 
-<img src="./allsides_scraping/hist_ft.png" alt="media_bias" class="center"/>
+<img src="./allsides_scraping/figures/hist_ft.png" alt="media_bias" class="center"/>
 
 
 
