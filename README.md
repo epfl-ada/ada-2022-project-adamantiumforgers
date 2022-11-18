@@ -106,6 +106,13 @@ Give mathematical details of the methods used (and libraries)
 
 ### Step 2: Clustering
 
+We wanted to see if we were able to detect channel communities within our dataset. To do this we generated an undirected weigthed graph using user comments i.e if a user wrote a comment on a video of channel 1 and a comment on a video on channel 2, we create an edge of weight 1 between channel 1 and channel 2.
+
+To rapidly visualize how well it works we used `Gephi`, an open source graph visualisation platform. We discovered the louvain algorithm on gephi and realised it detected communities quite well.
+
+There were a lot of news channel that were pakistani or indian. When we ran the louvain algorithm with python using the `networkx` package, we quickly identified all the channels that were unnecessary. We then obtained a list of channels that were only in the USA and in the correct language.
+
+We ran the louvain algorithm again on our new filtered graph and obtained promising results. We indeed discovered discovered left and right-oriented communities 
 ### Step 3: Visualization using the Gephi software
 
 INSERT HERE OUR FIRST GRAPHS
