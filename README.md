@@ -1,5 +1,4 @@
 # Does Youtube reflects the overall political polarization in the US?
-Study of the links between Youtube channel communities thanks to the comments left by users
 
 By the Adamantium Forgers:
 
@@ -31,7 +30,7 @@ We will try to answer the following questions, in accordance to the time availab
 
 ## Additional dataset 
 
-In order to classify the different political orientations of the youtube users, we decided to use the media bias classification given by [Allsides][3]. AllSides is an American company that assesses the political bias of prominent media outlets, categorized in five political orientation categories: Left, Lean Left, Center, Lean Right, Right. More info [here][5].
+In order to classify the different political orientations of the youtube users, we decided to use the media bias classification given by [Allsides][3]. AllSides is an American company that assesses the political bias of prominent media outlets, categorized in five political orientation categories: Left, Lean Left, Center, Lean Right, Right. More info [here][5]. The code used to extract the AllSides dataset is in the [allsides_scraping.py](./allsides_scraping/allsides_scraping.py) file. No notebook was produced since no output is required, only an export to csv.
 
 <img src="./pictures/media_bias_allsides.png" alt="media_bias" width="400"/>
 
@@ -69,7 +68,6 @@ To get a first idea of the data, the visualization of the two new datasets can b
 
 ## Methods
 
-The code used to exctract the AllSides dataset is in the [allsides_scraping.py](./allsides_scraping/allsides_scraping.py) file. No notebook was produced since no output is required, only an export to csv.
 The code used to treat raw data and create the original graph can be found in [graph_creation.ipynb](graph_construction.ipynb).
 Then, [clustering.ipynb](clustering.ipynb) is used to identify communities in the graph.
 
@@ -89,7 +87,6 @@ Since this dataset is huge (~111GB compressed), it is very important to have a p
 
 
 ### Clustering
-
 We wanted to see if we were able to detect channel communities within our dataset. To do this we generated an undirected weigthed graph using user comments with the following methodology : If a user wrote a comment on a video of channel 1 and a comment on a video on channel 2, we create an edge of weight 1 between channel 1 and channel 2. To rapidly visualize how well it works we used `Gephi`, an open source graph visualisation platform. We discovered the louvain algorithm on gephi and realised it detected communities quite well. There were a lot of news channel that were pakistani or indian. When we ran the louvain algorithm with python using the `networkx` package, we quickly identified all the channels that were unnecessary. We then obtained a list of channels that were only in the USA and in the correct language. We ran the louvain algorithm again on our new filtered graph and obtained promising results. We indeed discovered discovered left and right-oriented communities 
 <img src="./pictures/Graph.png" alt="media_bias" class="center"/>
 
@@ -99,8 +96,8 @@ We wanted to see if we were able to detect channel communities within our datase
 - 18 November: Milestone P2 due
 - 25 November: Apply everything we tested yet (Louvain algorithm, graph visualisation) to the whole/larger subset of comments
 - 02 December: Homework 2 due. No project work
-- 09 December: Creation of the website to have an idea (even if empty for the moment), look into words occurences analysis of video titles and tags, give political score to authors
-- 16 December: Answer research questions, create insightful graphs and other helpful data visualizations.
+- 09 December: Creation of the website to have an idea (even if empty for the moment), look into words occurences analysis of video titles and tags, give political score to authors, identify communities and their links.
+- 16 December: Finish the data procesing work. Answer research questions, create insightful graphs and other helpful data visualizations.
 - 23 December: Milestone P3 due. Focus on writing up the report or the data story, preparing the final presentation, formating for the website and the data story, 
 
 
@@ -109,7 +106,7 @@ We wanted to see if we were able to detect channel communities within our datase
 - Loïc: Find the center of interest of the various communities found in the graph.
 - Camille: Answer research question 5
 - Michel : Implement properly the clustering algorithms, colorize the graph as function of the communities, Insert the main channel labels directly on the graph.
-- Stéphane: Create the graph on a larger number of comments (possibly the whole dataset). Implement research question 3.
+- Stéphane: Create the graph on a larger number of comments (possibly the whole dataset). Implement the score for research question 3.
 
 [1]: https://www.nber.org/papers/w26669
 [2]: https://theconversation.com/mapping-brazils-political-polarization-online-96434
