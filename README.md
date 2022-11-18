@@ -18,19 +18,18 @@ In 2017, with the arrival in power of Donald Trump as president of the United St
 
 <img src="./pictures/fb_us_pol.png" alt="fb_us_pol" width="700"/>
 
-*One year after the bitterly divisive election of Donald Trump as U.S. president, American Facebook users on the political right shared virtually no interests with those on the political left. Pablo Ortellado and Marcio Moretto Ribeiro, CC BY*
+*Complete disconnexion of political landscape. Pablo Ortellado and Marcio Moretto Ribeiro, CC BY*
 
-However, this trend towards a more polarized society goes back even further. According to a [study][1] lead by Jesse M. Shapiro, Brown University, this polarization began in the late 1990s and early 2000s and has been only increasing since, promoted by the detrimental properties of the US voting system that incentivize people to become radical.
+According to a [study][1] lead by Jesse M. Shapiro, Brown University, this polarization began in the late 1990s and early 2000s and has been only increasing since, promoted by the detrimental properties of the US voting system that incentivize people to become radical.
 
-Does the same effect can be measure on YouTube communities? The goal of this data story would be to analyze the profiles of political communities on YouTube. How are they connected ? Who are their members ?
-
+Can the same effect be measured on YouTube communities ? In this data story, we will analyze the profiles of political communities on YouTube.
 
 ## Research Questions
 In this project, we will try to answer the following questions, as many as possible by order of priority, in accordance to the time available before the milestone 3:
 1. Can we identify communities inside the main US News&Politics channels ? Is there a clear left-right polarization and isolated communities on each side?
 2. Can we identify natural communities in the whole dataset, independently of the political orientation?
-3. What is the distribution of users polarization? Is it Gaussian? How many very extreme users do we see? For this purpose, we could assign a p-score (polarization or political score) to users : -1 for left, -0.5 for lean left, 0 for center, 0.5 for lean right, 1 for right.
-4. Based on the communities identified, can we describe political orientation of audience of non-News&Politics channels ? Study a few particular «neutral» channels (ex : NASA, KhanAcademy, Gaming channels, Comedy Channels ...) or marginal channels (Flat Earth Society) and analyze their audience and their links with news channels. What percentage of their audience do they share with each political orientation?
+3. What is the distribution of users polarization? Is it Gaussian? How many very extreme users do we see? For this purpose, we will assign a p-score (polarization or political score) to users.
+4. Based on the communities identified, can we describe political orientation of audience of non-News&Politics channels ? Study a few particular «neutral» channels (ex : NASA, KhanAcademy, Gaming channels, Comedy Channels ...) or marginal channels (Flat Earth Society) and analyze their audience and their links with news channels.
 5. How are main political events treated by channels in different communities ? Study various vents by filtering by tags, descriptions or video titles that contains key words, for example "US Election", "Impeachment", "Hunter Biden", "Capitol".
 
 
@@ -48,12 +47,12 @@ The website has been scraped and 2 data sets have been created:
 - A dataset with only the featured media (59 medias)
 - A dataset with all the media identified on the website (1279 medias)
 
-5 kind of datea have beeen extracted from the website:
-- the name of the media
-- the media bias given by [Allsides][3]
-- the confidence of [Allsides][3] on the media bias
-- the number of vote of the community that agree with the media bias
-- the number of vote of the community that disagree with the media bias
+5 kind of data have beeen extracted from the website regarding the medias:
+- name
+- political bias given by [Allsides][3]
+- confidence level on bias of [Allsides][3]
+- number of community votes confirming the media bias
+- number of community votes disproving the media bias
 
 
 ### Data collected from Allsides:
@@ -63,7 +62,7 @@ The website has been scraped and 2 data sets have been created:
 | **...**| ...                    | ...        | ...      | ...     | ...        |
 
 
-Once the dataset cleaned and merged with the youtube channels, 37 on 59 channels were found in the youniverse dataset. Those csv files, [*channels_yt_all.csv*](./allsides_scraping/csv/channels_yt_all.csv) and [*channels_yt_ft.csv*](./allsides_scraping/csv/channels_yt_ft.csv), can be found [here](./allsides_scraping/csv).
+Once the dataset cleaned, 37 on 59 medias have associated channels in the youniverse dataset. Those csv files, [*channels_yt_all.csv*](./allsides_scraping/csv/channels_yt_all.csv) and [*channels_yt_ft.csv*](./allsides_scraping/csv/channels_yt_ft.csv), can be found [here](./allsides_scraping/csv).
 
 ### Merged data with the Youniverse dataset:
 ||**category_cc**|**join_date**|**channel**|**name_cc**|**subscribers_cc**|**videos_cc**|**subscriber_rank_sb**|**weights**|**orrientation**|**confidence**|**comu_agree**|**comu_disagree**|
@@ -85,8 +84,8 @@ To get a first idea of t data, the visualisation of the two new datasets can be 
 
 ## Methods
 
-The code used to treat raw data and create the original graph can be found in graph_creation.ipynb.
 The code used to exctract the AllSides dataset is in allsides_scraping file.
+The code used to treat raw data and create the original graph can be found in graph_creation.ipynb.
 Then, clustering.ipynb is used to identify communities in the graph.
 
 Generated csv files (in csv_output file) :
