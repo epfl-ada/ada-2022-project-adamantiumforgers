@@ -64,21 +64,12 @@ Once the dataset cleaned, 37 on 59 medias have associated channels in the youniv
 
 To get a first idea of the data, the visualization of the two new datasets can be found in the file [*news_channel.ipynb*](./allsides_scraping/news_channel.ipynb)
 
-### For the bigger dataset:
-
-<img src="./allsides_scraping/figures/hist_all.png" alt="media_bias" class="center"/>
-
-### For the featured medias:
-
-<img src="./allsides_scraping/figures/hist_ft.png" alt="media_bias" class="center"/>
-
-
 
 ## Methods
 
-The code used to exctract the AllSides dataset is in allsides_scraping file.
-The code used to treat raw data and create the original graph can be found in graph_creation.ipynb.
-Then, clustering.ipynb is used to identify communities in the graph.
+The code used to exctract the AllSides dataset is in the [allsides_scraping.py](./allsides_scraping/allsides_scraping.py) file. No notebook was produced since no output is required, only an export to csv.
+The code used to treat raw data and create the original graph can be found in [graph_creation.ipynb](graph_construction.ipynb).
+Then, [clustering.ipynb](clustering.ipynb) is used to identify communities in the graph.
 
 Generated csv files (in csv_output file) :
 - channels.csv : relates channel_id to channel_num (all channels in News&Politics)
@@ -89,30 +80,12 @@ Generated csv files (in csv_output file) :
 - graph_test.csv : short version of graph.csv, to perform tests with Gephi
 
 ### Data handling
-Since this dataset is huge (~111GB compressed), it is very important to have a proper methodology to store, access, preprocess and filter it efficiently.
+Since this dataset is huge (~111GB compressed), it is very important to have a proper methodology to store, access, preprocess and filter it efficiently. All the data is stored locally, with the largest files on an external hard drive. The largest files are read by chunks to produce the graph. However, once the graph is done, the amount of data is much smaller (~30KB) and can be handled very easily.
 
-Storage on external hard drive
-
-Access by chunks
-
-Explain in detail what we filtered
-Give mathematical details of the methods used (and libraries)
-
-
-### Create a sample of data to work on
 
 ### Clustering
 
-We wanted to see if we were able to detect channel communities within our dataset. To do this we generated an undirected weigthed graph using user comments with the following methodology : If a user wrote a comment on a video of channel 1 and a comment on a video on channel 2, we create an edge of weight 1 between channel 1 and channel 2.
-
-To rapidly visualize how well it works we used `Gephi`, an open source graph visualisation platform. We discovered the louvain algorithm on gephi and realised it detected communities quite well.
-
-There were a lot of news channel that were pakistani or indian. When we ran the louvain algorithm with python using the `networkx` package, we quickly identified all the channels that were unnecessary. We then obtained a list of channels that were only in the USA and in the correct language.
-
-We ran the louvain algorithm again on our new filtered graph and obtained promising results. We indeed discovered discovered left and right-oriented communities 
-
-### Visualization
-
+We wanted to see if we were able to detect channel communities within our dataset. To do this we generated an undirected weigthed graph using user comments with the following methodology : If a user wrote a comment on a video of channel 1 and a comment on a video on channel 2, we create an edge of weight 1 between channel 1 and channel 2. To rapidly visualize how well it works we used `Gephi`, an open source graph visualisation platform. We discovered the louvain algorithm on gephi and realised it detected communities quite well. There were a lot of news channel that were pakistani or indian. When we ran the louvain algorithm with python using the `networkx` package, we quickly identified all the channels that were unnecessary. We then obtained a list of channels that were only in the USA and in the correct language. We ran the louvain algorithm again on our new filtered graph and obtained promising results. We indeed discovered discovered left and right-oriented communities 
 <img src="./pictures/Graph.png" alt="media_bias" class="center"/>
 
 
