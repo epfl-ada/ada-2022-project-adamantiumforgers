@@ -1,7 +1,9 @@
 # Does Youtube reflects the overall polarization in the US?
-Study of the links between Youtube channel communities thanks to the comments left by users
+**Study of the links between Youtube channel communities thanks to the comments left by users**
+Project based on the YouNiverse dataset provided by the EPFL dlab ([Github](https://github.com/epfl-dlab/YouNiverse) and [Dataset](https://zenodo.org/record/4650046#.Y3bCAzOZNpg))
 
-By the Adamantium Forgers
+
+By the Adamantium Forgers:
 
 | Name                | Email                       |
 |---------------------|-----------------------------|
@@ -10,37 +12,29 @@ By the Adamantium Forgers
 | Camille Bernelin    | camille.bernelin@epfl.ch    |
 | Michel Morales      | michel.morales@epfl.ch      |
 
-Project based on the YouNiverse dataset provided by the EPFL dlab ([Github](https://github.com/epfl-dlab/YouNiverse) and [Dataset](https://zenodo.org/record/4650046#.Y3bCAzOZNpg))
-
 
 ## Abstract
-In 2017, with the arrival in power of Donald Trump as president of the United States, the American political world then quickly split between the pro and anti-Trump. This polarization is also reflected online: according to a [study][2] on Facebook lead by to Brazilian researcher, the polarization one year after the 2017 election can be pictures as follows :
+In 2017, with the arrival in power of Donald Trump as president of the United States, the American political world quickly split between the pro and anti-Trump. According to a [study][1] lead by Jesse M. Shapiro, Brown University, this polarization began in the late 1990s and early 2000s and has been only increasing since, promoted by the detrimental properties of the US voting system that incentivize people to become radical. This polarization is also reflected online: according to a [study][2] on Facebook lead by to Brazilian researcher, the polarization one year after the 2017 election can be pictured on the figure below. Can the same effect be measured on YouTube communities ? In this data story, we will analyze the profiles of political communities on YouTube.
+
 
 <img src="./pictures/fb_us_pol.png" alt="fb_us_pol" width="700"/>
-
 *Complete disconnexion of political landscape. Pablo Ortellado and Marcio Moretto Ribeiro, CC BY*
 
-According to a [study][1] lead by Jesse M. Shapiro, Brown University, this polarization began in the late 1990s and early 2000s and has been only increasing since, promoted by the detrimental properties of the US voting system that incentivize people to become radical.
-
-Can the same effect be measured on YouTube communities ? In this data story, we will analyze the profiles of political communities on YouTube.
 
 ## Research Questions
 In this project, we will try to answer the following questions, as many as possible by order of priority, in accordance to the time available before the milestone 3:
 1. Can we identify communities inside the main US News&Politics channels ? Is there a clear left-right polarization and isolated communities on each side?
 2. Can we identify natural communities in the whole dataset, independently of the political orientation?
 3. What is the distribution of users polarization? Is it Gaussian? How many very extreme users do we see? For this purpose, we will assign a p-score (polarization or political score) to users.
-4. Based on the communities identified, can we describe political orientation of audience of non-News&Politics channels ? Study a few particular «neutral» channels (ex : NASA, KhanAcademy, Gaming channels, Comedy Channels ...) or marginal channels (Flat Earth Society) and analyze their audience and their links with news channels.
+4. Based on the communities identified, can we describe political orientation of audience of non-News&Politics channels ? Study a few particular «neutral» channels (ex : Education, Gaming, Comedy Channels ...) or marginal channels (Flat Earth Society) and analyze their audience and their links with news channels.
 5. How are main political events treated by channels in different communities ? Study various vents by filtering by tags, descriptions or video titles that contains key words, for example "US Election", "Impeachment", "Hunter Biden", "Capitol".
 
 
 ## Additional dataset 
 
-In order to classify the different political orientations of the youtube users, we decided to use the media bias classification given by [Allsides][3].
-
-AllSides is an American company that assesses the political bias of prominent media outlets, categorized in five political orientation categories. More info [here][5].
+In order to classify the different political orientations of the youtube users, we decided to use the media bias classification given by [Allsides][3]. AllSides is an American company that assesses the political bias of prominent media outlets, categorized in five political orientation categories: Left, Lean Left, Center, Lean Right, Right. More info [here][5].
 
 <img src="./pictures/media_bias_allsides.png" alt="media_bias" width="400"/>
-
 *US media bias classification* 
 
 The website has been scraped and 2 data sets have been created:
@@ -70,7 +64,7 @@ Once the dataset cleaned, 37 on 59 medias have associated channels in the youniv
 |**0**|News&Politics|2006-08-07|UCBi2mrWuNuyYy4gbM6fU18Q|abcnews|6640000|48869|978.0|2.087|LeanLeft|High|39419|19665|
 |**...**|...|...|...|...|...|...|...|...|...|...|...|...|27222|
 
-To get a first idea of t data, the visualisation of the two new datasets can be found in the file: *news_channel.ipynb* under allsides_scraping
+To get a first idea of the data, the visualization of the two new datasets can be found in the file [*news_channel.ipynb*](./allsides_scraping/news_channel.ipynb)
 
 ### For the bigger dataset:
 
