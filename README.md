@@ -21,11 +21,10 @@ In 2017, with the arrival in power of Donald Trump as president of the United St
 
 ## Research Questions
 We will try to answer the following questions, in accordance to the time available before the milestone 3:
-1. Can we identify communities inside the main US News&Politics channels ? Is there a clear left-right polarization and isolated communities on each side?
-2. Can we identify natural communities in the whole dataset, independently of the political orientation?
-3. What is the distribution of users polarization? Is it Gaussian? How many very extreme users do we see? For this purpose, we will assign a p-score (polarization or political score) to users.
-4. Based on the communities identified, can we describe political orientation of audience of non-News&Politics channels ? Study a few particular «neutral» channels (ex : Education, Gaming, Comedy Channels ...) or marginal channels (Flat Earth Society) and analyze their audience and their links with news channels.
-5. How are main political events treated by channels in different communities ? Study various events by filtering by tags, descriptions or video titles that contains key words, for example "US Election", "Impeachment", "Hunter Biden", "Capitol".
+1. Can we identify communities inside the main US News&Politics channels ? Is there a clear left-right polarization or is the polarization independent of classical political party confrontation ?
+2. What is the distribution of users polarization? Is it Gaussian? How many very extreme users do we see? For this purpose, we will assign a p-score (polarization or political score) to users.
+3. Based on the communities identified, can we describe political orientation of audience of non-News&Politics channels ? Study a few particular «neutral» channels (ex : Education, Gaming, Comedy Channels ...) or marginal channels (Flat Earth Society) and analyze their audience and their links with news channels.
+4. How are main political events treated by channels in different communities ? Study various events by filtering by tags, descriptions or video titles that contains key words, for example "US Election", "Impeachment", "Hunter Biden", "Capitol".
 
 
 ## Additional dataset 
@@ -103,7 +102,7 @@ We wanted to see if we were able to detect channel communities within our datase
 ## Team organization
 
 - Loïc: Find the center of interest of the various communities found in the graph.
-- Camille: Answer research question 5, create the website for final presentation of results
+- Camille: Analyse words occurences in video tags and titles, create the website for final presentation of results
 - Michel : Implement properly the clustering algorithms, colorize the graph as function of the communities, Insert the main channel labels directly on the graph.
 - Stéphane: Create the graph on a larger number of comments (possibly the whole dataset). Implement the score for research question 3.
 
