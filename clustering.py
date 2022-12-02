@@ -71,28 +71,25 @@ display(louvain_communities[6])
 df_tosave = nx.to_pandas_edgelist(sub_G,)
 df_tosave.to_csv('data/louvain_filtered_graph.csv', sep=';', index=False)
 # %%
-tool = range(243)
-indices = list(louvain_partitions[2])
-indices.sort()
-indices = np.array(indices)
-mapping = dict(zip(indices, tool))
-mapping.get(i for i in indices)
-# %%
-map_nodes = np.array(louvain_communities)
 cols = ['red', 'yellow', 'orange', 'violet', 'blue', 'green', 'pink']
-colors = np.array(243)
-for i in range(len(louvain_communities)):
-    for j in list(louvain_communities[i]):
-        print(mapping.get(j))
-        #print(np.array(louvain_communities[i]))
-        colors[mapping.get(j)] = cols[i]
-display(colors)
+
+mapping = {}
+for i, l in enumerate(louvain_communities):
+    list_ = list(l)
+    list_.sort()
+    for elem in list_:
+        mapping[elem] =cols[i]
+
+print(mapping)
 # %%
-nx.draw_networkx(sub_G, with_labels=False, node_size=10)
+final_colors = []
+for node in sub_G.nodes:
+    final_colors.append(mapping.get(node))
+
 # %%
 forceatlas2 = ForceAtlas2()
 posses = forceatlas2.forceatlas2_networkx_layout(sub_G)
 
 # %%
-nx.draw_networkx(sub_G, with_labels=False,pos=posses, node_size=10, width=5e-2)
+nx.draw_networkx(sub_G, with_labels=False,pos=posses, node_size=10, width=5e-2,node_color=final_colors)
 # %%
