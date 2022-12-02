@@ -88,8 +88,8 @@ for node in sub_G.nodes:
 
 # %%
 forceatlas2 = ForceAtlas2()
-posses = forceatlas2.forceatlas2_networkx_layout(sub_G)
+posses = forceatlas2.forceatlas2_networkx_layout(sub_G,iterations=1000)
 
 # %%
-nx.draw_networkx(sub_G, with_labels=False,pos=posses, node_size=10, width=5e-2,node_color=final_colors)
+nx.draw_networkx(sub_G, with_labels=False, pos=posses, node_size=10, width=5e-2,node_color=final_colors)
 # %%
