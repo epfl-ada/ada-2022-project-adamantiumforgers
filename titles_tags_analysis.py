@@ -20,9 +20,9 @@ PATH_METADATA = DIR_LARGE + "yt_metadata_en.jsonl.gz"
 
 # %%
 
-## Create a list of all videos of a selected communities, with titles and tags : use display_id_to_channels_title_tags
+############# Create a list of all videos of a selected communities, with titles and tags : use display_id_to_channels_title_tags
 
-selected_commu = '4'
+selected_commu = '2'
 
 channels_list = pd.read_csv("csv_outputs/louvain_communities.csv", sep=";", usecols=[selected_commu])
 channels_list.columns=['channel_num']
@@ -42,7 +42,7 @@ for chunk in pd.read_csv(DIR_OUT + "channel_num_to_title_tags_date.csv", sep=";"
 
 # %%
 
-# Data used for processing of titles and tags
+############# Data used for processing of titles and tags
 
 nlp = spacy.load('en_core_web_sm')
 nlp.max_length=1000000
@@ -66,7 +66,7 @@ my_undesired_list = ['|','l',word] + news_lexical_field
             ######################
             ######################
 
-## Select videos whom title contains a given word
+############# Select videos whom title contains a given word
 
 titles = pd.read_csv(DIR_OUT + "titles_date.csv",sep=";")
 
@@ -78,18 +78,19 @@ display(titles_contain)
 
 # %%
 
-## Select videos in a time period of interest
+############# Select videos in a time period of interest
 
 titles = pd.read_csv(DIR_OUT + "titles_date_f.csv",sep=";")
 titles["upload_date"] = pd.to_datetime(titles["upload_date"], format='%Y-%m-%d %H:%M:%S')
 titles = titles[(titles['upload_date']>=period_start) & (titles['upload_date']<=period_end)]
 #display(titles)
 
+titles['title'] = [x.encode('utf-8','ignore').decode("utf-8") for x in titles['title']]
 titles["title"].to_csv(DIR_OUT+"titles_to_process.txt", sep="\n",index=False, header=False)
 
 # %%
 
-## Process the titles 
+############# Process the titles 
 
 books = list()
 
@@ -105,7 +106,8 @@ for i in range(0,int(len(books[0])/nlp.max_length)+1):
     #display('iteration ' + str(i))
     doc = nlp(books[0][i*nlp.max_length:(i+1)*nlp.max_length])
 
-    doc_processed = [token.text for token in doc if (not token.is_digit and not token.is_stop and not token.is_punct and not (token.text in my_undesired_list))]
+    doc_processed = [token.text for token in doc if (not token.is_digit and not token.is_stop)]
+    doc_processed = [token.text for token in doc if (not token.is_punct and not (token.text in my_undesired_list))]
     doc_processed = [token.replace(',','') for token in doc_processed]
 
     with open(DIR_OUT+"titles_words.csv", 'w') as file:
@@ -119,7 +121,7 @@ for i in range(0,int(len(books[0])/nlp.max_length)+1):
 
 # %%
 
-## Analyze sentiment
+############# Analyze sentiment
 
 analyzer = SentimentIntensityAnalyzer()
 
@@ -135,7 +137,7 @@ display("negative : " + str(sum(negative_sent)/len(negative_sent)))
 
 # %%
 
-## Count words occurences
+############# Count words occurences
 
 titles_processed = pd.read_csv(DIR_OUT+"titles_words.csv", sep=',')
 #titles_processed = [x.encode('utf-8','ignore').decode("utf-8") for x in titles_processed['word']]
@@ -164,7 +166,7 @@ display(common_words_out.head(30))
             ######################
 
 
-## Select videos whom tag contains a given word
+############# Select videos whom tag contains a given word
 
 tags = pd.read_csv(DIR_OUT + "tags_date.csv",sep=";")
 
@@ -178,7 +180,7 @@ display(tags_contain)
 
 # %%
 
-## Select videos in a time period of interest
+############# Select videos in a time period of interest
 
 period_start = pd.to_datetime("2013-02-06", format='%Y-%m-%d')
 period_end =pd.to_datetime("2022-02-06", format='%Y-%m-%d')
@@ -192,7 +194,7 @@ tags["tags"].to_csv(DIR_OUT+"tags_to_process.txt", sep="\n",index=False, header=
 
 # %%
 
-## Process the tags 
+############# Process the tags 
 
 books = list()
 
@@ -224,7 +226,7 @@ for i in range(0,int(len(books[0])/nlp.max_length)+1):
 
 # %%
 
-## Analyze sentiment
+############# Analyze sentiment
 
 analyzer = SentimentIntensityAnalyzer()
 
@@ -240,7 +242,7 @@ display("negative : " + str(sum(negative_sent)/len(negative_sent)))
 
 # %%
 
-## Count words occurences
+############# Count words occurences
 
 tags_processed = pd.read_csv(DIR_OUT+"tags_words.csv", sep=',')
 #tags_processed = [x.encode('utf-8','ignore').decode("utf-8") for x in tags_processed['word']]
