@@ -68,12 +68,8 @@ display_id_to_medias.head()
 
 # %%
 
-# create author_id, p-score table
-# Format output file 
-author_pscore = pd.DataFrame(columns=['author','score','num_comments'])
-author_pscore.to_csv(PATH_PSCORE,sep=";",header=True, index=False)
-
-recall = [] # Just to see what happens
+# Erase previous versions
+pd.DataFrame(columns=['author','score','num_comments']).to_csv(PATH_PSCORE,sep=";",header=True, index=False)
 i=1
 
 ## On average, it finds 1 comment on a video from Allsides over 1000 comments
@@ -98,27 +94,28 @@ for chunk in pd.read_csv(PATH_COMMENTS, sep='\t', usecols = ['author','video_id'
     df_temp = df_temp.groupby('author', as_index=False).agg({'score':'sum', 'num_comments':'count'})
     recall = df_temp
 
-    ## Read the output file    
-    author_pscore = pd.read_csv(PATH_PSCORE, sep=";")
-    ## Put the dataframes together
-    author_pscore = pd.concat([author_pscore, df_temp])
-    #author_pscore = pd.merge(author_pscore, df_temp, how='outer')
-    ## Again: Group by author. Here the comments are already counted, the total is the sum
-    author_pscore = author_pscore.groupby('author', as_index=False).agg({'score':'sum', 'num_comments':'sum'})
-    ## Export to csv
-    author_pscore.to_csv(PATH_PSCORE,sep=";",mode='a',header=False, index=False)
+    ###### MODIF CAMILLE : 
+    # Je fais le group_by final sur les authors dans la section suivantes. Ici je fais tout en mode append dans le csv
 
-recall.head(10)
+    df_temp.to_csv(PATH_PSCORE,sep=";",mode='a',header=False, index=False)
+
+display(recall.head(10))
+
 
 
 
 # %%
 author_pscore = pd.read_csv(PATH_PSCORE, sep=";")
 
+author_pscore = author_pscore.groupby('author', as_index=False).agg({'score':'sum', 'num_comments':'sum'})
+
+
 ## Compute the pscore and sort by highest values
 author_pscore['p_score'] = author_pscore['score']/author_pscore['num_comments']
-author_pscore = author_pscore.sort_values(by='p_score', ascending=False)
+author_pscore = author_pscore.sort_values(by='num_comments', ascending=False)
 ## Maybe exclude the very low number of comments?
+
+author_pscore.to_csv(PATH_PSCORE,sep=";",header=True, index=False)
 
 display(author_pscore.head(10))
 print(f'Number of authors: {len(author_pscore)}')
