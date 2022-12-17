@@ -119,3 +119,39 @@ fig.update_layout(
 
 fig.show()
 # %%
+
+fig = go.Figure(data=[go.Pie(   labels=my_labels,
+                                values=a['videos_cc'],
+                                marker_colors=px.colors.qualitative.Set3,
+                                pull=my_explode,
+                                title='Number of videos'
+                                
+                                
+                                )])
+fig.update_layout(
+    autosize=False,
+    width=750,
+    height=500
+    )
+
+fig.show()
+# %%
+my_labels=list(view_cat.categories)
+my_explode=np.zeros(len(my_labels))
+my_explode[my_labels.index('News & Politics')]=0.4
+fig = go.Figure(data=[go.Pie(   labels=my_labels,
+                                values=view_cat.view_count,
+                                marker_colors=px.colors.qualitative.Set3,
+                                pull=my_explode,
+                                title='Number of views'
+                                
+                                
+                                )])
+fig.update_layout(
+    autosize=False,
+    width=750,
+    height=500
+    )
+
+fig.show()
+# %%
