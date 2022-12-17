@@ -94,9 +94,6 @@ for chunk in pd.read_csv(PATH_COMMENTS, sep='\t', usecols = ['author','video_id'
     df_temp = df_temp.groupby('author', as_index=False).agg({'score':'sum', 'num_comments':'count'})
     recall = df_temp
 
-    ###### MODIF CAMILLE : 
-    # Je fais le group_by final sur les authors dans la section suivantes. Ici je fais tout en mode append dans le csv
-
     df_temp.to_csv(PATH_PSCORE,sep=";",mode='a',header=False, index=False)
 
 display(recall.head(10))
@@ -112,7 +109,8 @@ author_pscore = author_pscore.groupby('author', as_index=False).agg({'score':'su
 
 ## Compute the pscore and sort by highest values
 author_pscore['p_score'] = author_pscore['score']/author_pscore['num_comments']
-author_pscore = author_pscore.sort_values(by='num_comments', ascending=False)
+author_pscore = author_pscore[author_pscore['num_comments']>10]
+author_pscore = author_pscore.sort_values(by='num_comments', ascending=True)
 ## Maybe exclude the very low number of comments?
 
 author_pscore.to_csv(PATH_PSCORE,sep=";",header=True, index=False)
@@ -127,7 +125,7 @@ plt.show()
 
 #%%
 #plt.figure(2)
-author_pscore.hist('p_score', bins=100)
+author_pscore.hist('p_score', bins=50)
 # log scale?
 
 ## Do better plots:
