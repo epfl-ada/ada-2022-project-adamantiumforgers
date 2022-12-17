@@ -70,14 +70,14 @@ display_id_to_medias.head()
 
 # create author_id, p-score table
 # Format output file 
-author_pscore = pd.DataFrame(columns=['author','p_score','num_comments'])
+author_pscore = pd.DataFrame(columns=['author','score','num_comments'])
 author_pscore.to_csv(PATH_PSCORE,sep=";",header=True, index=False)
 
 recall = [] # Just to see what happens
 i=1
 
 ## On average, it finds 1 comment on a video from Allsides over 1000 comments
-for chunk in pd.read_csv(PATH_COMMENTS, sep='\t', usecols = ['author','video_id'], chunksize=3e6, nrows=1e6):
+for chunk in pd.read_csv(PATH_COMMENTS, sep='\t', usecols = ['author','video_id'], chunksize=3e6, nrows=1e7):
     
     ## Keep track of the loop
     print(f'Iteration: {i}')
@@ -91,11 +91,11 @@ for chunk in pd.read_csv(PATH_COMMENTS, sep='\t', usecols = ['author','video_id'
     ## Keep only relevant columns
     df_temp = df_temp[['author','orientation_num']]
     df_temp['num_comments'] = 1
-    df_temp = df_temp.rename(columns={'orientation_num': 'p_score'})
+    df_temp = df_temp.rename(columns={'orientation_num': 'score'})
 
     ## Group by author: 1/ p-score = sum of orientation_num 2/ Count the number of comments
     ## as_index = False is used to flaten the column names
-    df_temp = df_temp.groupby('author', as_index=False).agg({'p_score':'sum', 'num_comments':'count'})
+    df_temp = df_temp.groupby('author', as_index=False).agg({'score':'sum', 'num_comments':'count'})
     recall = df_temp
 
     ## Read the output file    
@@ -104,7 +104,7 @@ for chunk in pd.read_csv(PATH_COMMENTS, sep='\t', usecols = ['author','video_id'
     author_pscore = pd.concat([author_pscore, df_temp])
     #author_pscore = pd.merge(author_pscore, df_temp, how='outer')
     ## Again: Group by author. Here the comments are already counted, the total is the sum
-    author_pscore = author_pscore.groupby('author', as_index=False).agg({'p_score':'sum', 'num_comments':'sum'})
+    author_pscore = author_pscore.groupby('author', as_index=False).agg({'score':'sum', 'num_comments':'sum'})
     ## Export to csv
     author_pscore.to_csv(PATH_PSCORE,sep=";",mode='a',header=False, index=False)
 
@@ -114,17 +114,22 @@ recall.head(10)
 
 # %%
 author_pscore = pd.read_csv(PATH_PSCORE, sep=";")
-#author_pscore = author_pscore.groupby('author', as_index=False).agg({'p_score':'sum', 'num_comments':'sum'})
-author_pscore = author_pscore.sort_values(by='num_comments', ascending=False)
+
+## Compute the pscore and sort by highest values
+author_pscore['p_score'] = author_pscore['score']/author_pscore['num_comments']
+author_pscore = author_pscore.sort_values(by='p_score', ascending=False)
+## Maybe exclude the very low number of comments?
+
 display(author_pscore.head(10))
-len(author_pscore)
+print(f'Number of authors: {len(author_pscore)}')
 
 plt.scatter(author_pscore['p_score'],author_pscore['num_comments'],s=1)
 plt.xlabel('p-score')
 plt.ylabel('Number of comments')
 plt.show()
 
-plt.figure(2)
+#%%
+#plt.figure(2)
 author_pscore.hist('p_score', bins=100)
 # log scale?
 
