@@ -19,12 +19,9 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import plotly.graph_objects as go
 from plotly.colors import n_colors
 import plotly.express as px
-from plotly.subplots import make_subplots
-from plotly.graph_objs.layout.shape import Line
+#from plotly.subplots import make_subplots
 
 # Emojis management
-#from emoji import UNICODE_EMOJI
-
 def is_emoji(s):
     emojis = "😘◼️🔴🤾🎅😂🚒👨🤦" # add more emojis here
     count = 0
@@ -332,7 +329,7 @@ display(common_words_out.head(30))
 result = []
 
 #['fake','maga','security','trump','wall','shutdown','economic','carbon','climate','brexit','eu','china']
-targets_list =['security','wall','shutdown']
+targets_list =['harassed','satanic','pedophile','shutdown']
 
 for j in range(len(targets_list)):
     temp = pd.DataFrame(columns = ['community','rank_title','rank_tag','title_frequency'])
@@ -342,15 +339,23 @@ for j in range(len(targets_list)):
     for i in range(0,6):
         titles=pd.read_csv(DIR_OUT+"communities_comparison/titles_occurences_"+str(i)+"_"+word+"_"+start_date+"_"+end_date+".csv", sep=';')
         if use_tags :
-            tags=pd.read_csv(DIR_OUT+"communities_comparison/tags_occurences_"+str(i)+"_"+word+"_"+start_date+"_"+end_date+".csv", sep=';')
-            temp.loc[len(temp.index)] = [i, titles[titles['word']==target].index.values[0], tags[tags['word']==word].index.values[0], float(titles[titles['word']==target]['frequency'])]
+            if (titles['word']==target).any() or (tags['word']==target).any():
+                tags=pd.read_csv(DIR_OUT+"communities_comparison/tags_occurences_"+str(i)+"_"+word+"_"+start_date+"_"+end_date+".csv", sep=';')
+                temp.loc[len(temp.index)] = [i, titles[titles['word']==target].index.values[0], tags[tags['word']==word].index.values[0], float(titles[titles['word']==target]['frequency'])]
+            else:
+                display(target + " is not in community " + str(i))
+                temp.loc[len(temp.index)] = [i,'-', '-', 0]
         else:
-            temp.loc[len(temp.index)] = [i, titles[titles['word']==target].index.values[0], '-', float(titles[titles['word']==target]['frequency'])]
+            if (titles['word']==target).any():
+                temp.loc[len(temp.index)] = [i, titles[titles['word']==target].index.values[0], '-', float(titles[titles['word']==target]['frequency'])]
+            else:
+                display(target + " is not in community " + str(i))
+                temp.loc[len(temp.index)] = [i,'-', '-', 0]
 
     result = result + [temp]
 
     display(target)
-    #display(temp)
+    display(temp)
 
 
 # %%
@@ -371,13 +376,14 @@ data = pd.DataFrame()
 for i in range(0,len(targets_list)):
     data.insert(i, column=targets_list[i], value=result[i]['title_frequency'])
 
-#display(data)
+display(data)
 
-plt.show(sns.lineplot(data=data))
+fig = px.line(data, title='Topics frequencies in different communities',labels={'value':'frequency','index':'community','variable':'Topics :'},width=600, height=400)
+not_active_traces = [targets_list[i] for i in range(len(targets_list)) if i>len(targets_list)*1/3]
+fig.for_each_trace(lambda trace: trace.update(visible='legendonly') if trace.name in not_active_traces else ())
+fig.show()
 
-# %%
-
-fig = Line()
+#plt.show(sns.lineplot(data=data))
 
 # %%
 
@@ -456,9 +462,70 @@ for community in communities:
 
 # %%
 
+data = pd.read_json("data/LOCO.json", orient='records')
+
+# %%
+
+######## Creating a smaller copy of the LOCO.json file
+
+# chunk = 10 000 000   ->  9 766 KB
+# total file : chunk = 587 622 363
+
+text = ""
+chunk = 100000000
+
+with codecs.open("data/LOCO.json", 'r', encoding='latin1') as file:
+    #writing the header
+    text = file.read(chunk)
+file.close()
+
+with codecs.open("data/LOCO_small.txt", 'w', encoding='latin1') as file:
+    file.write(text)
+file.close()
+
+######## Exctracting titles in LOCO
+
+result = ""
+text = ""
+unfinished_title = False
+nb_titles = 0
+chunk = 1000000
+
+with codecs.open("data/LOCO_small.txt", 'r', encoding = 'latin1') as file:
+
+    #writing the header
+    text = file.read(chunk)
+
+    while text:
+
+        if unfinished_title:
+            result = result +  text[0:text.find('"txt"')-2]
+            text = text[text.find('txt')+8:len(text)]
+            unfinished_title = False
+
+        while text.find('"title"') != -1:
+            nb_titles = nb_titles + 1
+            text = text[text.find('"title"')+9:len(text)]
+
+            if text.find('"txt"') != -1:
+                result = result +  text[0:text.find('"txt"')-2] + "\n"
+                text = text[text.find('"txt"')+7:len(text)]
+            else:
+                unfinished_title = True
+
+        text = file.read(chunk)
+
+file.close()
+
+with codecs.open("data/LOCO_titles.txt", 'w', encoding = 'latin1') as file:
+    file.write(result)
+file.close()
+
+display(nb_titles)
 
 
 # %%
+
 
 
 
