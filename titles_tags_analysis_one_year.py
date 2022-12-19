@@ -285,6 +285,8 @@ display(data)
 fig = px.line(data, title='Topics frequencies in different communities',labels={'value':'frequency','index':'community','variable':'Topics :'},width=600, height=400)
 not_active_traces = [targets_list[i] for i in range(len(targets_list)) if i>len(targets_list)*1/3]
 fig.for_each_trace(lambda trace: trace.update(visible='legendonly') if trace.name in not_active_traces else ())
+
+fig.write_html("words_occurences.html")
 fig.show()
 
 
@@ -304,6 +306,7 @@ for x in communities:
             closeness_matrix[x][y]=abs(a-b)+abs(c-d)
 
 display(closeness_matrix)
+
 
 colors = n_colors('rgb(0, 180, 0)', 'rgb(30, 30, 30)',closeness_matrix.max().max()+1, colortype='rgb')
 a = np.stack(closeness_matrix[0].to_numpy()).astype(int)
@@ -327,6 +330,7 @@ fig = go.Figure(data=[go.Table(
     ))
 ])
 
+fig.write_html("closeness_matrix.html")
 fig.show()
 
 ############ GRAPH : 20 first occurences in titles
@@ -347,3 +351,6 @@ for community in communities:
     ax[position_y,position_x].set_title("Most cited topics in community "+str(community), fontsize = 25)
     ax[position_y,position_x].set_xlabel("Frequency", fontsize = 20)
     ax[position_y,position_x].set_ylabel("Topics", fontsize = 20)
+
+plt.savefig('most_cited.png')
+
