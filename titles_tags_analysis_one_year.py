@@ -6,6 +6,10 @@ year_start = "2000"
 
 year_end = "2001"
 
+##### HOW MANY COMMUNITIES ?
+
+nb_communities = 7
+
 
 display("Attention pétolet ! J'espère que t'es prêt, ça va run sur deux ans, entre le 1er janvier " + year_start + " jusqu'au 31 décembre " + year_end + ".")
 
