@@ -81,8 +81,8 @@ cross_tab_it.to_csv(cat_evolution.csv)
 evolution=pd.DataFrame
 evolution=pd.read_csv('data/evolution.csv',index_col=0)
 evolution=evolution.fillna(0)
-evolution=evolution.sort_values(by = 2019, axis = 1,ascending = False)
-#evolution=evolution.drop(2019,axis=0)
+evolution=evolution.sort_values(by = 2018, axis = 1,ascending = False)
+evolution=evolution.drop(2019,axis=0)
 #evolution.set_index(drop=True,inplace=True)
 
 # %%
@@ -104,4 +104,6 @@ fig = px.line(evolution,title='Evolution of categories',
                     }
             )
 fig.show()
+fig.write_html("cat_evo.html")
+# %%
 # %%
