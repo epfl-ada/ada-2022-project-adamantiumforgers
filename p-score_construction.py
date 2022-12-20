@@ -37,6 +37,7 @@ PATH_AUTHORS = DIR_OUTPUTS + "authors_to_channels.csv"
 PATH_MEDIAS_VIDEOS = DIR_OUTPUTS + "display_id_to_medias.csv"
 PATH_MEDIAS_VIDEOS_YEAR = DIR_OUTPUTS + "display_id_to_medias_year.csv"
 PATH_PSCORE = DIR_OUTPUTS + "author_pscore.csv"
+PATH_PSCORE_FULL = DIR_OUTPUTS + "author_pscore_full.csv"
 
 
 # %% 3
@@ -73,13 +74,14 @@ pd.DataFrame(columns=['author','year','score','num_comments']).to_csv(PATH_PSCOR
 i=1
 
 ## On average, it finds 1 comment on a video from Allsides over 1000 comments
-for chunk in pd.read_csv(PATH_COMMENTS, sep='\t', usecols = ['author','video_id'], chunksize=3e6, nrows=1e9):
+for chunk in pd.read_csv(PATH_COMMENTS, sep='\t', usecols = ['author','video_id'], chunksize=3e6):
     
     ## Keep track of the loop
     print(f'Iteration: {i}')
     i=i+1
     ## nrows=1e8: 34 iterations
     ## nrows=1e9: 334 iterations
+    ## nolimit: 2869 iterations
 
     ## Merge to retrieve the channel_id from the video_id (only if the video is from a media)
     df_temp = chunk.merge(display_id_to_medias, left_on='video_id', right_on='display_id')
@@ -107,7 +109,7 @@ for chunk in pd.read_csv(PATH_COMMENTS, sep='\t', usecols = ['author','video_id'
 #%%
 ## Postprocess
 ## Read the p_score file
-author_pscore = pd.read_csv(PATH_PSCORE, sep=";")
+author_pscore = pd.read_csv(PATH_PSCORE_FULL, sep=";")
 ## Group_by author and year
 author_pscore = author_pscore.groupby(['author','year'], as_index=False).agg({'score':'sum', 'num_comments':'sum'})
 
@@ -116,58 +118,4 @@ author_pscore['p_score'] = author_pscore['score']/author_pscore['num_comments']
 author_pscore = author_pscore.sort_values(by='p_score', ascending=True)
 
 ## Save
-author_pscore.to_csv(PATH_PSCORE,sep=";",header=True, index=False)
-
-
-
-
-
-# %%
-## Data visualization
-## LATER PUT THIS PART IN A JUPYTER NOTEBOOK
-## Read the p_score file
-author_pscore = pd.read_csv(PATH_PSCORE, sep=";")
-
-## Filter
-min_comments = 10
-max_comments = 2000
-author_pscore = author_pscore[author_pscore['num_comments'] > min_comments]
-author_pscore = author_pscore[author_pscore['num_comments'] < max_comments]
-
-display(author_pscore.head(10))
-print(f'Number of authors: {len(author_pscore)}')
-
-plt.scatter(author_pscore['p_score'],author_pscore['num_comments'],s=1)
-plt.xlabel('p-score')
-plt.ylabel('Number of comments')
-plt.show()
-
-#%%
-#plt.figure(2)
-years = np.arange(2005,2020)
-display(years)
-
-for year in years:
-    author_pscore_year = author_pscore[author_pscore['year'] == year]
-    author_pscore_year.hist('p_score', bins=50)
-    plt.title(year)
-# log scale?
-
-#%%
-import plotly.express as px
-df = px.data.gapminder()
-#fig = px.scatter(df, x="gdpPercap", y="lifeExp", animation_frame="year", animation_group="country",
-#           size="pop", color="continent", hover_name="country",
-#           log_x=True, size_max=55, range_x=[100,100000], range_y=[25,90])
-
-fig["layout"].pop("updatemenus") # optional, drop animation buttons
-fig.show()
-
-fig = px.histogram(author_pscore_year, x="p_score", y='num_comments')
-
-#fig["layout"].pop("updatemenus") # optional, drop animation buttons
-fig.show()
-
-## Do better plots:
-## Number of comments follows a power law
-# %%
+author_pscore.to_csv(PATH_PSCORE_FULL,sep=";",header=True, index=False)
