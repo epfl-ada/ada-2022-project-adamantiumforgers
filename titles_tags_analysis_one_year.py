@@ -35,7 +35,6 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import plotly.graph_objects as go
 from plotly.colors import n_colors
 import plotly.express as px
-#from plotly.subplots import make_subplots
 
 # Emojis management
 def is_emoji(s):
@@ -87,7 +86,7 @@ display_id_to_channels.head()
 
 # EXEC : ~45min
 
-# %%
+# %%                FAUT RUN CAAAAAAAAAAAAAAAAAAAAAAAA
 
 ############# Data used for processing of titles and tags
 
@@ -137,7 +136,8 @@ for selected_commu in communities:
         tags = pd.DataFrame(chunk[['tags','upload_date']])
         tags.to_csv(DIR_OUT+"tags_date"+str(selected_commu)+".csv", sep=';', mode='a', index=False, header=False)
 
-    # EXEC : ~1min
+    # EXEC : ~1min per communities
+
 
 
                 ######################
@@ -146,24 +146,23 @@ for selected_commu in communities:
                 ######################
                 ######################
 
+communities = range(nb_communities)
 
+for selected_commu in communities:
     ############# Select videos whom title contains a given word
 
     titles = pd.read_csv(DIR_OUT + "titles_date"+str(selected_commu)+".csv",sep=";")
 
     titles_contain = titles[titles['title'].str.contains(word, case=False)]
-    display(titles_contain)
+
 
     ############# Preprocess the text
 
     for expression in undesired_expression_list :
         titles_contain.loc['title'] = titles_contain['title'].str.replace(expression,"")
 
-
     titles_contain.to_csv(DIR_OUT + "titles_date_f.csv",sep=";",index=False, header=True)
     #titles_contain.to_csv(DIR_OUT+"titles.txt", sep="\n",index=False, header=False)
-
-
 
     ############# Select videos in a time period of interest
 
@@ -176,6 +175,7 @@ for selected_commu in communities:
     titles["title"].to_csv(DIR_OUT+"titles_to_process.txt", sep="\n",index=False, header=False)
 
 
+    display(titles)
 
     ############# Process the titles 
 
