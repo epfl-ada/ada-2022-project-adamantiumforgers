@@ -8,6 +8,7 @@ import csv
 import matplotlib.pyplot as plt
 import seaborn as sns
 import statsmodels.formula.api as smf
+import math
 
 # Word occurences count
 from collections import Counter
@@ -23,7 +24,7 @@ import plotly.express as px
 
 # Emojis management
 def is_emoji(s):
-    emojis = "😘◼️🔴🤾🎅😂🚒👨🤦" # add more emojis here
+    emojis = "😘◼️•🔴🤾🎅😂🚒👨🤦" # add more emojis here
     count = 0
     for emoji in emojis:
         count += s.count(emoji)
@@ -166,7 +167,7 @@ for i in range(0,int(len(books[0])/nlp.max_length)+1):
 
     print("Output")
     #doc_processed = [x.encode('latin1','ignore').decode("latin1") for x in doc_processed]
-    pd.DataFrame(doc_processed).to_csv(DIR_OUT+"titles_words.csv", sep="\n",index=False, header=['word'])
+    pd.DataFrame(doc_processed).to_csv(DIR_OUT+"titles_words.csv", sep=";",index=False, header=['word'])
 
 # EXEC = ~2min30 per iteration (Tokenization takes 90% of exec time)
 
@@ -192,7 +193,7 @@ display("negative : " + str(sum(negative_sent)/len(negative_sent)))
 
 PATH_OUT = DIR_OUT+"communities_comparison/titles_occurences_"+str(selected_commu)+"_"+word+"_"+start_date+"_"+end_date+".csv"
 
-titles_processed = pd.read_csv(DIR_OUT+"titles_words.csv", sep=',')
+titles_processed = pd.read_csv(DIR_OUT+"titles_words.csv", sep=';')
 #titles_processed = [x.encode('utf-8','ignore').decode("utf-8") for x in titles_processed['word']]
 
 display(titles_processed.head)
@@ -460,9 +461,6 @@ for community in communities:
 # Une couleur associée à chaque communauté pour tout le long
 
 
-# %%
-
-data = pd.read_json("data/LOCO.json", orient='records')
 
 # %%
 
@@ -526,8 +524,104 @@ display(nb_titles)
 
 # %%
 
+######## Processing loco just as other books
 
+loco = ""
+doc_processed = []
 
+with codecs.open("data/LOCO_titles.txt", 'r', encoding = 'latin1') as file:
+    loco = file.read()
+file.close()
+
+loco = [" ".join(b.split()) for b in loco]
+
+display("Length of the book is " + str(len(loco)) + " characters, " + str(len(loco)/nlp.max_length) + " times the max length that can be processed at once.")
+
+# Processing
+for i in range(0,int(len(loco)/nlp.max_length)+1):
+    display('ITERATION ' + str(i))
+
+    # Tokenization
+    print("Tokenization")
+    doc = nlp(loco[i*nlp.max_length:(i+1)*nlp.max_length])
+
+    # Named entities recognition
+    print("Named entities recognition")
+    for ent in doc.ents:
+        if ent.label_ in named_entities:
+            doc_processed = doc_processed + [ent.text]
+        
+    # Punctuation and stopwords removal
+    print("Punctuation and stopwords removal")
+    doc_processed = doc_processed + [token.text for token in doc if (not (token.ent_type_ in named_entities) and not token.is_digit and not token.is_stop and not token.is_punct and not (token.text in my_undesired_list) and not is_emoji(token.text))]
+
+    # Removal of undesired characters
+    doc_processed = [token.replace(',','') for token in doc_processed]
+    doc_processed = [token.replace('.','') for token in doc_processed]
+    doc_processed = [token.replace("'s",'') for token in doc_processed]
+    doc_processed = [token.replace("'",'') for token in doc_processed]
+    doc_processed = [token.replace('"','') for token in doc_processed]
+    doc_processed = [token.replace("\\",'') for token in doc_processed]
+    doc_processed = [token.replace("/",'') for token in doc_processed]
+
+    print("Output")
+    #doc_processed = [x.encode('latin1','ignore').decode("latin1") for x in doc_processed]
+    pd.DataFrame(doc_processed).to_csv(DIR_OUT+"loco_processed.csv", sep=";",index=False, header=['word'])
+
+# %%
+
+###### Computing occurences count for LOCO
+
+loco_processed = pd.read_csv(DIR_OUT+"loco_processed.csv", sep=';')
+
+display(loco_processed.head)
+
+# Count occurences
+loco_processed_lowercase = [str(word).lower() for word in loco_processed['word']]
+word_freq = Counter(loco_processed_lowercase)
+common_words = word_freq.most_common()
+common_words_out = pd.DataFrame(common_words)
+common_words_out.columns=['word','occurences']
+
+common_words_out.insert(2, column='frequency', value=common_words_out['occurences']/common_words_out['occurences'].sum())
+
+display(common_words_out)
+common_words_out.to_csv(DIR_OUT+"loco_occurences.csv")
+
+# %% 
+
+###### Comparing word occurences in LOCO and in our titles for a given
+
+loco_occurences = pd.read_csv(DIR_OUT+"loco_occurences.csv", index_col=0)
+distance = []
+
+# Merge with communities occurences counts
+for selected_commu in communities:
+
+    PATH_COMMU = DIR_OUT+"communities_comparison/titles_occurences_"+str(selected_commu)+"_"+word+"_"+start_date+"_"+end_date+".csv"
+    titles_occurences = pd.read_csv(PATH_COMMU, sep=';',index_col=0,usecols=['word','occurences'])
+    display(titles_occurences)
+    loco_occurences.columns=['word','frequencies_loco']
+
+    # Merge to identify common words
+    merged = titles_occurences.merge(loco_occurences, on='word', how='outer').fillna(0)
+
+    # Normalize both vectors, not to be influenced by the number of words in the community
+    merged['occurences'] = merged['occurences'] / merged['occurences'].abs().max()
+    merged['occurences_loco'] = merged['occurences_loco'] / merged['occurences_loco'].abs().max()
+    display(merged)
+
+    # Apply a logarithmic scale
+    merged.insert(1,column='log_occurences',value=np.log10(merged['occurences']+1))
+    merged.insert(1,column='log_occurences_loco',value=np.log10(merged['occurences_loco']+1))
+
+    # Compute a 2-norm distance
+    merged.insert(1,column='distance',value=merged['log_occurences']-merged['log_occurences_loco'])
+    merged.insert(1,column='squared_distance',value=merged['distance'].pow(2))
+
+    distance = distance + [math.sqrt(merged['squared_distance'].sum())]
+
+display(distance)
 
 
 # %%
@@ -539,3 +633,5 @@ df = pd.DataFrame({'y':result['leftness'], 'rank_ti':result['rank_title'], 'rank
 model = smf.ols('y ~ rank_ti + rank_ta', data = df)
 results = model.fit()
 #print(results.summary())
+
+

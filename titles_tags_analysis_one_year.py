@@ -1,20 +1,17 @@
 # %%
 
-##### RUN FOR YEAR :
+##### RUN FOR PERIOD :
 
-year_start = "2017"
-
-year_end = "2017"
+year_start = "2018"
+month_start = "12"
+year_end = "2019"
+month_end = "01"
 
 ##### HOW MANY COMMUNITIES ?
 
 nb_communities = 6
 
-
-display("Attention pétolet ! J'espère que t'es prêt, ça va run sur deux ans, entre le 1er janvier " + year_start + " jusqu'au 31 décembre " + year_end + ".")
-
-
-# %%
+##### LET'S GO
 
 import pandas as pd
 import numpy as np
@@ -52,43 +49,10 @@ DIR_OUT = "csv_outputs/"
 PATH_METADATA = DIR_LARGE + "yt_metadata_en.jsonl.gz"
 
 
-# %%
-
-## Create a table channel_num_to_title_tags_date.csv
-
-# Should we use all N&P channels or just AllSides medias ? Select here medias/channels
-use = 'channels'
-
-if use =='medias':
-    PATH_DATA = DIR_OUT + "medias.csv"
-    PATH_RESULT = DIR_OUT + "display_id_to_medias.csv" #_temp to avoid overwriting the long one we already created
-else:
-    PATH_DATA = DIR_OUT + "channels.csv"
-    PATH_RESULT = DIR_OUT + "channel_num_to_title_tags_date.csv" #_temp to avoid overwriting the long one we already created
-
-# Open the list of channels selected above
-df_channels = pd.read_csv(PATH_DATA, sep=";")
-
-# Format output file 
-display_id_to_channels = pd.DataFrame(columns=['channel_num', 'title', 'tags','upload_date'])
-display_id_to_channels.to_csv(PATH_RESULT,sep=";",header=True, index=False)
-
-for chunk in pd.read_json(PATH_METADATA, lines=True, compression="infer", chunksize=10000):
-    chunk = chunk[chunk.categories == 'News & Politics']
-    # Merge with list of News & Politics channels
-    chunk = chunk.merge(df_channels, on='channel_id',how='inner') # Here are deleted videos with category News&Politics that are in a channel whose category is not News&Politics
-    chunk = chunk[['channel_num', 'title', 'tags', 'upload_date']]
-    chunk.to_csv(PATH_RESULT,sep=";",mode='a',header=False, index=False)
-
-# Display the result
-display_id_to_channels = pd.read_csv(PATH_RESULT,sep=";", nrows=5)
-display_id_to_channels.head()
-
-# EXEC : ~45min
-
-# %%                FAUT RUN CAAAAAAAAAAAAAAAAAAAAAAAA
-
 ############# Data used for processing of titles and tags
+
+
+communities = range(nb_communities)
 
 nlp = spacy.load('en_core_web_sm')
 nlp.max_length=1000000
@@ -99,9 +63,9 @@ undesired_expression_list = []
 
 # Filtering
 word = ''
-start_date = year_start + "-01-01"
+start_date = year_start + "-" + month_start + "-01"
 period_start = pd.to_datetime(start_date, format='%Y-%m-%d')
-end_date = year_end + "-12-31"
+end_date = year_end + "-" + month_end + "-31"
 period_end =pd.to_datetime(end_date, format='%Y-%m-%d')
 
 # Processing
@@ -113,45 +77,17 @@ my_undesired_list = ['|','l','w/','=','$',word] + news_lexical_field
 named_entities = ['LOC','GPE']
 
 
-############# Processing
-
-communities = range(nb_communities)
-
-for selected_commu in communities:
-
-    ############# Create a list of all videos of a selected communities, with titles and tags : use display_id_to_channels_title_tags
-
-    channels_list = pd.read_csv("csv_outputs/louvain_communities_channels_large.csv", sep=";", usecols=['channel','community'])
-    channels_list = pd.DataFrame(channels_list[channels_list['community']==selected_commu]['channel'])
-    channels_list.columns=['channel_num']
-    display(channels_list.head())
-
-    pd.DataFrame(columns=['title','upload_date']).to_csv(DIR_OUT+"titles_date"+str(selected_commu)+".csv", sep=';', index=False, header=True)
-    pd.DataFrame(columns=['tags','upload_date']).to_csv(DIR_OUT+"tags_date"+str(selected_commu)+".csv", sep=';', index=False, header=True)
-
-    for chunk in pd.read_csv(DIR_OUT + "channel_num_to_title_tags_date.csv", sep=";", chunksize=100000):
-        chunk = channels_list.merge(chunk, on='channel_num')
-        titles = pd.DataFrame(chunk[['title','upload_date']])
-        titles.to_csv(DIR_OUT+"titles_date"+str(selected_commu)+".csv", sep=';', mode='a', index=False, header=False)
-        tags = pd.DataFrame(chunk[['tags','upload_date']])
-        tags.to_csv(DIR_OUT+"tags_date"+str(selected_commu)+".csv", sep=';', mode='a', index=False, header=False)
-
-    # EXEC : ~1min per communities
-
-
-
                 ######################
                 ######################
                 ####### TITLES #######
                 ######################
                 ######################
 
-communities = range(nb_communities)
-
 for selected_commu in communities:
     ############# Select videos whom title contains a given word
 
     titles = pd.read_csv(DIR_OUT + "titles_date"+str(selected_commu)+".csv",sep=";")
+    display(DIR_OUT + "titles_date"+str(selected_commu)+".csv")
 
     titles_contain = titles[titles['title'].str.contains(word, case=False)]
 
@@ -173,7 +109,6 @@ for selected_commu in communities:
 
     #titles['title'] = [x.encode('utf-8','ignore').decode("utf-8") for x in titles['title']]
     titles["title"].to_csv(DIR_OUT+"titles_to_process.txt", sep="\n",index=False, header=False)
-
 
     display(titles)
 
@@ -215,7 +150,7 @@ for selected_commu in communities:
 
         print("Output")
         #doc_processed = [x.encode('latin1','ignore').decode("latin1") for x in doc_processed]
-        pd.DataFrame(doc_processed).to_csv(DIR_OUT+"titles_words.csv", sep="\n",index=False, header=['word'])
+        pd.DataFrame(doc_processed).to_csv(DIR_OUT+"titles_words.csv", sep=";",index=False, header=['word'])
 
     # EXEC = ~2min30 per iteration (Tokenization takes 90% of exec time)
 
@@ -239,7 +174,7 @@ for selected_commu in communities:
 
     PATH_OUT = DIR_OUT+"communities_comparison/titles_occurences_"+str(selected_commu)+"_"+word+"_"+start_date+"_"+end_date+".csv"
 
-    titles_processed = pd.read_csv(DIR_OUT+"titles_words.csv", sep=',')
+    titles_processed = pd.read_csv(DIR_OUT+"titles_words.csv", sep=';')
     #titles_processed = [x.encode('utf-8','ignore').decode("utf-8") for x in titles_processed['word']]
 
     display(titles_processed.head)
@@ -258,7 +193,6 @@ for selected_commu in communities:
     common_words_out.to_csv(PATH_OUT,sep=';')
     display(common_words_out.head(30))
 
-# %%
 
 ######### Comparison of communities
 
