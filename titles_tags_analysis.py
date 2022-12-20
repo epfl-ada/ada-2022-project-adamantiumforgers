@@ -56,7 +56,7 @@ undesired_expression_list = []
 word = ''
 start_date = "2018-12-01"
 period_start = pd.to_datetime(start_date, format='%Y-%m-%d')
-end_date = "2019-02-01"
+end_date = "2019-01-31"
 period_end =pd.to_datetime(end_date, format='%Y-%m-%d')
 
 # Processing
@@ -533,7 +533,6 @@ with codecs.open("data/LOCO_titles.txt", 'r', encoding = 'latin1') as file:
     loco = file.read()
 file.close()
 
-loco = [" ".join(b.split()) for b in loco]
 
 display("Length of the book is " + str(len(loco)) + " characters, " + str(len(loco)/nlp.max_length) + " times the max length that can be processed at once.")
 
@@ -563,16 +562,20 @@ for i in range(0,int(len(loco)/nlp.max_length)+1):
     doc_processed = [token.replace('"','') for token in doc_processed]
     doc_processed = [token.replace("\\",'') for token in doc_processed]
     doc_processed = [token.replace("/",'') for token in doc_processed]
+    doc_processed = [token.replace("\n",'') for token in doc_processed]
+    doc_processed = [token.replace("â",'') for token in doc_processed]
+
+    doc_processed = [token_text for token_text in doc_processed if not token_text=='']
 
     print("Output")
     #doc_processed = [x.encode('latin1','ignore').decode("latin1") for x in doc_processed]
-    pd.DataFrame(doc_processed).to_csv(DIR_OUT+"loco_processed.csv", sep=";",index=False, header=['word'])
+    pd.DataFrame(doc_processed).to_csv(DIR_OUT+"loco_processed.csv", sep=";",index=False, header=['word'], encoding='latin1')
 
 # %%
 
 ###### Computing occurences count for LOCO
 
-loco_processed = pd.read_csv(DIR_OUT+"loco_processed.csv", sep=';')
+loco_processed = pd.read_csv(DIR_OUT+"loco_processed.csv", sep=';', encoding='latin1')
 
 display(loco_processed.head)
 
@@ -583,45 +586,59 @@ common_words = word_freq.most_common()
 common_words_out = pd.DataFrame(common_words)
 common_words_out.columns=['word','occurences']
 
-common_words_out.insert(2, column='frequency', value=common_words_out['occurences']/common_words_out['occurences'].sum())
+# Correction due to abscence of covid in studied years
+# divide by 10
+mask = (common_words_out['word'].isin(['coronavirus','vaccine','vaccines','pandemic','virus','pharma']))
+common_words_out_valid = common_words_out[mask]
+common_words_out.loc[mask, 'occurences'] = common_words_out.loc[mask, 'occurences']/10
+# delete topics
+mask = (common_words_out['word'].isin(['covid-19']))
+mask[[7,50,160,300,436]]=True
+common_words_out = common_words_out.drop(common_words_out[mask].index,axis="index")
 
-display(common_words_out)
+common_words_out.insert(2, column='frequency', value=common_words_out['occurences']/common_words_out['occurences'].sum())
+common_words_out = common_words_out.sort_values(by='frequency', ascending = False)[['word','frequency']]
+
 common_words_out.to_csv(DIR_OUT+"loco_occurences.csv")
+
+display(common_words_out.head(10))
 
 # %% 
 
 ###### Comparing word occurences in LOCO and in our titles for a given
 
-loco_occurences = pd.read_csv(DIR_OUT+"loco_occurences.csv", index_col=0)
+loco_occurences = pd.read_csv(DIR_OUT+"loco_occurences.csv", index_col = 0)
 distance = []
 
 # Merge with communities occurences counts
 for selected_commu in communities:
 
     PATH_COMMU = DIR_OUT+"communities_comparison/titles_occurences_"+str(selected_commu)+"_"+word+"_"+start_date+"_"+end_date+".csv"
-    titles_occurences = pd.read_csv(PATH_COMMU, sep=';',index_col=0,usecols=['word','occurences'])
-    display(titles_occurences)
-    loco_occurences.columns=['word','frequencies_loco']
+    titles_occurences = pd.read_csv(PATH_COMMU, sep=';',index_col=0,usecols=['word','frequency'])
+    loco_occurences.columns=['word','frequency_loco']
 
     # Merge to identify common words
     merged = titles_occurences.merge(loco_occurences, on='word', how='outer').fillna(0)
 
     # Normalize both vectors, not to be influenced by the number of words in the community
-    merged['occurences'] = merged['occurences'] / merged['occurences'].abs().max()
-    merged['occurences_loco'] = merged['occurences_loco'] / merged['occurences_loco'].abs().max()
-    display(merged)
+    merged['frequency'] = merged['frequency'] / merged['frequency'].abs().max()
+    merged['frequency_loco'] = merged['frequency_loco'] / merged['frequency_loco'].abs().max()
 
     # Apply a logarithmic scale
-    merged.insert(1,column='log_occurences',value=np.log10(merged['occurences']+1))
-    merged.insert(1,column='log_occurences_loco',value=np.log10(merged['occurences_loco']+1))
+    merged.insert(1,column='log_frequency',value=np.log10(merged['frequency']+1))
+    merged.insert(1,column='log_frequency_loco',value=np.log10(merged['frequency_loco']+1))
 
     # Compute a 2-norm distance
-    merged.insert(1,column='distance',value=merged['log_occurences']-merged['log_occurences_loco'])
+    merged.insert(1,column='distance',value=merged['log_frequency']-merged['log_frequency_loco'])
     merged.insert(1,column='squared_distance',value=merged['distance'].pow(2))
 
     distance = distance + [math.sqrt(merged['squared_distance'].sum())]
 
 display(distance)
+
+fig = px.line(distance, title='Distance between topics in a community and topics in conspiracist medias',labels={'index':'community','value':'distance'},width=650, height=400)
+fig.update_traces(showlegend=False)
+fig.show()
 
 
 # %%
