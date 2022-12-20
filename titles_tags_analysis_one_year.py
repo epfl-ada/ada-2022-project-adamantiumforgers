@@ -2,16 +2,17 @@
 
 ##### RUN FOR YEAR :
 
-year_start = "2000"
+year_start = "2017"
 
-year_end = "2001"
+year_end = "2017"
 
 ##### HOW MANY COMMUNITIES ?
 
-nb_communities = 7
+nb_communities = 6
 
 
 display("Attention pétolet ! J'espère que t'es prêt, ça va run sur deux ans, entre le 1er janvier " + year_start + " jusqu'au 31 décembre " + year_end + ".")
+
 
 # %%
 
@@ -52,6 +53,42 @@ DIR_OUT = "csv_outputs/"
 PATH_METADATA = DIR_LARGE + "yt_metadata_en.jsonl.gz"
 
 
+# %%
+
+## Create a table channel_num_to_title_tags_date.csv
+
+# Should we use all N&P channels or just AllSides medias ? Select here medias/channels
+use = 'channels'
+
+if use =='medias':
+    PATH_DATA = DIR_OUT + "medias.csv"
+    PATH_RESULT = DIR_OUT + "display_id_to_medias.csv" #_temp to avoid overwriting the long one we already created
+else:
+    PATH_DATA = DIR_OUT + "channels.csv"
+    PATH_RESULT = DIR_OUT + "channel_num_to_title_tags_date.csv" #_temp to avoid overwriting the long one we already created
+
+# Open the list of channels selected above
+df_channels = pd.read_csv(PATH_DATA, sep=";")
+
+# Format output file 
+display_id_to_channels = pd.DataFrame(columns=['channel_num', 'title', 'tags','upload_date'])
+display_id_to_channels.to_csv(PATH_RESULT,sep=";",header=True, index=False)
+
+for chunk in pd.read_json(PATH_METADATA, lines=True, compression="infer", chunksize=10000):
+    chunk = chunk[chunk.categories == 'News & Politics']
+    # Merge with list of News & Politics channels
+    chunk = chunk.merge(df_channels, on='channel_id',how='inner') # Here are deleted videos with category News&Politics that are in a channel whose category is not News&Politics
+    chunk = chunk[['channel_num', 'title', 'tags', 'upload_date']]
+    chunk.to_csv(PATH_RESULT,sep=";",mode='a',header=False, index=False)
+
+# Display the result
+display_id_to_channels = pd.read_csv(PATH_RESULT,sep=";", nrows=5)
+display_id_to_channels.head()
+
+# EXEC : ~45min
+
+# %%
+
 ############# Data used for processing of titles and tags
 
 nlp = spacy.load('en_core_web_sm')
@@ -75,7 +112,6 @@ news_lexical_field = ['News','news','man','Man','woman','Woman','Day','day','say
 my_undesired_list = ['|','l','w/','=','$',word] + news_lexical_field
 
 named_entities = ['LOC','GPE']
-
 
 
 ############# Processing
@@ -222,6 +258,7 @@ for selected_commu in communities:
     common_words_out.to_csv(PATH_OUT,sep=';')
     display(common_words_out.head(30))
 
+# %%
 
 ######### Comparison of communities
 
