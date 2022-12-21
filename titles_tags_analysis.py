@@ -4,6 +4,8 @@ import pandas as pd
 import numpy as np
 import spacy
 import codecs
+
+
 import csv
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -329,8 +331,9 @@ display(common_words_out.head(30))
 
 result = []
 
-#['fake','maga','security','trump','wall','shutdown','economic','carbon','climate','brexit','eu','china']
-targets_list =['harassed','satanic','pedophile','shutdown']
+#targets_list =['fake','maga','security','trump','wall','shutdown','economic','carbon','climate','brexit','eu','china']
+targets_list =['harassed','satanic','pedophile','ufo','prophecy','truth']
+#targets_list =['brexit','eu','china','asia','africa','europe','india','hawaii']
 
 for j in range(len(targets_list)):
     temp = pd.DataFrame(columns = ['community','rank_title','rank_tag','title_frequency'])
@@ -345,18 +348,18 @@ for j in range(len(targets_list)):
                 temp.loc[len(temp.index)] = [i, titles[titles['word']==target].index.values[0], tags[tags['word']==word].index.values[0], float(titles[titles['word']==target]['frequency'])]
             else:
                 display(target + " is not in community " + str(i))
-                temp.loc[len(temp.index)] = [i,'-', '-', 0]
+                temp.loc[len(temp.index)] = [i,math.inf, '-', 0]
         else:
             if (titles['word']==target).any():
                 temp.loc[len(temp.index)] = [i, titles[titles['word']==target].index.values[0], '-', float(titles[titles['word']==target]['frequency'])]
             else:
                 display(target + " is not in community " + str(i))
-                temp.loc[len(temp.index)] = [i,'-', '-', 0]
+                temp.loc[len(temp.index)] = [i,math.inf, '-', 0]
 
     result = result + [temp]
 
-    display(target)
-    display(temp)
+    #display(target)
+    #display(temp)
 
 
 # %%
@@ -377,7 +380,7 @@ data = pd.DataFrame()
 for i in range(0,len(targets_list)):
     data.insert(i, column=targets_list[i], value=result[i]['title_frequency'])
 
-display(data)
+#display(data)
 
 fig = px.line(data, title='Topics frequencies in different communities',labels={'value':'frequency','index':'community','variable':'Topics :'},width=600, height=400)
 not_active_traces = [targets_list[i] for i in range(len(targets_list)) if i>len(targets_list)*1/3]
@@ -391,17 +394,13 @@ fig.show()
 ############ GRAPH : Closeness matrix
 
 closeness_matrix = pd.DataFrame(index=communities,columns=communities)
+
 for x in communities:
     for y in communities:
         for target in range(len(targets_list)):
-            a = int(result[target][result[target]['community']==x]['rank_title'])
-            b = int(result[target][result[target]['community']==y]['rank_title'])
-            c = 0
-            d = 0
-            if use_tags:
-                c = int(result[target][result[target]['community']==x]['rank_tag'])
-                d = int(result[target][result[target]['community']==y]['rank_tag'])
-            closeness_matrix[x][y]=abs(a-b)+abs(c-d)
+            a = result[target][result[target]['community']==x]['title_frequency']
+            b = result[target][result[target]['community']==y]['title_frequency']
+            closeness_matrix[x][y]=int(abs(float(a)-float(b))*100000)
 
 display(closeness_matrix)
 
@@ -454,12 +453,11 @@ for community in communities:
 # %%
 
 
-# Permettre de choisir les mots que l'on veut avoir dans la matrice de 'closeness' des chaînes
-# Plan idée : graph, graph sans la merde, orientation politique des utilisateurs, plus loin que l'orientation politique : des perspectives différentes sur l'actualité (occurences de mots)
-# Idée distance map, avec des axes comme droite/gauche, international ou pas, conspi ou pas, regard sur Trump
-# Raconter ce qu'il s'est passé dans cette période de fin 2018 début 2019
-# Une couleur associée à chaque communauté pour tout le long
-
+            ######################
+            ######################
+            ######## LOCO ########
+            ######################
+            ######################
 
 
 # %%
@@ -470,17 +468,20 @@ for community in communities:
 # total file : chunk = 587 622 363
 
 text = ""
-chunk = 100000000
+chunk = 590000000
 
 with codecs.open("data/LOCO.json", 'r', encoding='latin1') as file:
     #writing the header
     text = file.read(chunk)
 file.close()
 
+display(text)
+
 with codecs.open("data/LOCO_small.txt", 'w', encoding='latin1') as file:
     file.write(text)
 file.close()
 
+# %% 
 ######## Exctracting titles in LOCO
 
 result = ""
@@ -643,12 +644,318 @@ fig.show()
 
 # %%
 
-## Data for the regression
-df = pd.DataFrame({'y':result['leftness'], 'rank_ti':result['rank_title'], 'rank_ta':result['rank_tag']})
 
-## Perform regression using statsmodels ols function
-model = smf.ols('y ~ rank_ti + rank_ta', data = df)
-results = model.fit()
-#print(results.summary())
+            ######################
+            ######################
+            #### BLACK VOICES ####
+            ######################
+            ######################
+
+# %%
+
+######## Dataset about black voices
+
+# Exctract titles and descriptions
+
+dataset = pd.read_json("data/News_Category_Dataset_v3.json", lines = True)
+
+dataset_black = dataset[dataset['category']=='BLACK VOICES'][['headline','short_description']]
+dataset_black.to_csv("data/News_black_voices_titles.txt", sep='\n', index=None, header=None)
+
+display(dataset_black)
+
+# %%
+
+######## Processing back_voices just as other books
+
+black_voices = ""
+doc_processed = []
+
+with codecs.open("data/News_black_voices_titles.txt", 'r') as file:
+    black_voices = file.read()
+file.close()
 
 
+display("Length of the book is " + str(len(black_voices)) + " characters, " + str(len(black_voices)/nlp.max_length) + " times the max length that can be processed at once.")
+
+# Processing
+for i in range(0,int(len(black_voices)/nlp.max_length)+1):
+    display('ITERATION ' + str(i))
+
+    # Tokenization
+    print("Tokenization")
+    doc = nlp(black_voices[i*nlp.max_length:(i+1)*nlp.max_length])
+
+    # Named entities recognition
+    print("Named entities recognition")
+    for ent in doc.ents:
+        if ent.label_ in named_entities:
+            doc_processed = doc_processed + [ent.text]
+        
+    # Punctuation and stopwords removal
+    print("Punctuation and stopwords removal")
+    doc_processed = doc_processed + [token.text for token in doc if (not (token.ent_type_ in named_entities) and not token.is_digit and not token.is_stop and not token.is_punct and not (token.text in my_undesired_list) and not is_emoji(token.text))]
+
+# Removal of undesired characters
+doc_processed = [token.replace(',','') for token in doc_processed]
+doc_processed = [token.replace('.','') for token in doc_processed]
+doc_processed = [token.replace("'s",'') for token in doc_processed]
+doc_processed = [token.replace("'",'') for token in doc_processed]
+doc_processed = [token.replace('"','') for token in doc_processed]
+doc_processed = [token.replace("\\",'') for token in doc_processed]
+doc_processed = [token.replace("/",'') for token in doc_processed]
+doc_processed = [token.replace("\n",'') for token in doc_processed]
+doc_processed = [token.replace("â",'') for token in doc_processed]
+
+doc_processed = [token_text for token_text in doc_processed if not token_text=='']
+
+print("Output")
+#doc_processed = [x.encode('latin1','ignore').decode("latin1") for x in doc_processed]
+pd.DataFrame(doc_processed).to_csv(DIR_OUT+"black_voices_processed.csv", sep=";",index=False, header=['word'])
+
+# %%
+
+###### Computing occurences count for black_voices
+
+black_voices_processed = pd.read_csv(DIR_OUT+"black_voices_processed.csv", sep=';', encoding='latin1')
+
+display(black_voices_processed.head)
+
+# Count occurences
+black_voices_processed_lowercase = [str(word).lower() for word in black_voices_processed['word']]
+word_freq = Counter(black_voices_processed_lowercase)
+common_words = word_freq.most_common()
+common_words_out = pd.DataFrame(common_words)
+common_words_out.columns=['word','occurences']
+
+# Correction due to abscence of covid in studied years
+# divide by 10
+mask = (common_words_out['word'].isin(['coronavirus','vaccine','vaccines','pandemic','virus','pharma']))
+common_words_out_valid = common_words_out[mask]
+common_words_out.loc[mask, 'occurences'] = common_words_out.loc[mask, 'occurences']/10
+# delete topics
+mask = (common_words_out['word'].isin(['covid-19']))
+mask[[7,50,160,300,436]]=True
+common_words_out = common_words_out.drop(common_words_out[mask].index,axis="index")
+
+common_words_out.insert(2, column='frequency', value=common_words_out['occurences']/common_words_out['occurences'].sum())
+common_words_out = common_words_out.sort_values(by='frequency', ascending = False)[['word','frequency']]
+
+common_words_out.to_csv(DIR_OUT+"black_voices_occurences.csv")
+
+display(common_words_out.head(10))
+
+# %% 
+
+###### Comparing word occurences in black_voices and in our titles for a given
+
+black_voices_occurences = pd.read_csv(DIR_OUT+"black_voices_occurences.csv", index_col = 0)
+distance = []
+
+# Merge with communities occurences counts
+for selected_commu in communities:
+
+    PATH_COMMU = DIR_OUT+"communities_comparison/titles_occurences_"+str(selected_commu)+"_"+word+"_"+start_date+"_"+end_date+".csv"
+    titles_occurences = pd.read_csv(PATH_COMMU, sep=';',index_col=0,usecols=['word','frequency'])
+    black_voices_occurences.columns=['word','frequency_black_voices']
+
+    # Merge to identify common words
+    merged = titles_occurences.merge(black_voices_occurences, on='word', how='inner').fillna(0)
+
+    # Normalize both vectors, not to be influenced by the number of words in the community
+    merged['frequency'] = merged['frequency'] / merged['frequency'].abs().max()
+    merged['frequency_black_voices'] = merged['frequency_black_voices'] / merged['frequency_black_voices'].abs().max()
+
+    # Apply a logarithmic scale
+    merged.insert(1,column='log_frequency',value=np.log10(merged['frequency']+1))
+    merged.insert(1,column='log_frequency_black_voices',value=np.log10(merged['frequency_black_voices']+1))
+
+    # Compute a 2-norm distance
+    merged.insert(1,column='distance',value=merged['log_frequency']-merged['log_frequency_black_voices'])
+    merged.insert(1,column='squared_distance',value=merged['distance'].pow(2))
+
+    distance = distance + [math.sqrt(merged['squared_distance'].sum())]
+
+display(distance)
+
+fig = px.line(distance, title='Distance between topics in a community and topics in medias sharing black voices',labels={'index':'community','value':'distance'},width=650, height=400)
+fig.update_traces(showlegend=False)
+fig.show()
+
+
+# %%
+
+
+            ######################
+            ######################
+            #### QUEER VOICES ####
+            ######################
+            ######################
+
+# %%
+
+######## Dataset about queer voices
+
+# Exctract titles and descriptions
+
+dataset = pd.read_json("data/News_Category_Dataset_v3.json", lines = True)
+
+dataset_queer = dataset[dataset['category']=='QUEER VOICES'][['headline','short_description']]
+dataset_queer.to_csv("data/News_queer_voices_titles.txt", sep='\n', index=None, header=None)
+
+display(dataset_queer)
+
+# %%
+
+######## Processing back_voices just as other books
+
+queer_voices = ""
+doc_processed = []
+
+with codecs.open("data/News_queer_voices_titles.txt", 'r') as file:
+    queer_voices = file.read()
+file.close()
+
+
+display("Length of the book is " + str(len(queer_voices)) + " characters, " + str(len(queer_voices)/nlp.max_length) + " times the max length that can be processed at once.")
+
+# Processing
+for i in range(0,int(len(queer_voices)/nlp.max_length)+1):
+    display('ITERATION ' + str(i))
+
+    # Tokenization
+    print("Tokenization")
+    doc = nlp(queer_voices[i*nlp.max_length:(i+1)*nlp.max_length])
+
+    # Named entities recognition
+    print("Named entities recognition")
+    for ent in doc.ents:
+        if ent.label_ in named_entities:
+            doc_processed = doc_processed + [ent.text]
+        
+    # Punctuation and stopwords removal
+    print("Punctuation and stopwords removal")
+    doc_processed = doc_processed + [token.text for token in doc if (not (token.ent_type_ in named_entities) and not token.is_digit and not token.is_stop and not token.is_punct and not (token.text in my_undesired_list) and not is_emoji(token.text))]
+
+# Removal of undesired characters
+doc_processed = [token.replace(',','') for token in doc_processed]
+doc_processed = [token.replace('.','') for token in doc_processed]
+doc_processed = [token.replace("'s",'') for token in doc_processed]
+doc_processed = [token.replace("'",'') for token in doc_processed]
+doc_processed = [token.replace('"','') for token in doc_processed]
+doc_processed = [token.replace("\\",'') for token in doc_processed]
+doc_processed = [token.replace("/",'') for token in doc_processed]
+doc_processed = [token.replace("\n",'') for token in doc_processed]
+doc_processed = [token.replace("â",'') for token in doc_processed]
+
+doc_processed = [token_text for token_text in doc_processed if not token_text=='']
+
+print("Output")
+#doc_processed = [x.encode('latin1','ignore').decode("latin1") for x in doc_processed]
+pd.DataFrame(doc_processed).to_csv(DIR_OUT+"queer_voices_processed.csv", sep=";",index=False, header=['word'])
+
+# %%
+
+###### Computing occurences count for queer_voices
+
+queer_voices_processed = pd.read_csv(DIR_OUT+"queer_voices_processed.csv", sep=';', encoding='latin1')
+
+display(queer_voices_processed.head)
+
+# Count occurences
+queer_voices_processed_lowercase = [str(word).lower() for word in queer_voices_processed['word']]
+word_freq = Counter(queer_voices_processed_lowercase)
+common_words = word_freq.most_common()
+common_words_out = pd.DataFrame(common_words)
+common_words_out.columns=['word','occurences']
+
+# Correction due to abscence of covid in studied years
+# divide by 10
+mask = (common_words_out['word'].isin(['coronavirus','vaccine','vaccines','pandemic','virus','pharma']))
+common_words_out_valid = common_words_out[mask]
+common_words_out.loc[mask, 'occurences'] = common_words_out.loc[mask, 'occurences']/10
+# delete topics
+mask = (common_words_out['word'].isin(['covid-19']))
+mask[[7,50,160,300,436]]=True
+common_words_out = common_words_out.drop(common_words_out[mask].index,axis="index")
+
+common_words_out.insert(2, column='frequency', value=common_words_out['occurences']/common_words_out['occurences'].sum())
+common_words_out = common_words_out.sort_values(by='frequency', ascending = False)[['word','frequency']]
+
+common_words_out.to_csv(DIR_OUT+"queer_voices_occurences.csv")
+
+display(common_words_out.head(10))
+
+# %% 
+
+###### Comparing word occurences in queer_voices and in our titles for a given
+
+queer_voices_occurences = pd.read_csv(DIR_OUT+"queer_voices_occurences.csv", index_col = 0)
+distance = []
+
+# Merge with communities occurences counts
+for selected_commu in communities:
+
+    PATH_COMMU = DIR_OUT+"communities_comparison/titles_occurences_"+str(selected_commu)+"_"+word+"_"+start_date+"_"+end_date+".csv"
+    titles_occurences = pd.read_csv(PATH_COMMU, sep=';',index_col=0,usecols=['word','frequency'])
+    queer_voices_occurences.columns=['word','frequency_queer_voices']
+
+    # Merge to identify common words
+    merged = titles_occurences.merge(queer_voices_occurences, on='word', how='inner').fillna(0)
+
+    # Normalize both vectors, not to be influenced by the number of words in the community
+    merged['frequency'] = merged['frequency'] / merged['frequency'].abs().max()
+    merged['frequency_queer_voices'] = merged['frequency_queer_voices'] / merged['frequency_queer_voices'].abs().max()
+
+    # Apply a logarithmic scale
+    merged.insert(1,column='log_frequency',value=np.log10(merged['frequency']+1))
+    merged.insert(1,column='log_frequency_queer_voices',value=np.log10(merged['frequency_queer_voices']+1))
+
+    # Compute a 2-norm distance
+    merged.insert(1,column='distance',value=merged['log_frequency']-merged['log_frequency_queer_voices'])
+    merged.insert(1,column='squared_distance',value=merged['distance'].pow(2))
+
+    distance = distance + [math.sqrt(merged['squared_distance'].sum())]
+
+display(distance)
+
+fig = px.line(distance, title='Distance between topics in a community and topics in medias sharing queer voices',labels={'index':'community','value':'distance'},width=650, height=400)
+fig.update_traces(showlegend=False)
+fig.show()
+
+
+# %%
+
+
+# Permettre de choisir les mots que l'on veut avoir dans la matrice de 'closeness' des chaînes
+# Plan idée : graph, graph sans la merde, orientation politique des utilisateurs, plus loin que l'orientation politique : des perspectives différentes sur l'actualité (occurences de mots)
+# Idée distance map, avec des axes comme droite/gauche, international ou pas, conspi ou pas, regard sur Trump
+# Raconter ce qu'il s'est passé dans cette période de fin 2018 début 2019
+# Une couleur associée à chaque communauté pour tout le long
+
+
+
+# %%
+
+df = pd.read_csv('data/df_channels_en.tsv.gz', sep='\t', compression='infer', usecols=['channel','name_cc','subscribers_cc','videos_cc'], index_col = 0)
+display(df.head)
+channel_num = pd.read_csv('csv_outputs/channels.csv', sep=';')
+channel_num.columns=['channel_num','channel']
+display(channel_num.head)
+df = df.merge(channel_num, on='channel')
+df['channel'] = 'www.youtube.com/channel/' + df['channel'].astype(str)
+display(df.head(10))
+
+communities_list = pd.read_csv("csv_outputs/louvain_communities_channels_large.csv", sep=";", usecols=['channel','community'])
+communities_list.columns=['channel_num','community']
+
+# %%
+
+df_commu = df.merge(communities_list, on='channel_num')
+result = []
+
+for community in communities:
+    temp = df_commu[df_commu['community']==community]
+    temp = temp.sort_values(by='subscribers_cc')
+    display(community)
+    display(temp.head(10)[['channel','name_cc']])
