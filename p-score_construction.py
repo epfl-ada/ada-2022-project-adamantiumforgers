@@ -5,16 +5,8 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-#import os
-#import json
-
-#from IPython.core.interactiveshell import InteractiveShell
-#InteractiveShell.ast_node_interactivity = 'all'
-
-#from os.path import exists
 
 # %% 2
-
 ## Directories for the data.
 ## Large data can be stored on an external drive and accessed by creating a simlink to a "large" directory in the data folder
 ## ln -s target_path link_path
@@ -22,7 +14,6 @@ import matplotlib.pyplot as plt
 DIR = "data/"
 DIR_OUTPUTS = "csv_outputs/"
 DIR_LARGE = "data/large/"
-
 
 ## Path for each file
 PATH_TIME_SERIES = DIR + "df_timeseries_en.tsv.gz"
@@ -41,13 +32,12 @@ PATH_PSCORE_FULL = DIR_OUTPUTS + "author_pscore_full.csv"
 
 
 # %% 3
-# 9-10-6-31-23-64-67-88-7
-
 display_id_to_medias = pd.read_csv(PATH_MEDIAS_VIDEOS_YEAR, sep=";")
 allsides_medias = pd.read_csv("allsides_scraping/csv/channels_w_pol_orr.csv", sep=",")
 
+## Polarization score function
 def p_rating(orientation):
-    # match orientation:
+    # match orientation: ##only works with the latest python version
     #     case 'left': return -1
     #     case 'lean left': return -0.5
     #     case 'center': retunr 0
@@ -62,17 +52,15 @@ def p_rating(orientation):
 
 ## Create column with orientation value
 allsides_medias['orientation_num'] = allsides_medias['orrientation'].apply(p_rating)
-allsides_medias.head()
+display(allsides_medias.head())
+display(display_id_to_medias.head())
 
-display_id_to_medias.head()
 
-
-# %%
-
+# %% 4
 # Erase previous versions
 pd.DataFrame(columns=['author','year','score','num_comments']).to_csv(PATH_PSCORE,sep=";",header=True, index=False)
-i=1
 
+i=1
 ## On average, it finds 1 comment on a video from Allsides over 1000 comments
 for chunk in pd.read_csv(PATH_COMMENTS, sep='\t', usecols = ['author','video_id'], chunksize=3e6):
     
@@ -96,15 +84,16 @@ for chunk in pd.read_csv(PATH_COMMENTS, sep='\t', usecols = ['author','video_id'
 
     ## Group by author: 1/ p-score = sum of orientation_num 2/ Count the number of comments
     ## as_index = False is used to flaten the column names
-    #df_temp = df_temp.groupby('author', as_index=False).agg({'score':'sum', 'num_comments':'count'})
+    #df_temp = df_temp.groupby('author', as_index=False).agg({'score':'sum', 'num_comments':'count'})  ## To use if the distinction by years is irrelevant
     df_temp = df_temp.groupby(['author','year'], as_index=False).agg({'score':'sum', 'num_comments':'count'})
-    #df_temp = df_temp
-    recall2 = df_temp.sort_values(by='author', ascending=True)
 
+    #recall = df_temp.sort_values(by='author', ascending=True)
+
+    ## Save to csv
     df_temp.to_csv(PATH_PSCORE,sep=";",mode='a',header=False, index=False)
 
-#display(recall.head(10))
-#display(recall2.head(10))
+## See what happens (keep an eye on the data structure and the preliminary results)
+display(recall.head(10))
 
 #%%
 ## Postprocess
