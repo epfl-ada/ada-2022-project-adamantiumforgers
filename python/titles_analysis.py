@@ -373,6 +373,8 @@ plt.savefig("figures/20_most_cited_topics")
 
 # Using plotly
 
+# Read previously computed files
+
 data = pd.DataFrame()
 
 for community in communities:
@@ -381,9 +383,13 @@ for community in communities:
     myarray.fill(community)
     temp.insert(0,column='community',value=myarray)
     temp = temp.sort_values(by='frequency',ascending=True)
-    data = pd.concat([data, temp[len(temp)-40:len(temp)]])
+    temp = temp[len(temp)-30:len(temp)]
+    
+    data = pd.concat([data, temp])
 
 display(data)
+
+# Create histogram
 
 fig = px.histogram(data,
                    x="frequency",
@@ -395,17 +401,22 @@ fig = px.histogram(data,
                    orientation='h')
 
 fig.update_layout(autosize=False,
-                  width=750,
-                  height=900,
+                  width=700,
+                  height=800,
                   title={'text' : 'Histogram of topics occurence frequency',
                          'x':0.5,
                          'xanchor': 'center'
                          },
-                  xaxis_title="Topics",
-                  yaxis_title="Frequency")
+                  xaxis_title="Frequency",
+                  yaxis_title=None,
+                  margin=dict(l=100,r=50,b=100,t=100,pad=4))
 
 fig["layout"].pop("updatemenus")
+fig.update_yaxes(automargin=False, ticklabelposition="outside",position=0)
+fig.update_yaxes(tickfont_size=14)
 fig.write_html("figures/60_most_cited_topics.html")
+
+fig.show()
 
 # %%
 
