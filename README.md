@@ -23,7 +23,9 @@ Jupyter Notebooks:
 * [clustering.ipynb](clustering.ipynb) : Filters the unwanted news & politics channels and creates finds communities withing the clean channels 
 * [large_clustering.ipynb](large_clustering.ipynb) : Idem but on the much larger graph from a larger subset of comments.
 * [titles_analysis.ipynb](titles_analysis.ipynb) : Run the NLP analysis of videos titles, analyses distance to other datasets, analyses occurences of given words ensembles.
-* [untitled] Loic?
+* [overview.ipynb](overview.ipynb): Create visual content to give an overview of the "News & Politics" category in YouTube.
+* [analyse_community.ipynb](analyse_community.ipynb): Create visual content and data on the communities found with Louvain algorithm.
+* [time_evol_cat.ipynb](time_evol_cat.ipynb): Analyze the evolution of the different categories through time.
 
 
 
@@ -52,7 +54,7 @@ The website has been scraped and 2 data sets have been created:
 - A dataset with only the featured media (59 medias)
 - A dataset with all the media identified on the website (1279 medias)
 
-5 kind of data have beeen extracted from the website regarding the medias:
+5 kind of data have been extracted from the website regarding the medias:
 - name
 - political bias given by [Allsides][3]
 - confidence level on bias of [Allsides][3]
@@ -61,7 +63,7 @@ The website has been scraped and 2 data sets have been created:
 
 
 ### Data collected from Allsides:
-|        |**name**|**orrientation**|**confidence**|**commu_agree**|**commu_disagree**|
+|        |**name**|**orientation**|**confidence**|**commu_agree**|**commu_disagree**|
 |--------|------------------------|------------|----------|---------|------------|
 | **0**  | ABC News               | Lean Left  | High     | 39305   | 19628      |
 | **...**| ...                    | ...        | ...      | ...     | ...        |
@@ -70,7 +72,7 @@ The website has been scraped and 2 data sets have been created:
 Once the dataset cleaned, 37 on 59 medias have associated channels in the youniverse dataset. Those csv files, [*channels_yt_all.csv*](./allsides_scraping/csv/channels_yt_all.csv) and [*channels_yt_ft.csv*](./allsides_scraping/csv/channels_yt_ft.csv), can be found [here](./allsides_scraping/csv).
 
 ### Merged data with the Youniverse dataset:
-||**category_cc**|**join_date**|**channel**|**name_cc**|**subscribers_cc**|**videos_cc**|**subscriber_rank_sb**|**weights**|**orrientation**|**confidence**|**comu_agree**|**comu_disagree**|
+||**category_cc**|**join_date**|**channel**|**name_cc**|**subscribers_cc**|**videos_cc**|**subscriber_rank_sb**|**weights**|**orientation**|**confidence**|**comu_agree**|**comu_disagree**|
 |--|---|---|----|-----|----|----|----|----|----|----|------|---|
 |**0**|News&Politics|2006-08-07|UCBi2mrWuNuyYy4gbM6fU18Q|abcnews|6640000|48869|978.0|2.087|LeanLeft|High|39419|19665|
 |**...**|...|...|...|...|...|...|...|...|...|...|...|...|27222|
@@ -104,7 +106,7 @@ Since this dataset is huge (~111GB compressed), it is very important to have a p
 
 
 ### Clustering
-We wanted to see if we were able to detect channel communities within our dataset. To do this we generated an undirected weigthed graph using user comments with the following methodology : If a user wrote a comment on a video of channel 1 and a comment on a video on channel 2, we create an edge of weight 1 between channel 1 and channel 2. To rapidly visualize how well it works we used `Gephi`, an open source graph visualisation platform. We discovered the louvain algorithm on gephi and realised it detected communities quite well. There were a lot of news channel that were pakistani or indian. When we ran the louvain algorithm with python using the `networkx` package, we quickly identified all the channels that were unnecessary. We then obtained a list of channels that were only in the USA and in the correct language. We ran the louvain algorithm again on our new filtered graph and obtained promising results. We indeed discovered discovered left and right-oriented communities 
+We wanted to see if we were able to detect channel communities within our dataset. To do this we generated an undirected weighted graph using user comments with the following methodology : If a user wrote a comment on a video of channel 1 and a comment on a video on channel 2, we create an edge of weight 1 between channel 1 and channel 2. To rapidly visualize how well it works we used `Gephi`, an open source graph visualization platform. We discovered the louvain algorithm on gephi and realized it detected communities quite well. There were a lot of news channel that were pakistani or indian. When we ran the louvain algorithm with python using the `networkx` package, we quickly identified all the channels that were unnecessary. We then obtained a list of channels that were only in the USA and in the correct language. We ran the louvain algorithm again on our new filtered graph and obtained promising results. We indeed discovered discovered left and right-oriented communities 
 <img src="./pictures/Graph.png" alt="media_bias" class="center"/>
 
 
@@ -114,16 +116,19 @@ We wanted to see if we were able to detect channel communities within our datase
 - Loïc: 
     - Overview and global analysis
     - Creation of the AllSides dataset and scraping
-    - Identfication of the communities by cross reference with AllSides channels
+    - Identification of the communities by cross reference with AllSides channels
     - Writing of the data story
 
 - Camille: 
     - Creation of the graph
-    - Analysis of words occurences in video tags and titles
+    - Analysis of words occurrences in video tags and titles
     - Comparison with external datasets for lexical fields analysis
     - Writing of the data story
 
-- Michel : Implement properly the clustering algorithms, colorize the graph as function of the communities
+- Michel : 
+    - Implement properly the clustering algorithms, colorize the graph as function of the communities
+    - Writing of the data story
+
 
 - Stéphane: 
     - Long data processing: creation of the graph on a much larger number of comments (17h of runtime).
