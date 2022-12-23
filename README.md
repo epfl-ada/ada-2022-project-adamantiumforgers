@@ -19,13 +19,12 @@ Python files are used to create the data and export the results to csv files. Mo
 
 Jupyter Notebooks:
 * [graph_creation.ipynb](graph_construction.ipynb) : 
-* [p-score_visualization](p-score_visualization.ipyb) : Plot the distribution of p-scores and process the `author_pscore_full.csv` file
-* clustering???
+* [p-score_visualization](p-score_visualization.ipynb) : Plot the distribution of p-scores and process the `author_pscore_full.csv` file
+* [clustering.ipynb](clustering_.ipynb) : Filters the unwanted news & politics channels and creates finds communities withing the clean channels 
 * NLP???
 
 Python files:
 * [p_score_construction.py](p-score_construction.py)
-* clustering???
 * NLP???
 
 
