@@ -576,6 +576,14 @@ for selected_commu in communities:
     merged.insert(1,column='squared_distance',value=merged['distance'].pow(2))
 
     distance_loco = distance_loco + [math.sqrt(merged['squared_distance'].sum())]
+m = 0.0
+for x in distance_loco:
+    if x>m:
+        m=x
+distance_loco = [m-x for x in distance_loco]
+
+# Display result
+
 
 display(distance_loco)
 
@@ -715,6 +723,13 @@ for selected_commu in communities:
     merged.insert(1,column='squared_distance',value=merged['distance'].pow(2))
 
     distance_black = distance_black + [math.sqrt(merged['squared_distance'].sum())]
+m = 0.0
+for x in distance_black:
+    if x>m:
+        m=x
+distance_black = [m-x for x in distance_black]
+
+# Display result
 
 display(distance_black)
 
@@ -853,6 +868,14 @@ for selected_commu in communities:
 
     distance_queer = distance_queer + [math.sqrt(merged['squared_distance'].sum())]
 
+m = 0.0
+for x in distance_queer:
+    if x>m:
+        m=x
+distance_queer = [m-x for x in distance_queer]
+
+# Display result
+
 display(distance_queer)
 
 fig = px.line(distance_queer, title='Distance between topics in a community and topics in medias sharing queer voices',labels={'index':'community','value':'distance'},width=650, height=400)
@@ -988,6 +1011,13 @@ for selected_commu in communities:
     merged.insert(1,column='squared_distance',value=merged['distance'].pow(2))
 
     distance_climate = distance_climate + [math.sqrt(merged['squared_distance'].sum())]
+
+m = 0.0
+for x in distance_climate:
+    if x>m:
+        m=x
+distance_climate = [m-x for x in distance_climate]
+
 
 display(distance_climate)
 
