@@ -15,15 +15,16 @@ By the Adamantium Forgers:
 Here is the link to our [Data story](https://sw-e.github.io/ADAmantiumForgers/)
 
 Here are listed the main files that make up the project.
-Python files are used to create the data and export the results to csv files. Most of the time, no output is generated in python files and no proper visualization is done, reason why these long files were not converted into jupyter notebooks. Then, we tried to do all processing and visualization in compact jupyter notebooks.
+Python files are used to create the data and export the results to csv files. These are more practical to use with git as for version control and code merge. Most of the time, no output is generated in python files and no proper visualization is done, reason why these long files were not converted into jupyter notebooks. Then, we tried to do all processing and visualization in compact jupyter notebooks.
 
 Jupyter Notebooks:
 * [graph_construction.ipynb](graph_construction.ipynb) : Build the graph from YouNiverse data
-* [p-score.ipynb](p-score.ipynb) : Compute the p-score from the comments, exports to `author_pscore_full.csv` and plots the distribution of p-scores
+* [p-score.ipynb](p-score.ipynb) : Compute the p-score from the comments and plot the distribution of p-scores
 * [clustering.ipynb](clustering.ipynb) : Filters the unwanted news & politics channels and creates finds communities withing the clean channels 
 * [large_clustering.ipynb](large_clustering.ipynb) : Idem but on the much larger graph from a larger subset of comments.
 * [titles_analysis.ipynb](titles_analysis.ipynb) : Run the NLP analysis of videos titles, analyses distance to other datasets, analyses occurences of given words ensembles.
 * [untitled] Loic?
+
 
 
 ## Abstract
