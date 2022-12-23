@@ -10,9 +10,23 @@ By the Adamantium Forgers:
 | Michel Morales      | michel.morales@epfl.ch      |
 
 
-## URL
+## Organization
 
-Here is the URL to our data story : https://sw-e.github.io/ADAmantiumForgers/
+Here is the link to our [Data story](https://sw-e.github.io/ADAmantiumForgers/)
+
+Here are listed the main files that make up the project.
+Python files are used to create the data and export the results to csv files. Most of the time, no output is generated in python files and no proper visualization is done, reason why these long files were not converted into jupyter notebooks. Then, we tried to do all processing and visualization in compact jupyter notebooks.
+
+Jupyter Notebooks:
+* [graph_creation.ipynb](graph_construction.ipynb) : 
+* [p-score_visualization](p-score_visualization.ipyb) : Plot the distribution of p-scores and process the `author_pscore_full.csv` file
+* clustering???
+* NLP???
+
+Python files:
+* [p_score_construction.py](p-score_construction.py)
+* clustering???
+* NLP???
 
 
 ## Abstract
@@ -95,21 +109,19 @@ We wanted to see if we were able to detect channel communities within our datase
 
 
 
-## Proposed timeline
-- 18 November: Milestone P2 due
-- 25 November: Apply everything we tested yet (Louvain algorithm, graph visualisation) to the whole/larger subset of comments
-- 02 December: Homework 2 due. No project work
-- 09 December: Creation of the website to have an idea (even if empty for the moment), look into words occurences analysis of video titles and tags, give political score to authors, identify communities and their links.
-- 16 December: Finish the data procesing work. Answer research questions, create insightful graphs and other helpful data visualizations.
-- 23 December: Milestone P3 due. Focus on writing up the report or the data story, preparing the final presentation, formating for the website and the data story, 
-
-
-## Team organization
+## Contributions
 
 - Loïc: Find the center of interest of the various communities found in the graph.
+
 - Camille: Analyse words occurences in video tags and titles, create the website for final presentation of results
+
 - Michel : Implement properly the clustering algorithms, colorize the graph as function of the communities, Insert the main channel labels directly on the graph.
-- Stéphane: Create the graph on a larger number of comments (possibly the whole dataset). Implement the p-score to analyze the distribution of users.
+
+- Stéphane: 
+    - Long data processing: creation of the graph on a much larger number of comments (17h of runtime).
+    - Implementation of the p-score to analyze the distribution of users (run on the whole dataset)
+    - Creation of the data story website, visual design and illustration with self created images
+    - Writing of the data story
 
 [1]: https://www.nber.org/papers/w26669
 [2]: https://theconversation.com/mapping-brazils-political-polarization-online-96434
