@@ -18,13 +18,15 @@ Here are listed the main files that make up the project.
 Python files are used to create the data and export the results to csv files. Most of the time, no output is generated in python files and no proper visualization is done, reason why these long files were not converted into jupyter notebooks. Then, we tried to do all processing and visualization in compact jupyter notebooks.
 
 Jupyter Notebooks:
-* [graph_creation.ipynb](graph_construction.ipynb) : 
+* [graph_construction.ipynb](graph_construction.ipynb) : 
 * [p-score_visualization](p-score_visualization.ipynb) : Plot the distribution of p-scores and process the `author_pscore_full.csv` file
-* [clustering.ipynb](clustering_.ipynb) : Filters the unwanted news & politics channels and creates finds communities withing the clean channels 
+* [clustering.ipynb](clustering.ipynb) : Filters the unwanted news & politics channels and creates finds communities withing the clean channels 
+* [large_clustering.ipynb](large_clustering.ipynb) : Idem but on the much larger graph from a larger subset of comments.
 * NLP???
+* [untitled] Loic?
 
-Python files:
-* [p_score_construction.py](p-score_construction.py)
+Python files with no `.ipnyb` counterparts:
+* [p_score_construction.py](p-score_construction.py): Loads the comments file, finds the videos of AllSides channels and compute the p-score for authors that commented on them.
 * NLP???
 
 
@@ -32,17 +34,11 @@ Python files:
 In 2017, with the arrival in power of Donald Trump as president of the United States, the American political world quickly split between the pro and anti-Trump. According to a [study][1] lead by Jesse M. Shapiro, Brown University, this polarization began in the late 1990s and early 2000s and has been only increasing since, promoted by the detrimental properties of the US voting system that incentivize people to become radical. This polarization is also reflected online: according to a [study][2] on Facebook lead by to Brazilian researcher, the polarization one year after the 2017 election can be pictured on the figure below. Can the same effect be measured on YouTube communities ? In this data story, we will analyze the profiles of political communities on YouTube.
 
 
-<img src="./pictures/fb_us_pol.png" alt="fb_us_pol" width="700"/>
-
-*Complete disconnexion of political landscape. Pablo Ortellado and Marcio Moretto Ribeiro, CC BY*
-
-
 ## Research Questions
-We will try to answer the following questions, in accordance to the time available before the milestone 3:
+We tried to answer the following questions:
 1. Can we identify communities inside the main US News&Politics channels ? Is there a clear left-right polarization or is the polarization independent of classical political party confrontation ?
-2. What is the distribution of users polarization? Is it Gaussian? How many very extreme users do we see? For this purpose, we will assign a p-score (polarization or political score) to users.
-3. Based on the communities identified, can we describe political orientation of audience of non-News&Politics channels ? Study a few particular «neutral» channels (ex : Education, Gaming, Comedy Channels ...) or marginal channels (Flat Earth Society) and analyze their audience and their links with news channels.
-4. How are main political events treated by channels in different communities ? Study various events by filtering by tags, descriptions or video titles that contains key words, for example "US Election", "Impeachment", "Hunter Biden", "Capitol".
+2. What is the distribution of users polarization? Is it Gaussian? How many very extreme users do we see? For this purpose, we assigned a p-score (polarization or political score) to users.
+3. How are main political events treated by channels in different communities ? We studied various events by filtering by tags, descriptions or video titles that contain key words.
 
 
 ## Additional dataset 
@@ -85,7 +81,7 @@ To get a first idea of the data, the visualization of the two new datasets can b
 
 ## Methods
 
-The code used to treat raw data and create the original graph can be found in [graph_creation.ipynb](graph_construction.ipynb).
+The code used to treat raw data and create the original graph can be found in [graph_construction.ipynb](graph_construction.ipynb).
 Then, [clustering.ipynb](clustering.ipynb) is used to identify communities in the graph.
 
 Generated csv files (in `csv_output` folder) :
@@ -118,7 +114,7 @@ We wanted to see if we were able to detect channel communities within our datase
 
 - Camille: 
     - Creation of the graph
-    - Analyse words occurences in video tags and titles
+    - Analysis of words occurences in video tags and titles
 
 - Michel : Implement properly the clustering algorithms, colorize the graph as function of the communities
 
