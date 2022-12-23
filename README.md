@@ -17,6 +17,8 @@ Here is the link to our [Data story](https://sw-e.github.io/ADAmantiumForgers/)
 Here are listed the main files that make up the project.
 Python files are used to create the data and export the results to csv files. These are more practical to use with git as for version control and code merge. Most of the time, no output is generated in python files and no proper visualization is done, reason why these long files were not converted into jupyter notebooks. Then, we tried to do all processing and visualization in compact jupyter notebooks.
 
+Warning: the plots made with plotly do not appear in the outputs of the notebooks on github. (because they are interactive)
+
 Jupyter Notebooks:
 * [graph_construction.ipynb](graph_construction.ipynb) : Build the graph from YouNiverse data
 * [p-score.ipynb](p-score.ipynb) : Compute the p-score from the comments and plot the distribution of p-scores
