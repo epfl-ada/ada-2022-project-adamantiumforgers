@@ -18,15 +18,12 @@ Here are listed the main files that make up the project.
 Python files are used to create the data and export the results to csv files. Most of the time, no output is generated in python files and no proper visualization is done, reason why these long files were not converted into jupyter notebooks. Then, we tried to do all processing and visualization in compact jupyter notebooks.
 
 Jupyter Notebooks:
-* [graph_construction.ipynb](graph_construction.ipynb) : 
+* [graph_construction.ipynb](graph_construction.ipynb) : Build the graph from YouNiverse data
 * [p-score.ipynb](p-score.ipynb) : Compute the p-score from the comments, exports to `author_pscore_full.csv` and plots the distribution of p-scores
 * [clustering.ipynb](clustering.ipynb) : Filters the unwanted news & politics channels and creates finds communities withing the clean channels 
 * [large_clustering.ipynb](large_clustering.ipynb) : Idem but on the much larger graph from a larger subset of comments.
-* NLP???
+* [titles_analysis.ipynb](titles_analysis.ipynb) : Run the NLP analysis of videos titles, analyses distance to other datasets, analyses occurences of given words ensembles.
 * [untitled] Loic?
-
-Python files with no `.ipnyb` counterparts:
-* NLP???
 
 
 ## Abstract
@@ -41,6 +38,8 @@ We tried to answer the following questions:
 
 
 ## Additional dataset 
+
+### AllSides
 
 In order to classify the different political orientations of the youtube users, we decided to use the media bias classification given by [Allsides][3]. AllSides is an American company that assesses the political bias of prominent media outlets, categorized in five political orientation categories: Left, Lean Left, Center, Lean Right, Right. More info [here][5]. The code used to extract the AllSides dataset is in the [allsides_scraping.py](./allsides_scraping/allsides_scraping.py) file. No notebook was produced since no output is required, only an export to csv.
 
@@ -77,6 +76,12 @@ Once the dataset cleaned, 37 on 59 medias have associated channels in the youniv
 
 To get a first idea of the data, the visualization of the two new datasets can be found in the file [*news_channel.ipynb*](./allsides_scraping/news_channel.ipynb)
 
+### Lexical fields datasets
+
+- Rishabh Misra's [news categories dataset](https://www.kaggle.com/datasets/rmisra/news-category-dataset), classifying news from the HuffPost in different categories. We will be using the "Black voices" and "Queer voices" categories.
+- The [LOCO dataset](https://www.researchgate.net/publication/355578021_LOCO_The_88-million-word_language_of_conspiracy_corpus), characterizing the conspiracy language
+
+These datasets are treated in the [titles_analysis.ipynb](titles_analysis.ipynb) file.
 
 ## Methods
 
@@ -114,6 +119,7 @@ We wanted to see if we were able to detect channel communities within our datase
 - Camille: 
     - Creation of the graph
     - Analysis of words occurences in video tags and titles
+    - Writing of the data story
 
 - Michel : Implement properly the clustering algorithms, colorize the graph as function of the communities
 
