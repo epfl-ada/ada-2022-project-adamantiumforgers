@@ -10,21 +10,35 @@ By the Adamantium Forgers:
 | Michel Morales      | michel.morales@epfl.ch      |
 
 
+## Organization
+
+Here is the link to our [Data story](https://sw-e.github.io/ADAmantiumForgers/)
+
+Here are listed the main files that make up the project.
+Python files are used to create the data and export the results to csv files. Most of the time, no output is generated in python files and no proper visualization is done, reason why these long files were not converted into jupyter notebooks. Then, we tried to do all processing and visualization in compact jupyter notebooks.
+
+Jupyter Notebooks:
+* [graph_construction.ipynb](graph_construction.ipynb) : 
+* [p-score_visualization](p-score_visualization.ipynb) : Plot the distribution of p-scores and process the `author_pscore_full.csv` file
+* [clustering.ipynb](clustering.ipynb) : Filters the unwanted news & politics channels and creates finds communities withing the clean channels 
+* [large_clustering.ipynb](large_clustering.ipynb) : Idem but on the much larger graph from a larger subset of comments.
+* NLP???
+* [untitled] Loic?
+
+Python files with no `.ipnyb` counterparts:
+* [p_score_construction.py](p-score_construction.py): Loads the comments file, finds the videos of AllSides channels and compute the p-score for authors that commented on them.
+* NLP???
+
+
 ## Abstract
 In 2017, with the arrival in power of Donald Trump as president of the United States, the American political world quickly split between the pro and anti-Trump. According to a [study][1] lead by Jesse M. Shapiro, Brown University, this polarization began in the late 1990s and early 2000s and has been only increasing since, promoted by the detrimental properties of the US voting system that incentivize people to become radical. This polarization is also reflected online: according to a [study][2] on Facebook lead by to Brazilian researcher, the polarization one year after the 2017 election can be pictured on the figure below. Can the same effect be measured on YouTube communities ? In this data story, we will analyze the profiles of political communities on YouTube.
 
 
-<img src="./pictures/fb_us_pol.png" alt="fb_us_pol" width="700"/>
-
-*Complete disconnexion of political landscape. Pablo Ortellado and Marcio Moretto Ribeiro, CC BY*
-
-
 ## Research Questions
-We will try to answer the following questions, in accordance to the time available before the milestone 3:
+We tried to answer the following questions:
 1. Can we identify communities inside the main US News&Politics channels ? Is there a clear left-right polarization or is the polarization independent of classical political party confrontation ?
-2. What is the distribution of users polarization? Is it Gaussian? How many very extreme users do we see? For this purpose, we will assign a p-score (polarization or political score) to users.
-3. Based on the communities identified, can we describe political orientation of audience of non-News&Politics channels ? Study a few particular «neutral» channels (ex : Education, Gaming, Comedy Channels ...) or marginal channels (Flat Earth Society) and analyze their audience and their links with news channels.
-4. How are main political events treated by channels in different communities ? Study various events by filtering by tags, descriptions or video titles that contains key words, for example "US Election", "Impeachment", "Hunter Biden", "Capitol".
+2. What is the distribution of users polarization? Is it Gaussian? How many very extreme users do we see? For this purpose, we assigned a p-score (polarization or political score) to users.
+3. How are main political events treated by channels in different communities ? We studied various events by filtering by tags, descriptions or video titles that contain key words.
 
 
 ## Additional dataset 
@@ -67,7 +81,7 @@ To get a first idea of the data, the visualization of the two new datasets can b
 
 ## Methods
 
-The code used to treat raw data and create the original graph can be found in [graph_creation.ipynb](graph_construction.ipynb).
+The code used to treat raw data and create the original graph can be found in [graph_construction.ipynb](graph_construction.ipynb).
 Then, [clustering.ipynb](clustering.ipynb) is used to identify communities in the graph.
 
 Generated csv files (in `csv_output` folder) :
@@ -90,21 +104,25 @@ We wanted to see if we were able to detect channel communities within our datase
 
 
 
-## Proposed timeline
-- 18 November: Milestone P2 due
-- 25 November: Apply everything we tested yet (Louvain algorithm, graph visualisation) to the whole/larger subset of comments
-- 02 December: Homework 2 due. No project work
-- 09 December: Creation of the website to have an idea (even if empty for the moment), look into words occurences analysis of video titles and tags, give political score to authors, identify communities and their links.
-- 16 December: Finish the data procesing work. Answer research questions, create insightful graphs and other helpful data visualizations.
-- 23 December: Milestone P3 due. Focus on writing up the report or the data story, preparing the final presentation, formating for the website and the data story, 
+## Contributions
 
+- Loïc: 
+    - Overview and global analysis
+    - Creation of the AllSides dataset and scraping
+    - Identfication of the communities by cross reference with AllSides channels
+    - Writing of the data story
 
-## Team organization
+- Camille: 
+    - Creation of the graph
+    - Analysis of words occurences in video tags and titles
 
-- Loïc: Find the center of interest of the various communities found in the graph.
-- Camille: Analyse words occurences in video tags and titles, create the website for final presentation of results
-- Michel : Implement properly the clustering algorithms, colorize the graph as function of the communities, Insert the main channel labels directly on the graph.
-- Stéphane: Create the graph on a larger number of comments (possibly the whole dataset). Implement the p-score to analyze the distribution of users.
+- Michel : Implement properly the clustering algorithms, colorize the graph as function of the communities
+
+- Stéphane: 
+    - Long data processing: creation of the graph on a much larger number of comments (17h of runtime).
+    - Implementation of the p-score to analyze the distribution of users (run on the whole dataset)
+    - Creation of the data story website, visual design and illustration with self created images
+    - Writing of the data story
 
 [1]: https://www.nber.org/papers/w26669
 [2]: https://theconversation.com/mapping-brazils-political-polarization-online-96434
