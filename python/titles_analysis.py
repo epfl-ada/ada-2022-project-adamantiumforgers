@@ -402,21 +402,21 @@ fig = px.histogram(data,
 
 fig.update_layout(autosize=False,
                   width=700,
-                  height=800,
+                  height=750,
                   title={'text' : 'Histogram of topics occurence frequency',
                          'x':0.5,
                          'xanchor': 'center'
                          },
                   xaxis_title="Frequency",
                   yaxis_title=None,
-                  margin=dict(l=100,r=50,b=100,t=100,pad=4))
+                  margin=dict(l=120,r=50,b=100,t=100,pad=4))
 
 fig["layout"].pop("updatemenus")
 fig.update_yaxes(automargin=False, ticklabelposition="outside",position=0)
-fig.update_yaxes(tickfont_size=14)
+fig.update_yaxes(tickfont_size=13)
 fig.write_html("figures/60_most_cited_topics.html")
 
-fig.show()
+#fig.show()
 
 # %%
 
