@@ -10,6 +10,11 @@ By the Adamantium Forgers:
 | Michel Morales      | michel.morales@epfl.ch      |
 
 
+## URL
+
+Here is the URL to our data story : https://sw-e.github.io/ADAmantiumForgers/
+
+
 ## Abstract
 In 2017, with the arrival in power of Donald Trump as president of the United States, the American political world quickly split between the pro and anti-Trump. According to a [study][1] lead by Jesse M. Shapiro, Brown University, this polarization began in the late 1990s and early 2000s and has been only increasing since, promoted by the detrimental properties of the US voting system that incentivize people to become radical. This polarization is also reflected online: according to a [study][2] on Facebook lead by to Brazilian researcher, the polarization one year after the 2017 election can be pictured on the figure below. Can the same effect be measured on YouTube communities ? In this data story, we will analyze the profiles of political communities on YouTube.
 
