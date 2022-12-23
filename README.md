@@ -110,11 +110,17 @@ We wanted to see if we were able to detect channel communities within our datase
 
 ## Contributions
 
-- Loïc: Find the center of interest of the various communities found in the graph.
+- Loïc: 
+    - Overview and global analysis
+    - Creation of the AllSides dataset and scraping
+    - Identfication of the communities by cross reference with AllSides channels
+    - Writing of the data story
 
-- Camille: Analyse words occurences in video tags and titles, create the website for final presentation of results
+- Camille: 
+    - Creation of the graph
+    - Analyse words occurences in video tags and titles
 
-- Michel : Implement properly the clustering algorithms, colorize the graph as function of the communities, Insert the main channel labels directly on the graph.
+- Michel : Implement properly the clustering algorithms, colorize the graph as function of the communities
 
 - Stéphane: 
     - Long data processing: creation of the graph on a much larger number of comments (17h of runtime).
