@@ -19,14 +19,13 @@ Python files are used to create the data and export the results to csv files. Mo
 
 Jupyter Notebooks:
 * [graph_construction.ipynb](graph_construction.ipynb) : 
-* [p-score_visualization](p-score_visualization.ipynb) : Plot the distribution of p-scores and process the `author_pscore_full.csv` file
+* [p-score.ipynb](p-score.ipynb) : Compute the p-score from the comments, exports to `author_pscore_full.csv` and plots the distribution of p-scores
 * [clustering.ipynb](clustering.ipynb) : Filters the unwanted news & politics channels and creates finds communities withing the clean channels 
 * [large_clustering.ipynb](large_clustering.ipynb) : Idem but on the much larger graph from a larger subset of comments.
 * NLP???
 * [untitled] Loic?
 
 Python files with no `.ipnyb` counterparts:
-* [p_score_construction.py](p-score_construction.py): Loads the comments file, finds the videos of AllSides channels and compute the p-score for authors that commented on them.
 * NLP???
 
 
