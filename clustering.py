@@ -5,16 +5,18 @@ import networkx.algorithms.community as nx_comm
 import pandas as pd
 from fa2 import ForceAtlas2
 # %%
-df_edges = pd.read_csv("data/graph.csv", sep=';')
+df_edges = pd.read_csv("csv_outputs/graph_channels_large.csv", sep=';')
 display(df_edges)
 
 # %%
 G = nx.from_pandas_edgelist(df_edges, edge_attr=True)
+forceatlas2 = ForceAtlas2(gravity=1)
+posses = forceatlas2.forceatlas2_networkx_layout(G,iterations=1000)
 display(G)
 # %%
-nx.draw_networkx(G)
+nx.draw_networkx(G, pos=posses, with_labels=False, width=0,node_size=0.5)
 # %%
-louvain_partitions = nx_comm.louvain_communities(G, resolution=1e-1, threshold=1e-100,seed=1)
+louvain_partitions = nx_comm.louvain_communities(G, resolution=1, threshold=1e-1,seed=1)
 
 # %%
 for idx in range(len(louvain_partitions)):
@@ -22,7 +24,7 @@ for idx in range(len(louvain_partitions)):
 # %%
 display(df_edges)
 # %%
-print(louvain_partitions[2])
+print(louvain_partitions[0])
 
 filtered_channels = pd.DataFrame(louvain_partitions[2])
 # %%
@@ -92,4 +94,16 @@ posses = forceatlas2.forceatlas2_networkx_layout(sub_G,iterations=1000)
 
 # %%
 nx.draw_networkx(sub_G, with_labels=False, pos=posses, node_size=10, width=5e-2,node_color=final_colors)
+# %%
+def filter_function_2(x):
+    return x in louvain_communities[1] or x in louvain_communities[2] or x in louvain_communities or x in louvain_communities[4] or x in louvain_communities[5]
+# %%
+sub_sub_G = nx.subgraph_view(sub_G, filter_node=filter_function_2)
+
+# %%
+louvain_communities_2 = nx_comm.louvain_communities(sub_G, resolution=0.6,threshold=1e-7, seed=1)
+display(len(louvain_communities_2))
+# %%
+for idx in range(len(louvain_communities_2)):
+    print("Community number {i} has {number} members".format(i=idx,number=len(louvain_communities_2[idx])))
 # %%
