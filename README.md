@@ -119,6 +119,7 @@ We wanted to see if we were able to detect channel communities within our datase
 - Camille: 
     - Creation of the graph
     - Analysis of words occurences in video tags and titles
+    - Comparison with external datasets for lexical fields analysis
     - Writing of the data story
 
 - Michel : Implement properly the clustering algorithms, colorize the graph as function of the communities
